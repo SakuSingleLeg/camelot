@@ -163,10 +163,12 @@ function buildGrid(MAP_SEED) {
               moveCost = 99; 
           }
 
-          // add special tiles, ie mordreds lair
+          // TODO: add special tiles, ie mordreds lair
           // find mountain_peak tile farthest from center, make it final_tower tile
           // if no peak, use farthest mountain - if no mountain, use farthest forest
           
+          // TODO: spawn enemies
+
           stage.add(hex);
           two.update();  
           

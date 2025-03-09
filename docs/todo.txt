@@ -1,25 +1,19 @@
 ---------
 TODDO
 ---------
-mines on mountain tiles
-docks on marsh tiles
+mines on mountain tiles?
+docks on marsh tiles?
 
 tile attributes
    generates food (mill, dock)
    generates gold (mine, dock)
 
-highlight grid with hex outline on mouseover
-
 ui
    crop shadow on ui components
-   tile attributes (bottom ui)
    object info (right)
       sprite + name
       stats
       btns
-   quit to menu btn
-   options btn (disabled)
-   next turn btn (disabled)
    help btn (disabled)
 
 main menu   
@@ -36,7 +30,6 @@ center tooltips under sprites/cursor?
 
 arthur
     movement/manipulation
-    show on world map
    give him AP
 
 knights
@@ -59,3 +52,4 @@ solve sprite z-ordering
 npc units/tiles
 
 enemy units
+   movement
