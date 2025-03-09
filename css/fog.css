@@ -1,0 +1,64 @@
+
+/* Fog Container */
+.fog-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none; /* Allows interaction with elements below */
+  z-index: -99;
+}
+
+/* Fog Layers */
+.fog {
+  position: absolute;
+  image-rendering: pixelated;
+  width: 300%;
+  height: 300%;
+  background: url("../img/fog1.png") repeat-x;
+  background-size: cover;
+  opacity: 0.666;
+  animation: fog-animation 20s linear infinite;
+}
+.fog-map {
+  position: absolute;
+  image-rendering: pixelated;
+  width: 300%;
+  height: 300%;
+  background: url("../img/fog1.png") repeat-x;
+  background-size: cover;
+  opacity: 1;
+  animation: fog-animation 20s linear infinite;
+}
+
+/* Adjust Multiple Fog Layers for Depth */
+.fog:nth-child(1) {
+  top: -50%;
+  left: -50%;
+  opacity: 0.444;
+  animation-duration: 25s;
+}
+
+.fog:nth-child(2) {
+  top: -30%;
+  left: -30%;
+  opacity: 0.333;
+  animation-duration: 35s;
+}
+
+.fog:nth-child(3) {
+  top: -10%;
+  left: -10%;
+  opacity: 0.222;
+  animation-duration: 50s;
+}
+
+/* Fog Animation */
+@keyframes fog-animation {
+  from {
+      transform: translateX(0);
+  }
+  to {
+      transform: translateX(-50%);
+  }
+}

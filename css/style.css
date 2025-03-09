@@ -1,0 +1,211 @@
+
+
+.top {
+    z-index: 9988 !important;
+}
+
+body {
+    color: white;
+    background-color: black;
+    cursor: url('../img/cursor_open.png'), default ;    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+
+	overflow: hidden;
+	padding: 100px 0;
+	background: #020847;
+
+    /* dont smooth pixels */
+    image-rendering: pixelated;
+    image-rendering: crisp-edges; /* For some browsers */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+
+    font-family: 'Press Start 2P', cursive !important;
+    font-size: small;
+    text-shadow: 2px 2px 4px rgba(0, 255, 0, 0.3);
+
+    /* dont allow users to select text */
+    user-select: none; /* Standard */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+}
+/* Cursor when mouse is clicked anywhere on the page */
+body:active {
+    cursor: url('../img/cursor_down.png'), pointer;
+}
+
+/* put the zui stage at z-index 0 */
+svg {
+    z-index: 0;
+}
+
+/* mouseover elements */
+path:hover {
+    -webkit-filter: drop-shadow(2px 2px 0 yellow)
+                    drop-shadow(-2px -2px 0 yellow);
+    filter: drop-shadow(2px 2px 0 yellow) 
+            drop-shadow(-2px -2px 0 yellow);
+}
+
+/* cursor */
+#cursor-position {
+    position: fixed; /* Always stays at the top-left */
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 99; /* Ensures it's always on top */
+    pointer-events: none; /* Prevents interference with clicks */
+    color: white;
+}
+
+#hex-position {
+    position: fixed; /* Always stays at the top-left */
+    top: 40px;
+    left: 10px;
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 99; /* Ensures it's always on top */
+    pointer-events: none; /* Prevents interference with clicks */
+    color: yellow;
+}
+
+#tooltip-position {
+    position: fixed; /* Always stays at the top-left */
+    font-size: 14;
+    top: 40px;
+    left: 333px;;
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 99; /* Ensures it's always on top */
+    pointer-events: none; /* Prevents interference with clicks */
+    color: yellow;
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px  1px 0 black,
+        1px  1px 0 black;
+}
+
+/* MENUS */
+.menu-title {
+    font-size: xx-large;
+}
+
+.menu-btn {
+    cursor: url('../img/cursor.png'), pointer !important;
+    font-size: medium;
+    padding: 10px 20px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 1.0s ease;
+    display: block;
+    
+}
+.menu-btn:hover {
+    background-color: gray !important;
+}
+.menu-btn:active {
+    cursor: url('../img/cursor_down.png'), pointer !important;
+}
+/* remove this once option menu is working */
+#mainmenu_options {
+    cursor: url('../img/cursor_open.png'), pointer !important;
+}
+
+.menu-input {
+    font-family: 'Press Start 2P', cursive;
+    font-size: medium;
+    padding: 10px 20px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 1.0s ease;
+    background-color: transparent;
+    display: block;
+    cursor: url('../img/cursor.png'), text !important;    
+}
+.menu-input:active {
+    cursor: url('../img/cursor_down.png'), pointer !important;
+}
+
+#mainMenuDiv {
+    text-align: center;
+}
+
+#mainmenu_title {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 50px #00f, 0 0 100px #00f, 0 0 150px #00f, 0 0 200px #00f;
+    filter: drop-shadow(0 0 40px #00f);
+    animation: glow 1.0s infinite alternate;
+}
+
+#mainmenu_mapSeed {
+    display: none;
+    color: #fff;
+}
+#mainmenu_newMapSeeded2 {
+    display: none;
+}
+
+.btn-disabled {
+    text-decoration: line-through;
+    font-size: medium;
+    padding: 10px 20px;
+    margin: 10px auto;
+    color: gray !important;
+    border-radius: 0px !important;
+    cursor: default !important;
+    text-align: center;
+    transition: none !important;
+}
+.btn-disabled:hover {
+    background-color: transparent !important;
+}
+
+
+/* Fullscreen black overlay */
+#fadeOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    pointer-events: none; /* Ensures clicks pass through */
+    transition: opacity 2s ease-in-out;
+    z-index: 9990;
+}
+
+#loadingDiv {
+    z-index: 9993 !important;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px rgb(123, 123, 255), 0 0 10px rgb(123, 123, 255), 0 0 15px rgb(123, 123, 255), 0 0 20px rgb(123, 123, 255);
+    }
+    100% {
+        text-shadow: 0 0 10px rgb(123, 123, 255), 0 0 20px rgb(123, 123, 255), 0 0 30px rgb(123, 123, 255), 0 0 40px rgb(123, 123, 255);
+    }
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('../lib/PressStart2P-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

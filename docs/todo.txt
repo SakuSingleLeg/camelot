@@ -1,0 +1,61 @@
+---------
+TODDO
+---------
+mines on mountain tiles
+docks on marsh tiles
+
+tile attributes
+   generates food (mill, dock)
+   generates gold (mine, dock)
+
+highlight grid with hex outline on mouseover
+
+ui
+   crop shadow on ui components
+   tile attributes (bottom ui)
+   object info (right)
+      sprite + name
+      stats
+      btns
+   quit to menu btn
+   options btn (disabled)
+   next turn btn (disabled)
+   help btn (disabled)
+
+main menu   
+   version #
+
+---------
+BACKLOG
+---------
+mouseover sprites
+   assign town names to settlements
+   show town name on hover
+
+center tooltips under sprites/cursor?
+
+arthur
+    movement/manipulation
+    show on world map
+   give him AP
+
+knights
+    additional units
+   can acquire retinue
+
+turns & action points
+   'next turn' btn restores ap
+
+cloud layer over map
+   must be a group in order to not be screen relative
+   must limit panning so we cant see them disappear
+   every 5-30 seconds, spawn a random cloud moving in random direction
+      figure out limits of height and width
+
+fog of war (using clipping mask?)
+
+solve sprite z-ordering
+
+npc units/tiles
+
+enemy units
