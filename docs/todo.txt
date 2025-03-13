@@ -1,6 +1,8 @@
 ---------
 TODDO
 ---------
+ui adjust to browser resize
+
 mines on mountain tiles?
 docks on marsh tiles?
 

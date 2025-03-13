@@ -1,18 +1,21 @@
-
+// initial UI params
 let width = window.innerWidth;  // Get the window width
 let height = window.innerHeight; // Get the window height
 let message = "Unknown Tile";
+let somethingSelected = false;
 
 
 // BOTTOM UI
 let uiX_b = width / 2;
 let uiY_b = height - 90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
+let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
 bgSpriteBottom.visible = false;
 function drawUIBottom (gridX, gridY, hexColour) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
     // not needed and hides other ui elements so TODO : remove?
-    //ui.remove(...ui.children);  
+    ui.remove(...ui.children);  
+    // removeUIBottom();
     
     bgSpriteBottom.visible = true;
     ui.add(bgSpriteBottom);
@@ -44,7 +47,6 @@ function drawUIBottom (gridX, gridY, hexColour) {
         message = "Peak";
     }
     else {
-        let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         ui.add(lgSprite);
     }
 
@@ -84,32 +86,47 @@ function drawUIBottom (gridX, gridY, hexColour) {
 
     two.add(ui);
 }
+function redrawUIBottom() {
+    console.log("moveUIBottom()");
+    
+    removeUIBottom();
+
+    uiX_b = window.innerWidth/2;
+    uiY_b = window.innerHeight-90;
+
+    if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null) {
+           bgSpriteBottom.translation.set(uiX_b, uiY_b);
+           ui.add(bgSpriteBottom);
+    }
+    if (typeof lgSprite         !== 'undefined' && lgSprite         !== null) {
+        lgSprite.translation.set(uiX_b-300, uiY_b+4);
+        ui.add(lgSprite);
+    }
+    if (typeof txtName          !== 'undefined' && txtName          !== null) {
+        txtName.translation.set(uiX_b-300, uiY_b+24);
+        ui.add(txtName);
+    }
+    if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null) {
+        txtMoveCost.translation.set(uiX_b, uiY_b-24);
+        ui.add(txtMoveCost);
+    }
+    if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null) {
+        txtAtkBonus.translation.set(uiX_b, uiY_b+6);
+        ui.add(txtAtkBonus);
+    }
+    if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null) {
+        txtDefBonus.translation.set(uiX_b, uiY_b+36);
+        ui.add(txtDefBonus);
+    }    
+
+    two.render();
+}
 function removeUIBottom() {
-    ui.remove(bgSpriteBottom);
-    ui.remove(txtName);
-    ui.remove(txtMoveCost);
-    ui.remove(txtAtkBonus);
-    ui.remove(txtDefBonus);
-}
-
-
-// RIGHT UI
-let uiX_r = width - 220;
-let uiY_r = height - 330;
-let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
-bgSpriteRight.visible = false;
-function drawUIRight() {
-  uiX_r = width - 220;
-  uiY_r = height - 330;
-  bgSpriteRight.x = uiX_r;
-    bgSpriteRight.visible = true;
-    console.log("draw right ui");
-    //create ui panel sprite
-    ui.add(bgSpriteRight);
-    two.add(ui);
-}
-function removeUIRight() {
-    ui.remove(bgSpriteRight);
+    if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null)   ui.remove(bgSpriteBottom);
+    if (typeof txtName          !== 'undefined' && txtName          !== null)   ui.remove(txtName);
+    if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null)   ui.remove(txtMoveCost);
+    if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null)   ui.remove(txtAtkBonus);
+    if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null)   ui.remove(txtDefBonus);
 }
 
 
@@ -165,19 +182,66 @@ function drawUILeft() {
     ui.add(txtQuit);
     two.add(ui);
 }
-
-// clears ui elements
-function removeUI() {
-    console.log("removeUI()");
-    // var child = ui.children[0];
-    // if (child) {
-    //   child.remove();
-    //   //dispose of any references
-    //   two.release(child);
-    // }
+function redrawUILeft() {
+    console.log("moveUILeft()");
     
+    uiX_l = 150;
+    uiY_l = window.innerHeight -64;
+    bgSpriteLeft1.translation.set(uiX_l, uiY_l);
+    bgSpriteLeft2.translation.set(uiX_l, uiY_l-80);
+    bgSpriteLeft3.translation.set(uiX_l, uiY_l-160);
+    bgSpriteLeft4.translation.set(uiX_l, uiY_l-264);
+    fgSpriteCoin.translation.set(uiX_l-64, uiY_l-160);
+    fgSpriteFood.translation.set(uiX_l+20, uiY_l-160);
+    fgSpriteHourglass.translation.set(uiX_l, uiY_l-264);
+    txtQuit.translation.set(uiX_l-76, uiY_l+3);
+    txtSave.translation.set(uiX_l-69, uiY_l-77);
+    txtFood.translation.set(uiX_l+36, uiY_l-156);
+    txtGold.translation.set(uiX_l-48, uiY_l-156);
+
+    drawUILeft();
+    // two.render();
+}
+
+
+// RIGHT UI
+let uiX_r = width - 220;
+let uiY_r = height - 330;
+let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
+bgSpriteRight.visible = false;
+function drawUIRight() {
+    if (somethingSelected) {
+        uiX_r = width - 220;
+        uiY_r = height - 330;
+        bgSpriteRight.x = uiX_r;
+        bgSpriteRight.visible = true;
+        console.log("draw right ui");
+        //create ui panel sprite
+        ui.add(bgSpriteRight);
+        two.add(ui);
+    }
+}
+function redrawUIRight() {
+    console.log("moveUIRight()");    
+    uiX_r = window.innerWidth - 220;
+    uiY_r = window.innerHeight - 330;
+    
+    bgSpriteRight.translation.set(uiX_r, uiY_r);
+    
+    drawUIRight();
+    // two.render();
+}
+function removeUIRight() {
+    ui.remove(bgSpriteRight);
+}
+
+function updateUIPositions() {
+    redrawUILeft();
+
     // removeUIBottom();
-    removeUIRight();
+    redrawUIBottom();
+
+    redrawUIRight();
 }
 
 function fadeToBlack() {

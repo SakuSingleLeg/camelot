@@ -82,6 +82,8 @@ document.addEventListener("mouseout", function (event) {
     //removeUI(); // TODO: handle ui on mouseout
 });
 
+// Listen for window resize
+window.addEventListener('resize', updateUIPositions);
 
 var zui = null;
 var domElement = null;
@@ -95,11 +97,12 @@ function addZUI() {
     var dragging = false;
     var lastElement;
     
-    //TODO: add zoom/pan limits
+    //set intiial zoom + limits //TODO: add pan limits
     zui.addLimits(1.4, 2.4);
     setTimeout(() => {
         zui.zoomBy(.5, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
     }, 10);
+
     //draw static ui
     drawUILeft();
 
@@ -173,6 +176,8 @@ function addZUI() {
 
             //update ui to reflect what has been moused over
             drawUIBottom(gridX, gridY, fillColor);
+            drawUILeft();
+            drawUIRight();
         }
         else {
             console.log("elems not here man");
@@ -193,24 +198,9 @@ function addZUI() {
             mouse.y >= bgSpriteLeft1.translation.y - bgSpriteLeft1.height / 2 &&
             mouse.y <= bgSpriteLeft1.translation.y + bgSpriteLeft1.height / 2
         ) {
-            console.log("bgSpriteLeft1 clicked");
+            console.log("bgSpriteLeft1 clicked, reloading page");
             // stop showing map and ui elements, 'return' to main menu when clicked
             quitToMenu();
-
-            // zui.remove();
-            // zui.release();
-
-            // if (zui) {
-            //     // let domElement = zui.domElement;
-            
-                // Remove event listeners added by ZUI
-            domElement.removeEventListener('mouseover', mouseover, false);
-            domElement.removeEventListener('mousedown', mousedown, false);
-            domElement.removeEventListener('mousewheel', mousewheel, false);
-            domElement.removeEventListener('wheel', mousewheel, false);
-            
-            zui = null;
-            // }
         }
 
         window.addEventListener('mousemove', mousemove, false);
@@ -225,12 +215,14 @@ function addZUI() {
         if (elem) {
             // console.log(elem);
             if (elem.clickable) {
+                console.log("somethingSelected = true");
+                somethingSelected = true;
                 drawUIRight();
             }
             else {
-                console.log("not clickable");
-                // closeUIRight();
-                removeUI();
+                somethingSelected = false;
+                console.log("somethingSelected = false");
+                removeUIRight();
             }
         }
     }
@@ -249,8 +241,8 @@ function addZUI() {
 
     //MOOSE UP
     function mouseup(e) {
-        // two.add(ui);
-        // two.update();
+        // drawUILeft();
+        ui.add();
         window.removeEventListener('mousemove', mousemove, false);
         window.removeEventListener('mouseup', mouseup, false);   
     }
