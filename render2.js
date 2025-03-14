@@ -349,7 +349,7 @@ function drawSettlements() {
             hiq.setAttribute("gridX", i);
             hiq.setAttribute("gridY", j);
             HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-            addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Camelot', 1, 1, 1, false, -4, true);
+            addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true);
             isFirst = false;
 
             // spawn starting unit on valid tile

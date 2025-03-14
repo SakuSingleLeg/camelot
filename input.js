@@ -213,11 +213,12 @@ function addZUI() {
         if (elem && elem.noPointerEvents) return;
     
         if (elem) {
-            // console.log(elem);
+            console.log("🚀 ~ mousedown ~ elem:", elem)
             if (elem.clickable) {
                 console.log("somethingSelected = true");
-                somethingSelected = true;
-                drawUIRight();
+                somethingSelected = true;          
+                // selectedTileTxt = elem.desc;      
+                drawUIRight(elem.desc);
             }
             else {
                 somethingSelected = false;

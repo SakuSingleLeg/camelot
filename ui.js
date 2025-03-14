@@ -1,7 +1,8 @@
 // initial UI params
 let width = window.innerWidth;  // Get the window width
 let height = window.innerHeight; // Get the window height
-let message = "Unknown Tile";
+let hoverTileTxt = "Unknown Tile";
+let selectedTileTxt = "Unknown Piece";
 let somethingSelected = false;
 
 
@@ -24,33 +25,33 @@ function drawUIBottom (gridX, gridY, hexColour) {
     if (hexColour === COLOUR_GRASS) {
         let lgSprite = two.makeSprite(PATH_IMG_GRASS_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         ui.add(lgSprite);
-        message = "Grassy Field";
+        hoverTileTxt = "Grassy Field";
     }
     else if (hexColour === COLOUR_FOREST) {
         let lgSprite = two.makeSprite(PATH_IMG_FOREST_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
       ui.add(lgSprite);
-      message = "Forest";
+      hoverTileTxt = "Forest";
     }
     else if (hexColour === COLOUR_WATER) {
         let lgSprite = two.makeSprite(PATH_IMG_WATER_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         ui.add(lgSprite);
-        message = "Water";
+        hoverTileTxt = "Water";
     }
     else if (hexColour === COLOUR_MOUNTAIN) {
         let lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         ui.add(lgSprite);
-        message = "Mountain";
+        hoverTileTxt = "Mountain";
     }
     else if (hexColour === COLOUR_MOUNTAIN_PEAK) {
         let lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         ui.add(lgSprite);
-        message = "Peak";
+        hoverTileTxt = "Peak";
     }
     else {
         ui.add(lgSprite);
     }
 
-    let txtName = two.makeText(message, uiX_b-300, uiY_b + 24, {                 
+    let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, {                 
         size: 20,
         fill: '#FFFF00',
         family: 'Press Start 2P',
@@ -86,9 +87,7 @@ function drawUIBottom (gridX, gridY, hexColour) {
 
     two.add(ui);
 }
-function redrawUIBottom() {
-    console.log("moveUIBottom()");
-    
+function redrawUIBottom() {    
     removeUIBottom();
 
     uiX_b = window.innerWidth/2;
@@ -167,7 +166,6 @@ let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, {
     alignment: 'left'
 });
 function drawUILeft() {
-    console.log("draw left ui");
     //create ui panel sprite(s)
     ui.add(bgSpriteLeft1);
     ui.add(bgSpriteLeft2);
@@ -180,11 +178,10 @@ function drawUILeft() {
     ui.add(txtGold);
     ui.add(txtSave);
     ui.add(txtQuit);
+
     two.add(ui);
 }
-function redrawUILeft() {
-    console.log("moveUILeft()");
-    
+function redrawUILeft() {    
     uiX_l = 150;
     uiY_l = window.innerHeight -64;
     bgSpriteLeft1.translation.set(uiX_l, uiY_l);
@@ -200,7 +197,6 @@ function redrawUILeft() {
     txtGold.translation.set(uiX_l-48, uiY_l-156);
 
     drawUILeft();
-    // two.render();
 }
 
 
@@ -209,38 +205,41 @@ let uiX_r = width - 220;
 let uiY_r = height - 330;
 let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
 bgSpriteRight.visible = false;
-function drawUIRight() {
+
+let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {                 
+    size: 20,
+    fill: '#FFFF00',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+
+function drawUIRight(desc) {
     if (somethingSelected) {
-        uiX_r = width - 220;
-        uiY_r = height - 330;
-        bgSpriteRight.x = uiX_r;
         bgSpriteRight.visible = true;
-        console.log("draw right ui");
-        //create ui panel sprite
+        txtSelectedName.value = desc;
+
         ui.add(bgSpriteRight);
+        ui.add(txtSelectedName);
         two.add(ui);
     }
 }
-function redrawUIRight() {
-    console.log("moveUIRight()");    
+function redrawUIRight(desc) {
     uiX_r = window.innerWidth - 220;
     uiY_r = window.innerHeight - 330;
     
     bgSpriteRight.translation.set(uiX_r, uiY_r);
-    
-    drawUIRight();
-    // two.render();
+    txtSelectedName.translation.set(uiX_r, uiY_r-190);
+
+    drawUIRight(desc);
 }
 function removeUIRight() {
     ui.remove(bgSpriteRight);
+    ui.remove(txtSelectedName);
 }
 
 function updateUIPositions() {
     redrawUILeft();
-
-    // removeUIBottom();
     redrawUIBottom();
-
     redrawUIRight();
 }
 
