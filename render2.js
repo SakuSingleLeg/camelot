@@ -82,6 +82,7 @@ function buildGrid(MAP_SEED) {
           let grayscale = (value << 16) | (value << 8) | value; // Create the grayscale color
           let gray = '#' + grayscale.toString(16).padStart(6, '0'); // Convert to hex and pad to 6 digits        
           
+          hex.visible = false;
           hex.fill = colourize(gray);
           hex.linewidth = 2;
           hex.gridX = i;
@@ -113,53 +114,53 @@ function buildGrid(MAP_SEED) {
               let grassSpriteChance = Math.random();
 
               if (grassSpriteChance < 0.7) {
-                addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3);     
+                addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true);     
               }
               else if (grassSpriteChance < 0.75) {
-                addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, -10);     
+                addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, -10, false, true);     
               }
               else if (grassSpriteChance < 0.8) {
-                addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, -10);     
+                addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, -10, false, true);     
               }
               else {
-                addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, -10);     
+                addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, -10, false, true);     
               }
 
           }
           else if (hex.fill === COLOUR_WATER) { 
               var randSpeed = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
               var randSpawn = Math.random();
-              addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, -10);   
+              addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
               moveCost = 99; 
               //chance for extra sprite
               if (randSpawn <= .2 && randSpawn > .1) {
-                addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true);   
+                addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true, 0, false, true);   
               }
               else if (randSpawn <= .1) {
-                addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true);   
+                addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, true);   
               }
           }
           else if (hex.fill === COLOUR_WATER_DEEP) {
               //chance for extra sprite, but different way
               let iconNo = getRandomInt(2)+1;
               let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
-              addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, -10);   
+              addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, -10, false, true);   
               addSpriteToTile(imagePath, hex, 'Rocky Islets');  
               moveCost = 99; 
           }
           else if (hex.fill === COLOUR_MOUNTAIN) { 
               let mountainSpriteChance = Math.random();
               if (mountainSpriteChance < .65) {
-                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, -10);
+                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, -10, false, true);
               }
               else {
-                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -6);                
+                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -6, false, true);                
               }
 
               moveCost = 3;
           }
           else if (hex.fill === COLOUR_MOUNTAIN_PEAK) { 
-              addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10);    
+              addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true);    
               moveCost = 99; 
           }
 
@@ -199,7 +200,7 @@ function buildGrid(MAP_SEED) {
 
     setTimeout(drawForests, 0);
     setTimeout(drawSettlements, 0);
-    setTimeout(sortSprites, 0);
+    setTimeout(sortSprites, 1000);
 
     two.add(stage);
 
@@ -210,21 +211,21 @@ function buildGrid(MAP_SEED) {
   });
 }
 
-//sort all sprites to prevent z-issues
+//sort sprites to prevent z-issues
 function sortSprites() {
-    console.log("sorting sprites");
+  stage.children.sort(function(a, b) {
+      // Move items with isHex === false to the end
+      if (!a.isHex && b.isHex) return 1;
+      if (a.isHex && !b.isHex) return -1;
 
-    //sort based on x and y
-    // stage.children.sort(function(a, b) {
-    //     if (a.gridX === b.gridX) {y return a.gridY - b.gridY; // Sort by gridY if gridX is the same
-    //     }
-    //     return a.gridX - b.gridX; // Sort by gridX first
-    // });
-
-    //sort based on gridX only
-    stage.children.sort((a, b) => a.gridX - b.gridX); 
-    stage.add(...stage.children);  
+      // If both are either hex or not, sort by gridX first, then gridY
+      if (a.gridX === b.gridX) { 
+          return a.gridY - b.gridY; 
+      }
+      return a.gridX - b.gridX;
+  });
 }
+
 
 var lastTileWasForest = false;
 function drawForests() {
@@ -244,7 +245,7 @@ function drawForests() {
         HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
         lastTileWasForest = true;
 
-        addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1);
+        addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
       } 
       else if (hexColour === COLOUR_COAST) {
         //add marshes first due to z-fighting????
@@ -252,10 +253,10 @@ function drawForests() {
           hiq.setAttribute("fill", COLOUR_MARSH);
           HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
           if (Math.random() < .5) {
-            addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, -10);      
+            addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, -10, false, true);      
           }  
           else {            
-            addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, -10);       
+            addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, -10, false, true);       
           }
         }
 
@@ -264,14 +265,14 @@ function drawForests() {
           HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
           lastTileWasForest = true;
           if (Math.random() < .5) {
-            addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, -10);   
+            addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, -10, false, true);   
           }  
           else {            
-            addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -10);   
+            addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -10, false, true);   
           }
         }
         else  {
-            addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -10);     
+            addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -10, false, true);     
         }
       }
 
@@ -300,7 +301,7 @@ function drawForests() {
                   if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
                     neighborHex.setAttribute("fill", COLOUR_FOREST);
                     HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
-                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, -10);  
+                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, -10, false, true);  
                   }
               }
           }
@@ -413,7 +414,7 @@ function drawSettlements() {
   }
 }
 
-function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false) {
+function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false) {
     // Get the bounding box to determine center
     let bbox = tile.getBoundingClientRect();
     let center_x = bbox.left + bbox.width / 2;
@@ -436,6 +437,7 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
 
         sprite.desc = desc;
         sprite.clickable = clickable;
+        sprite.isHex = isHex;
         // colour_hex_group.add(sprite);        
         stage.add(sprite); 
     };

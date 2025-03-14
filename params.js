@@ -63,10 +63,6 @@ const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 
 
 //STRINGS
-let tileEffects = [
-    
-]
-
 let newMedievalTownNames = [
     "Stormhearth", "Ravenshire", "Blaggerfall", "Ironwood", "Drakenshire", "Frosthelm", "Blackrock", "Wintermere", "Greymoor", "Silvermere",
     "Darkhollow", "Goldhaven", "Stonekeep", "Thunderhold", "Everfrost", "Dragonmere", "Redcliff", "Ironspire", "Grimhold",

@@ -1,4 +1,4 @@
-// Simple seed-based random number generator (PRNG)
+// simple seed-based random number generator (PRNG)
 function seededRandom(seed) {
     // Use a simple pseudo-random generator based on a seed
     seed = (seed * 9301 + 49297) % 233280;  // Linear congruential generator formula
@@ -14,11 +14,11 @@ function hexToRgb(hex) {
 }
 
 function brightness(rgb) {
-    // Calculate the brightness of the color using the luminosity formula
+    // calc brightness of color using luminosity formula
     return 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
 }
 
-// Hex distance function using axial coordinates
+// hex distance function using axial coordinates
 function hexDistance(q1, r1, q2, r2) {
     return (Math.abs(q1 - q2) + Math.abs(r1 - r2) + Math.abs((-q1 - r1) - (-q2 - r2))) / 2;
 }

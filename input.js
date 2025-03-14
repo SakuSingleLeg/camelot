@@ -18,9 +18,9 @@ newMapRandomBtn.addEventListener('click', () => {
     setTimeout(() => {
         menuClouds.setAttribute('hidden', 'true')
         buildGrid(MAP_SEED).then(function () {
-            // Wait for UI to update, then run buildGrid (so that 'loading...' shows)
+            // wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {
-                    // Add Zoom User Interface (ZUI) and record how long all this takes
+                    // add Zoom User Interface (ZUI) and record how long all this takes
                     addZUI();
                     setTimeout(() => { 
                         const endTime = performance.now();
@@ -35,7 +35,7 @@ newMapRandomBtn.addEventListener('click', () => {
 
 newMapSeededBtn.on("click", function () {
     console.log("New Map (Seeded) clicked");
-    // Unhide seed options
+    // unhide seed options
     newMapSeededInput.show();
     newMapSeededBtn2.show();
 });
@@ -106,7 +106,6 @@ function addZUI() {
     //draw static ui
     drawUILeft();
 
-
     //KEYBOARD INPUT
     window.addEventListener('keydown', function(e) {
         e = e || window.event;
@@ -144,7 +143,8 @@ function addZUI() {
     
         // Ignore elements that should not capture events
         if (elem && elem.noPointerEvents) return;
-    
+
+        //TODO: methinks dis borken
         if (lastElement) {
             $("#tooltip-position").hide();
             // ui.remove();
@@ -159,27 +159,31 @@ function addZUI() {
 
             lastElement = elem;
             
-            if (elem.sides !== 6) {
-                $("#tooltip-position")
-                    .text(elem.desc)
-                    .css({
-                        "left": event.pageX + "px",
-                        "top": event.pageY + "px",
-                        "display": "block"
-                });
+            $("#tooltip-position")
+                .text(elem.desc)
+                .css({
+                    "left": event.pageX + "px",
+                    "top": event.pageY + "px",
+                    "display": "block"
+            });
 
-                fillColor = HEX_ARR[gridX][gridY].colour;
+            fillColor = HEX_ARR[gridX][gridY].colour;
+
+            //update ui to reflect what has been moused over       
+            if (elem.isHex) {
+                drawUIBottom(gridX, gridY, fillColor);
             }
             else {
-                $("#tooltip-position").hide();
+                removeUIBottom();
             }
-
-            //update ui to reflect what has been moused over
-            drawUIBottom(gridX, gridY, fillColor);
+            if (somethingSelected) {
+                drawUIRight(selectedTileTxt);
+            }
             drawUILeft();
-            drawUIRight();
         }
         else {
+            drawUILeft();
+            removeUIBottom();
             console.log("elems not here man");
         }
     }
@@ -191,7 +195,7 @@ function addZUI() {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
-        //check if menu btns are clicked - check if the click is inside the sprite's bounds
+        //check if menu btns clicked - if click is inside sprite bounds
         if (
             mouse.x  >= bgSpriteLeft1.translation.x - bgSpriteLeft1.width / 2 &&
             mouse.x  <= bgSpriteLeft1.translation.x + bgSpriteLeft1.width / 2 &&
@@ -199,25 +203,23 @@ function addZUI() {
             mouse.y <= bgSpriteLeft1.translation.y + bgSpriteLeft1.height / 2
         ) {
             console.log("bgSpriteLeft1 clicked, reloading page");
-            // stop showing map and ui elements, 'return' to main menu when clicked
+            // 'return' to main menu when clicked
             quitToMenu();
         }
 
         window.addEventListener('mousemove', mousemove, false);
         window.addEventListener('mouseup', mouseup, false);
 
-        // TODO: draw right ui if a valid sprite is clicked
         let elem = stage.children.find(shape => shape._id === e.target.id);
     
-        // Ignore elements that should not capture events
+        // ignore elements that should not capture events
         if (elem && elem.noPointerEvents) return;
     
         if (elem) {
-            console.log("🚀 ~ mousedown ~ elem:", elem)
             if (elem.clickable) {
                 console.log("somethingSelected = true");
-                somethingSelected = true;          
-                // selectedTileTxt = elem.desc;      
+                somethingSelected = true;  
+                selectedTileTxt = elem.desc;
                 drawUIRight(elem.desc);
             }
             else {

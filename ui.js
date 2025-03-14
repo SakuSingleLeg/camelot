@@ -10,8 +10,41 @@ let somethingSelected = false;
 let uiX_b = width / 2;
 let uiY_b = height - 90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
-let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
 bgSpriteBottom.visible = false;
+let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+lgSprite.visible = false;
+
+let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, {                 
+    size: 20,
+    fill: '#FFFF00',
+    family: 'Press Start 2P',
+    alignment: 'left'
+});
+
+let moveCost, atkBonus, defBonus = 0;
+
+let txtMoveCost = two.makeText("Movement Cost: " + moveCost, uiX_b, uiY_b - 24, {                 
+    size: 14,
+    fill: '#FFFF00',
+    family: 'Press Start 2P',
+    alignment: 'left'
+});
+
+let txtAtkBonus = two.makeText("Attack Bonus: " + atkBonus, uiX_b, uiY_b + 6, {                 
+    size: 14,
+    fill: '#FFFF00',
+    family: 'Press Start 2P',
+    alignment: 'left'
+});
+ 
+let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, {                 
+    size: 14,
+    fill: '#FFFF00',
+    family: 'Press Start 2P',
+    alignment: 'left'
+});
+
+
 function drawUIBottom (gridX, gridY, hexColour) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
     // not needed and hides other ui elements so TODO : remove?
@@ -22,70 +55,47 @@ function drawUIBottom (gridX, gridY, hexColour) {
     ui.add(bgSpriteBottom);
 
     //lg icon + text based on tile
-    if (hexColour === COLOUR_GRASS) {
-        let lgSprite = two.makeSprite(PATH_IMG_GRASS_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        ui.add(lgSprite);
+    if (hexColour === COLOUR_GRASS) {        
+        lgSprite = two.makeSprite(PATH_IMG_GRASS_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Grassy Field";
     }
     else if (hexColour === COLOUR_FOREST) {
-        let lgSprite = two.makeSprite(PATH_IMG_FOREST_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-      ui.add(lgSprite);
-      hoverTileTxt = "Forest";
+        lgSprite = two.makeSprite(PATH_IMG_FOREST_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Forest";
     }
     else if (hexColour === COLOUR_WATER) {
-        let lgSprite = two.makeSprite(PATH_IMG_WATER_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        ui.add(lgSprite);
+        lgSprite = two.makeSprite(PATH_IMG_WATER_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Water";
     }
     else if (hexColour === COLOUR_MOUNTAIN) {
-        let lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        ui.add(lgSprite);
+        lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Mountain";
     }
     else if (hexColour === COLOUR_MOUNTAIN_PEAK) {
-        let lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        ui.add(lgSprite);
+        lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Peak";
     }
-    else {
-        ui.add(lgSprite);
-    }
+    lgSprite.visible = true;
+    ui.add(lgSprite);
 
-    let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, {                 
-        size: 20,
-        fill: '#FFFF00',
-        family: 'Press Start 2P',
-        alignment: 'left'
-    });
+    txtName.value = hoverTileTxt;
     ui.add(txtName);
 
     moveCost = HEX_ARR[gridX][gridY].moveCost !== undefined ? HEX_ARR[gridX][gridY].moveCost + 1:1;
     atkBonus = HEX_ARR[gridX][gridY].atkBonus !== undefined ? HEX_ARR[gridX][gridY].atkBonus:0;
     defBonus = HEX_ARR[gridX][gridY].defBonus !== undefined ? HEX_ARR[gridX][gridY].defBonus:0;
-    
-    let txtMoveCost = two.makeText("Movement Cost: " + moveCost, uiX_b, uiY_b - 24, {                 
-        size: 14,
-        fill: '#FFFF00',
-        family: 'Press Start 2P',
-        alignment: 'left'
-    });
+
+    txtMoveCost.value = "Movement Cost: " + moveCost;    
     ui.add(txtMoveCost);  
-    let txtAtkBonus = two.makeText("Attack Bonus: " + atkBonus, uiX_b, uiY_b + 6, {                 
-        size: 14,
-        fill: '#FFFF00',
-        family: 'Press Start 2P',
-        alignment: 'left'
-    });
+
+    txtAtkBonus.value = "Attack Bonus: " + atkBonus;   
     ui.add(txtAtkBonus);    
-    let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, {                 
-        size: 14,
-        fill: '#FFFF00',
-        family: 'Press Start 2P',
-        alignment: 'left'
-    });
+
+    txtDefBonus.value = "Defence Bonus: " + defBonus;   
     ui.add(txtDefBonus);     
 
     two.add(ui);
+    two.update(); 
 }
 function redrawUIBottom() {    
     removeUIBottom();
@@ -122,6 +132,7 @@ function redrawUIBottom() {
 }
 function removeUIBottom() {
     if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null)   ui.remove(bgSpriteBottom);
+    if (typeof lgSprite         !== 'undefined' && lgSprite         !== null)   ui.remove(lgSprite);
     if (typeof txtName          !== 'undefined' && txtName          !== null)   ui.remove(txtName);
     if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null)   ui.remove(txtMoveCost);
     if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null)   ui.remove(txtAtkBonus);
@@ -214,14 +225,12 @@ let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {
 });
 
 function drawUIRight(desc) {
-    if (somethingSelected) {
-        bgSpriteRight.visible = true;
-        txtSelectedName.value = desc;
+    bgSpriteRight.visible = true;
+    txtSelectedName.value = desc;
 
-        ui.add(bgSpriteRight);
-        ui.add(txtSelectedName);
-        two.add(ui);
-    }
+    ui.add(bgSpriteRight);
+    ui.add(txtSelectedName);
+    two.add(ui);    
 }
 function redrawUIRight(desc) {
     uiX_r = window.innerWidth - 220;
