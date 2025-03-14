@@ -112,18 +112,23 @@ function buildGrid(MAP_SEED) {
           //rules based on tile type
           if (hex.fill === COLOUR_GRASS) {
               let grassSpriteChance = Math.random();
+              let thisSprite = null;
 
               if (grassSpriteChance < 0.7) {
-                addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true);     
+                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true);   
+                thisSprite.depth = 1;  
               }
               else if (grassSpriteChance < 0.75) {
-                addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, -10, false, true);     
+                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true);     
+                thisSprite.depth = 1;  
               }
               else if (grassSpriteChance < 0.8) {
-                addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, -10, false, true);     
+                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true);     
+                thisSprite.depth = 1;  
               }
               else {
-                addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, -10, false, true);     
+                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, 3, false, true);     
+                thisSprite.depth = 1;  
               }
 
           }
@@ -134,27 +139,27 @@ function buildGrid(MAP_SEED) {
               moveCost = 99; 
               //chance for extra sprite
               if (randSpawn <= .2 && randSpawn > .1) {
-                addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true, 0, false, true);   
+                addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true, 0, false, false);   
               }
               else if (randSpawn <= .1) {
-                addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, true);   
+                addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false);   
               }
           }
           else if (hex.fill === COLOUR_WATER_DEEP) {
               //chance for extra sprite, but different way
               let iconNo = getRandomInt(2)+1;
               let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
-              addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, -10, false, true);   
+              addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true);   
               addSpriteToTile(imagePath, hex, 'Rocky Islets');  
               moveCost = 99; 
           }
           else if (hex.fill === COLOUR_MOUNTAIN) { 
               let mountainSpriteChance = Math.random();
               if (mountainSpriteChance < .65) {
-                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, -10, false, true);
+                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true);
               }
               else {
-                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -6, false, true);                
+                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true);                
               }
 
               moveCost = 3;
@@ -212,19 +217,34 @@ function buildGrid(MAP_SEED) {
 }
 
 //sort sprites to prevent z-issues
+// function sortSprites() {
+//   stage.children.sort(function(a, b) {
+//       // Move items with isHex === false to the end
+//       if (!a.isHex && b.isHex) return 1;
+//       if (a.isHex && !b.isHex) return -1;
+
+//       // If both are either hex or not, sort by gridX first, then gridY
+//       // if (a.gridX === b.gridX) { 
+//       //     return a.gridY - b.gridY; 
+//       // }
+//       return a.gridY - b.gridY;
+//   });
+// }
 function sortSprites() {
   stage.children.sort(function(a, b) {
+      // Prioritize items with depth === 1
+      if (a.depth === 1 && b.depth !== 1) return -1;
+      if (a.depth !== 1 && b.depth === 1) return 1;
+
       // Move items with isHex === false to the end
       if (!a.isHex && b.isHex) return 1;
       if (a.isHex && !b.isHex) return -1;
 
-      // If both are either hex or not, sort by gridX first, then gridY
-      if (a.gridX === b.gridX) { 
-          return a.gridY - b.gridY; 
-      }
-      return a.gridX - b.gridX;
+      // Sort by gridY
+      return a.gridY - b.gridY;
   });
 }
+
 
 
 var lastTileWasForest = false;
@@ -265,14 +285,14 @@ function drawForests() {
           HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
           lastTileWasForest = true;
           if (Math.random() < .5) {
-            addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, -10, false, true);   
+            addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
           }  
           else {            
-            addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -10, false, true);   
+            addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
           }
         }
         else  {
-            addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -10, false, true);     
+            addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, 0, false, true);     
         }
       }
 
@@ -301,7 +321,7 @@ function drawForests() {
                   if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
                     neighborHex.setAttribute("fill", COLOUR_FOREST);
                     HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
-                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, -10, false, true);  
+                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true);  
                   }
               }
           }
@@ -405,8 +425,9 @@ function drawSettlements() {
                     miq.setAttribute("gridX", i);
                     miq.setAttribute("gridY", j);
                     HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
-                    var randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
-                    addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true);   
+                    let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
+                    let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
+                    millSprite.scale = .8;
                 }
             }
         }
@@ -420,30 +441,25 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
     let center_x = bbox.left + bbox.width / 2;
     let center_y = bbox.top + bbox.height / 2;      
     let imgOffsetY = (-HEX_SIZE * 0.2) +2 +yOffset;
+    
+    let sprite = two.makeSprite(path, center_x, center_y + imgOffsetY, rows, cols, framerate, start);
+    if (typeof tile.getAttribute === "function") {
+      sprite.gridX = parseInt(tile.getAttribute("gridX"), 10);
+      sprite.gridY = parseInt(tile.getAttribute("gridY"), 10);
+    }
+    else if (tile.gridX !== undefined) {
+      sprite.gridX = tile.gridX;
+      sprite.gridY = tile.gridY;
+    }
 
-    let img = new Image();
-    img.src = path;
-    img.onload = function () {
-        let sprite = two.makeSprite(img.src, center_x, center_y + imgOffsetY, rows, cols, framerate, start);
+    sprite.path = path;
+    sprite.desc = desc;
+    sprite.clickable = clickable;
+    sprite.isHex = isHex;
+    // colour_hex_group.add(sprite);        
+    stage.add(sprite); 
 
-        if (typeof tile.getAttribute === "function") {
-          sprite.gridX = parseInt(tile.getAttribute("gridX"), 10);
-          sprite.gridY = parseInt(tile.getAttribute("gridY"), 10);
-        }
-        else if (tile.gridX !== undefined) {
-          sprite.gridX = tile.gridX;
-          sprite.gridY = tile.gridY;
-        }
-
-        sprite.desc = desc;
-        sprite.clickable = clickable;
-        sprite.isHex = isHex;
-        // colour_hex_group.add(sprite);        
-        stage.add(sprite); 
-    };
-    img.onerror = function () {
-        console.error("Failed to load image:", img.src);
-    };
+    return sprite;
 }
 
 //check adjacent tiles, within given range, by given colour

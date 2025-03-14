@@ -45,7 +45,7 @@ let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, 
 });
 
 
-function drawUIBottom (gridX, gridY, hexColour) {
+function drawUIBottom (gridX, gridY, hexColour, path) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
     // not needed and hides other ui elements so TODO : remove?
     ui.remove(...ui.children);  
@@ -56,25 +56,26 @@ function drawUIBottom (gridX, gridY, hexColour) {
 
     //lg icon + text based on tile
     if (hexColour === COLOUR_GRASS) {        
-        lgSprite = two.makeSprite(PATH_IMG_GRASS_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Grassy Field";
     }
     else if (hexColour === COLOUR_FOREST) {
-        lgSprite = two.makeSprite(PATH_IMG_FOREST_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Forest";
     }
     else if (hexColour === COLOUR_WATER) {
-        lgSprite = two.makeSprite(PATH_IMG_WATER_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Water";
     }
     else if (hexColour === COLOUR_MOUNTAIN) {
-        lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Mountain";
     }
     else if (hexColour === COLOUR_MOUNTAIN_PEAK) {
-        lgSprite = two.makeSprite(PATH_IMG_MOUNTAIN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Peak";
     }
+    lgSprite.scale = 2;
     lgSprite.visible = true;
     ui.add(lgSprite);
 
@@ -87,10 +88,8 @@ function drawUIBottom (gridX, gridY, hexColour) {
 
     txtMoveCost.value = "Movement Cost: " + moveCost;    
     ui.add(txtMoveCost);  
-
     txtAtkBonus.value = "Attack Bonus: " + atkBonus;   
     ui.add(txtAtkBonus);    
-
     txtDefBonus.value = "Defence Bonus: " + defBonus;   
     ui.add(txtDefBonus);     
 
