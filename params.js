@@ -35,14 +35,12 @@ const PATH_IMG_HEX_CASTLE01     = './img/hex_castle01.png';
 const PATH_IMG_HEX_SETTLEMENT01 = './img/hex_settlement01.png';
 const PATH_IMG_HEX_SETTLEMENT02 = './img/hex_settlement02.png';
 const PATH_IMG_HEX_CURSEDABBEY  = './img/hex_cursed_abbey.png';
-//old hex grid imgs
-const PATH_IMG_WATER_DEEP       = './img/water_rock';
-const PATH_IMG_FORT             = './img/fort.png';
+//HEX GRID IMGS - SMALL
 const PATH_IMG_CAVE_SM01        = './img/cave_sm_01.png';
-//HEX GRID IMGS - ANIMATED
 const PATH_IMG_MILL_ANIM        = './img/anim_mill.png';
 const PATH_IMG_WAVE_ANIM        = './img/anim_water.png';
 const PATH_IMG_WAVE_ANIM_2      = './img/anim_water_2.png';
+const PATH_IMG_WATER_DEEP       = './img/water_rock';
 //HEX GRID IMGS - LARGE
 const PATH_IMG_UNKNOWN_LG       = './img/hex_lg_unknown.png';
 const PATH_IMG_GRASS_LG         = './img/hex_lg_grass.png';

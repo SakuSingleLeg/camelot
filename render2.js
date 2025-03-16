@@ -1,29 +1,25 @@
-
-//LOAD CONFIG FROM FILE
-let userConfig = null;
-
-let two; 
-var ui;
-var stage;  
-// MOUSE STUFF
+// MOUSE POS INFO
 const cursorPositionDiv = document.getElementById('cursor-position');
 const hexPositionDiv = document.getElementById('hex-position');
 const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
+
+//INIT DECLARATIONS
+let userConfig;
+let two, ui, stage;  
 let MAP_SEED, FOREST_SEED, SETTLEMENT_SEED;
 let GRID_X_SIZE, GRID_Y_SIZE, HEX_ARR;
 let HEX_SIZE, SHOW_DEBUG, params;
-
 let map_start_x, map_start_y;
 let sep_x, sep_y;
 let curr_x, curr_y;
-
 let colour_hex_group, debug_hex_group;
 
-// **Step 1: Load Config**
+
+//LOAD CONFIG FROM FILE
 loadConfig().then(() => {
     console.log("Config Loaded, intializaing...");
-    //MAIN MENU
+
     hexPositionDiv.setAttribute('hidden', 'true');
     spriteCountDiv.setAttribute('hidden', 'true');
     tooltipPosition.setAttribute('hidden', 'true');
@@ -33,12 +29,12 @@ loadConfig().then(() => {
     FOREST_SEED = Math.random();
     SETTLEMENT_SEED = Math.random();
 
-    //GRID DATA ARRAY//
+    //GRID DATA ARR
     GRID_X_SIZE = userConfig.gridSizeX;//medium
     GRID_Y_SIZE = userConfig.gridSizeY;//medium
     HEX_ARR = [GRID_X_SIZE];
 
-    //SET hex grid params
+    //SET HEX GRID PARAMS
     HEX_SIZE = 24;
     SHOW_DEBUG = userConfig.debug;
     params = {                                                                
@@ -63,9 +59,8 @@ loadConfig().then(() => {
     debug_hex_group = new Two.Group();
     debug_hex_group.visible = SHOW_DEBUG;   
 
+    // LOAD OTHER SCRIPTS
     console.log("Now Loading Scripts...");
-
-    // **Step 2: Load Other Scripts (e.g., Two.js, game.js, etc.)**
     loadScript("ui.js", function () {
         console.log("ui.js Loaded");        
         loadScript("utils.js", function () {
