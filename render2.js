@@ -1,10 +1,12 @@
 // MOUSE STUFF
-const cursorPosition = document.getElementById('cursor-position');
-const hexPosition = document.getElementById('hex-position');
+const cursorPositionDiv = document.getElementById('cursor-position');
+const hexPositionDiv = document.getElementById('hex-position');
+const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
 
 //MAIN MENU
-hexPosition.setAttribute('hidden', 'true');
+hexPositionDiv.setAttribute('hidden', 'true');
+spriteCountDiv.setAttribute('hidden', 'true');
 tooltipPosition.setAttribute('hidden', 'true');
 
 //SEEDS
@@ -209,7 +211,8 @@ function buildGrid(MAP_SEED) {
 
     two.add(stage);
 
-    hexPosition.removeAttribute('hidden');
+    hexPositionDiv.removeAttribute('hidden');
+    spriteCountDiv.removeAttribute('hidden');
     tooltipPosition.removeAttribute('hidden');
 
     resolve();

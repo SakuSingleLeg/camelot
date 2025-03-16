@@ -75,7 +75,8 @@ document.addEventListener("wheel", function(event) {
 
 //TRACK MOOSE POSITION
 window.addEventListener('pointermove', (event) => {
-    cursorPosition.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
+    cursorPositionDiv.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
+    spriteCountDiv.textContent = `Total Sprites: ${stage.children.length}`;
 }, false);
 document.addEventListener("mouseout", function (event) {
     $("#tooltip-position").hide();
@@ -155,7 +156,7 @@ function addZUI() {
             let gridX = elem.gridX !== undefined ? elem.gridX : "?";
             let gridY = elem.gridY !== undefined ? elem.gridY : "?";
             let fillColor = elem.fill || "Unknown";    
-            hexPosition.textContent = `(${gridX}, ${gridY}) ${fillColor}`;
+            hexPositionDiv.textContent = `(${gridX}, ${gridY})`;
 
             lastElement = elem;
             

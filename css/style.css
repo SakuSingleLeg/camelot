@@ -47,12 +47,13 @@ svg {
 }
 
 /* mouseover elements */
-path:hover {
+#two-2 path:hover {
     -webkit-filter: drop-shadow(2px 2px 0 yellow)
                     drop-shadow(-2px -2px 0 yellow);
     filter: drop-shadow(2px 2px 0 yellow) 
             drop-shadow(-2px -2px 0 yellow);
 }
+
 
 /* cursor */
 #cursor-position {
@@ -70,6 +71,18 @@ path:hover {
 #hex-position {
     position: fixed; /* Always stays at the top-left */
     top: 40px;
+    left: 10px;
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 99; /* Ensures it's always on top */
+    pointer-events: none; /* Prevents interference with clicks */
+    color: yellow;
+}
+
+#sprite-count {
+    position: fixed; /* Always stays at the top-left */
+    top: 70px;
     left: 10px;
     background: transparent;
     padding: 5px 10px;
@@ -159,6 +172,15 @@ path:hover {
 }
 #mainmenu_newMapSeeded2 {
     display: none;
+}
+
+#version_number {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    color: white;
+    opacity: 0.5;
 }
 
 .btn-disabled {
