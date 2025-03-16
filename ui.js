@@ -51,11 +51,15 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     //lg icon + text based on tile
     if (hexColour === COLOUR_GRASS) {        
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        hoverTileTxt = "Grassy Field";
+        hoverTileTxt = "Grassy Fields";
     }
     else if (hexColour === COLOUR_FOREST) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Forest";
+    }
+    else if (hexColour === COLOUR_FARM) {
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Farmland";
     }
     else if (hexColour === COLOUR_COAST) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
@@ -223,11 +227,11 @@ let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, 
 bgSpriteRight.visible = false;
 let selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-333, 1, 1, 1, false); //TODO: sprite depending on tile
 selectSprite.visible = false;
-selectSprite.visible = false;
-let rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r-60, uiY_r+360, 1, 1, 1, false);
+selectSprite.scale = 4;
+let rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+250, 1, 1, 1, false);
 rndTblSprite.visible = false;
 let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {                 
-    size: 20,
+    size: 22,
     fill: '#FFFF00',
     family: 'Press Start 2P',
     alignment: 'center'
@@ -250,7 +254,7 @@ function redrawUIRight(desc) {
     
     bgSpriteRight.translation.set(uiX_r, uiY_r);
     selectSprite.translation.set(uiX_r, uiY_r-333);
-    rndTblSprite.translation.set(uiX_r-60, uiY_r+360);
+    rndTblSprite.translation.set(uiX_r, uiY_r+250);
     txtSelectedName.translation.set(uiX_r, uiY_r-190);
 
     drawUIRight(desc);

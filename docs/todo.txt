@@ -1,17 +1,14 @@
 ---------
 TODDO
 ---------
-update mills to their own tile
-   32x32 animated sprite
-   farmland colour
-   its own details in ui
-   ui: food bonus, gold bonus
-
-
-
-
+ - show total sprites on scrreen at all times
 
 new tiles:
+   update mills to their own tile
+      32x32 animated sprite
+      farmland colour
+      its own details in ui
+      ui: food bonus, gold bonus
    red rook inn
    mines on mountain tiles?
    docks on marsh tiles?
@@ -59,9 +56,11 @@ cloud layer over map
 
 fog of war (using clipping mask?)
 
-solve sprite z-ordering
-
 npc units/tiles
 
 enemy units
    movement
+
+write a function the says for each sprite in stage with gridX and gridY or specific values, remove all instances of that sprite
+   this will be used to clear sprites before adding new ones (ie forests, settlements, etc.)
+   should reduce sprite total

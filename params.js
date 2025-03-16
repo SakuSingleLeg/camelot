@@ -25,6 +25,7 @@ const PATH_IMG_HEX_FOREST01     = './img/hex_forest01.png';
 const PATH_IMG_HEX_FOREST02     = './img/hex_forest02.png';
 const PATH_IMG_HEX_FOREST03     = './img/hex_forest03.png';
 const PATH_IMG_HEX_FOREST04     = './img/hex_forest04.png';
+const PATH_IMG_HEX_FARM01       = './img/hex_farm01.png';
 const PATH_IMG_HEX_MOUNTAIN01   = './img/hex_mountain01.png';
 const PATH_IMG_HEX_MOUNTAIN02   = './img/hex_mountain02.png';
 const PATH_IMG_HEX_PEAK01       = './img/hex_peak01.png';

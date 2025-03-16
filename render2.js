@@ -426,6 +426,7 @@ function drawSettlements() {
                     miq.setAttribute("gridX", i);
                     miq.setAttribute("gridY", j);
                     HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
+                    addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farm', 1, 1, 1, false, 3, false, true);  
                     let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
                     let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
                     millSprite.scale = .8;
