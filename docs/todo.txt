@@ -1,6 +1,12 @@
 ---------
 TODDO
 ---------
+right ui button placeholders
+
+add depth values 2 & 3 to sprites added later
+during sort for each sprite in stage with gridX and gridY or specific values, remove sprite with lower depth value
+   should reduce sprite total
+
 
 new tiles:
    update mills to their own tile
@@ -59,8 +65,3 @@ npc units/tiles
 
 enemy units
    movement
-
-write a function the says for each sprite in stage with gridX and gridY or specific values, remove all instances of that sprite
-   this will be used to clear sprites before adding new ones (ie forests, settlements, etc.)
-   should reduce sprite total
-   try to do this in existing sort if possible

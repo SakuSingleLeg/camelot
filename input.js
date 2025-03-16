@@ -234,14 +234,25 @@ function addZUI() {
 
     //MOOSE MOVE
     function mousemove(e) {
+        // Adjust this value to control the maximum movement speed
+        var maxSpeed = 666; 
         var dx = e.clientX - mouse.x;
         var dy = e.clientY - mouse.y;
+    
+        // Clamp the movement speed
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance > maxSpeed) {
+            var ratio = maxSpeed / distance;
+            dx *= ratio;
+            dy *= ratio;
+        }
+    
         $("#tooltip-position").hide();
         zui.translateSurface(dx, dy);           
         ui.remove();
         mouse.set(e.clientX, e.clientY);
     }
-
+    
 
     //MOOSE UP
     function mouseup(e) {

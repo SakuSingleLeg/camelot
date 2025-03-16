@@ -392,7 +392,7 @@ function drawSettlements() {
                         console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
                         HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
-                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Cursed Abbey', 1, 1, 1, false, 0);  
+                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Cursed Abbey', 1, 1, 1, false, 1);  
                         numSpecialAbbeys++;
                     }
                     else {
@@ -404,7 +404,7 @@ function drawSettlements() {
                             addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -8);     
                         }
                         else {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -9);  
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -8);  
                         }
                         
                         //generate windmill(s) - up to 2

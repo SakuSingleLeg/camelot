@@ -96,11 +96,11 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     atkBonus = HEX_ARR[gridX][gridY].atkBonus !== undefined ? HEX_ARR[gridX][gridY].atkBonus:0;
     defBonus = HEX_ARR[gridX][gridY].defBonus !== undefined ? HEX_ARR[gridX][gridY].defBonus:0;
 
-    txtMoveCost.value = "Movement Cost: " + moveCost;    
+    txtMoveCost.value = "MOV: " + moveCost;    
     ui.add(txtMoveCost);  
-    txtAtkBonus.value = "Attack Bonus: " + atkBonus;   
+    txtAtkBonus.value = "ATK: " + atkBonus;   
     ui.add(txtAtkBonus);    
-    txtDefBonus.value = "Defence Bonus: " + defBonus;   
+    txtDefBonus.value = "DEF: " + defBonus;   
     ui.add(txtDefBonus);     
 
     two.add(ui);
@@ -223,47 +223,172 @@ function redrawUILeft() {
 // RIGHT UI
 let uiX_r = width - 220;
 let uiY_r = height - 330;
-let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
-bgSpriteRight.visible = false;
-let selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-333, 1, 1, 1, false); //TODO: sprite depending on tile
-selectSprite.visible = false;
-selectSprite.scale = 4;
-let rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+260, 1, 1, 1, false);
-rndTblSprite.visible = false;
-let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {                 
+let rUI_bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
+rUI_bgSpriteRight.visible = false;
+let rUI_selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-353, 1, 1, 1, false); //TODO: sprite depending on tile
+rUI_selectSprite.visible = false;
+rUI_selectSprite.scale = 4;
+let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, {                 
     size: 22,
     fill: '#FFFF00',
     family: 'Press Start 2P',
     alignment: 'center'
 });
-function drawUIRight(desc) {
-    bgSpriteRight.visible = true;
-    selectSprite.visible = true;
-    rndTblSprite.visible = true;
-    txtSelectedName.value = desc;
 
-    ui.add(bgSpriteRight);
-    ui.add(selectSprite);
-    ui.add(rndTblSprite);
-    ui.add(txtSelectedName);
+let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
+rUI_wideBtn01.visible = false;
+let rUI_wideBtn01Txt = two.makeText("???", uiX_r-1, uiY_r-16, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_wideBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-87, 1, 1, 1, false);
+rUI_wideBtn02.visible = false;
+let rUI_wideBtn02Txt = two.makeText("???", uiX_r-1, uiY_r-84, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_smolBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+185, 1, 1, 1, false);
+rUI_smolBtn01.visible = false;
+let rUI_smolBtn01Txt = two.makeText("???", uiX_r-84, uiY_r+188, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_smolBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+185, 1, 1, 1, false);
+rUI_smolBtn01.visible = false;
+let rUI_smolBtn02Txt = two.makeText("???", uiX_r+81, uiY_r+188, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_smolBtn03 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+117, 1, 1, 1, false);
+rUI_smolBtn03.visible = false;
+let rUI_smolBtn03Txt = two.makeText("???", uiX_r-84, uiY_r+120, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_smolBtn04 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+117, 1, 1, 1, false);
+rUI_smolBtn04.visible = false;
+let rUI_smolBtn04Txt = two.makeText("???", uiX_r+81, uiY_r+120, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_smolBtn05 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+49, 1, 1, 1, false);
+rUI_smolBtn05.visible = false;
+let rUI_smolBtn05Txt = two.makeText("???", uiX_r-84, uiY_r+52, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+let rUI_smolBtn06 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+49, 1, 1, 1, false);
+rUI_smolBtn06.visible = false;
+let rUI_smolBtn06Txt = two.makeText("???", uiX_r+81, uiY_r+52, {                 
+    size: 16,
+    fill: '#808080',
+    family: 'Press Start 2P',
+    alignment: 'center'
+});
+
+let rUI_rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+264, 1, 1, 1, false);
+rUI_rndTblSprite.visible = false;
+function drawUIRight(desc) {
+    rUI_bgSpriteRight.visible = true;
+    rUI_selectSprite.visible = true;
+    rUI_rndTblSprite.visible = true;
+    rUI_wideBtn01.visible = true;
+    rUI_wideBtn02.visible = true;
+    rUI_smolBtn01.visible = true;
+    rUI_smolBtn02.visible = true;
+    rUI_smolBtn03.visible = true;
+    rUI_smolBtn04.visible = true;
+    rUI_smolBtn05.visible = true;
+    rUI_smolBtn06.visible = true;
+    rUI_txtSelectedName.value = desc;
+
+    ui.add(rUI_bgSpriteRight);
+    ui.add(rUI_selectSprite);
+    ui.add(rUI_rndTblSprite);
+    ui.add(rUI_wideBtn01);
+    ui.add(rUI_wideBtn01Txt);
+    ui.add(rUI_wideBtn02);
+    ui.add(rUI_wideBtn02Txt);
+    ui.add(rUI_smolBtn01);
+    ui.add(rUI_smolBtn01Txt);
+    ui.add(rUI_smolBtn02);
+    ui.add(rUI_smolBtn02Txt);
+    ui.add(rUI_smolBtn03);
+    ui.add(rUI_smolBtn03Txt);
+    ui.add(rUI_smolBtn04);
+    ui.add(rUI_smolBtn04Txt);
+    ui.add(rUI_smolBtn05);
+    ui.add(rUI_smolBtn05Txt);
+    ui.add(rUI_smolBtn06);
+    ui.add(rUI_smolBtn06Txt);
+    ui.add(rUI_txtSelectedName);
     two.add(ui);    
 }
 function redrawUIRight(desc) {
     uiX_r = window.innerWidth - 220;
     uiY_r = window.innerHeight - 330;
     
-    bgSpriteRight.translation.set(uiX_r, uiY_r);
-    selectSprite.translation.set(uiX_r, uiY_r-333);
-    rndTblSprite.translation.set(uiX_r, uiY_r+260);
-    txtSelectedName.translation.set(uiX_r, uiY_r-190);
+    rUI_bgSpriteRight.translation.set(uiX_r, uiY_r);
+    rUI_selectSprite.translation.set(uiX_r, uiY_r-353);
+    rUI_txtSelectedName.translation.set(uiX_r, uiY_r-210);
+
+    rUI_wideBtn01.translation.set(uiX_r-1, uiY_r-19);
+    rUI_wideBtn01Txt.translation.set(uiX_r-1, uiY_r-16);
+    rUI_wideBtn02.translation.set(uiX_r-1, uiY_r-19);
+    rUI_wideBtn02Txt.translation.set(uiX_r-1, uiY_r-16);
+    rUI_smolBtn01.translation.set(uiX_r-84, uiY_r+185);
+    rUI_smolBtn01Txt.translation.set(uiX_r-84, uiY_r+188);
+    rUI_smolBtn02.translation.set(uiX_r+81, uiY_r+185);
+    rUI_smolBtn02Txt.translation.set(uiX_r+81, uiY_r+188);
+    rUI_smolBtn03.translation.set(uiX_r-84, uiY_r+117);
+    rUI_smolBtn03Txt.translation.set(uiX_r-84, uiY_r+120);
+    rUI_smolBtn04.translation.set(uiX_r+81, uiY_r+117);
+    rUI_smolBtn04Txt.translation.set(uiX_r+81, uiY_r+120);
+    rUI_smolBtn05.translation.set(uiX_r-84, uiY_r+49);
+    rUI_smolBtn05Txt.translation.set(uiX_r-84, uiY_r+52);
+    rUI_smolBtn06.translation.set(uiX_r+81, uiY_r+49);
+    rUI_smolBtn06Txt.translation.set(uiX_r+81, uiY_r+52);
+    
+    rUI_rndTblSprite.translation.set(uiX_r, uiY_r+264);
+
 
     drawUIRight(desc);
 }
 function removeUIRight() {
-    ui.remove(bgSpriteRight);
-    ui.remove(selectSprite);
-    ui.remove(rndTblSprite);
-    ui.remove(txtSelectedName);
+    ui.remove(rUI_bgSpriteRight);
+    ui.remove(rUI_selectSprite);
+    ui.remove(rUI_rndTblSprite);
+    ui.remove(rUI_wideBtn01);
+    ui.remove(rUI_wideBtn01Txt);
+    ui.remove(rUI_wideBtn02);
+    ui.remove(rUI_wideBtn02Txt);
+    ui.remove(rUI_smolBtn01);
+    ui.remove(rUI_smolBtn01Txt);
+    ui.remove(rUI_smolBtn02);
+    ui.remove(rUI_smolBtn02Txt);
+    ui.remove(rUI_smolBtn03);
+    ui.remove(rUI_smolBtn03Txt);
+    ui.remove(rUI_smolBtn04);
+    ui.remove(rUI_smolBtn04Txt);
+    ui.remove(rUI_smolBtn05);
+    ui.remove(rUI_smolBtn05Txt);
+    ui.remove(rUI_smolBtn06);
+    ui.remove(rUI_smolBtn06Txt);
+    ui.remove(rUI_txtSelectedName);
 }
 
 function updateUIPositions() {
