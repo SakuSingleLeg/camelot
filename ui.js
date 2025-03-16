@@ -2,17 +2,18 @@
 let width = window.innerWidth;  // Get the window width
 let height = window.innerHeight; // Get the window height
 let hoverTileTxt = "Unknown Tile";
-let selectedTileTxt = "Unknown Piece";
+let selectedTileTxt = "";
 let somethingSelected = false;
 
 
 // BOTTOM UI
-let uiX_b = width / 2;
-let uiY_b = height - 90;
+let uiX_b = width/2;
+let uiY_b = height-90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
-bgSpriteBottom.visible = false;
 let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+bgSpriteBottom.visible = false;
 lgSprite.visible = false;
+let moveCost, atkBonus, defBonus = 0;
 
 let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, {                 
     size: 20,
@@ -20,36 +21,29 @@ let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, {
     family: 'Press Start 2P',
     alignment: 'left'
 });
-
-let moveCost, atkBonus, defBonus = 0;
-
 let txtMoveCost = two.makeText("Movement Cost: " + moveCost, uiX_b, uiY_b - 24, {                 
     size: 14,
     fill: '#FFFF00',
     family: 'Press Start 2P',
     alignment: 'left'
 });
-
 let txtAtkBonus = two.makeText("Attack Bonus: " + atkBonus, uiX_b, uiY_b + 6, {                 
     size: 14,
     fill: '#FFFF00',
     family: 'Press Start 2P',
     alignment: 'left'
-});
- 
+}); 
 let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, {                 
     size: 14,
     fill: '#FFFF00',
     family: 'Press Start 2P',
     alignment: 'left'
 });
-
-
 function drawUIBottom (gridX, gridY, hexColour, path) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
     // not needed and hides other ui elements so TODO : remove?
-    ui.remove(...ui.children);  
-    // removeUIBottom();
+    // ui.remove(...ui.children);  
+    removeUIBottom();
     
     bgSpriteBottom.visible = true;
     ui.add(bgSpriteBottom);
@@ -60,6 +54,10 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
         hoverTileTxt = "Grassy Field";
     }
     else if (hexColour === COLOUR_FOREST) {
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Forest";
+    }
+    else if (hexColour === COLOUR_COAST) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Forest";
     }
@@ -74,6 +72,14 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     else if (hexColour === COLOUR_MOUNTAIN_PEAK) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Peak";
+    }
+    else if (hexColour === COLOUR_MARSH) {
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Marsh";
+    }
+    else {
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = hexColour;//"Unknown";
     }
     lgSprite.scale = 2;
     lgSprite.visible = true;
@@ -214,20 +220,23 @@ function redrawUILeft() {
 let uiX_r = width - 220;
 let uiY_r = height - 330;
 let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
+let selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-333, 1, 1, 1, false); //TODO: sprite depending on tile
 bgSpriteRight.visible = false;
-
+selectSprite.visible = false;
+selectSprite.scale = 4;
 let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {                 
     size: 20,
     fill: '#FFFF00',
     family: 'Press Start 2P',
     alignment: 'center'
 });
-
 function drawUIRight(desc) {
     bgSpriteRight.visible = true;
+    selectSprite.visible = true;
     txtSelectedName.value = desc;
 
     ui.add(bgSpriteRight);
+    ui.add(selectSprite);
     ui.add(txtSelectedName);
     two.add(ui);    
 }
@@ -236,12 +245,14 @@ function redrawUIRight(desc) {
     uiY_r = window.innerHeight - 330;
     
     bgSpriteRight.translation.set(uiX_r, uiY_r);
+    selectSprite.translation.set(uiX_r, uiY_r-240);
     txtSelectedName.translation.set(uiX_r, uiY_r-190);
 
     drawUIRight(desc);
 }
 function removeUIRight() {
     ui.remove(bgSpriteRight);
+    ui.remove(selectSprite);
     ui.remove(txtSelectedName);
 }
 

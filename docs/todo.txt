@@ -1,10 +1,20 @@
 ---------
 TODDO
 ---------
-ui adjust to browser resize
+update mills to their own tile
+   32x32 animated sprite
+   farmland colour
+   its own details in ui
+   ui: food bonus, gold bonus
 
-mines on mountain tiles?
-docks on marsh tiles?
+
+
+
+
+new tiles:
+   red rook inn
+   mines on mountain tiles?
+   docks on marsh tiles?
 
 tile attributes
    generates food (mill, dock)
