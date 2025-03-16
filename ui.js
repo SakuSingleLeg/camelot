@@ -153,7 +153,7 @@ let bgSpriteLeft2 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l-80, 1, 1, 
 let bgSpriteLeft3 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l-160, 1, 1, 1, false);
 let bgSpriteLeft4 = two.makeSprite(PATH_IMG_PANEL_SQUARE, uiX_l, uiY_l-264, 1, 1, 1, false);
 let fgSpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_l-64, uiY_l-160, 4, 1, 4, true); 
-let fgSpriteFood = two.makeSprite(PATH_IMG_ANIM_MILL_SM, uiX_l+20, uiY_l-160, 4, 1, 5, true);
+let fgSpriteFood = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_l+18, uiY_l-160, 1, 1, 1, false);
 let fgSpriteHourglass = two.makeSprite(PATH_IMG_ICON_HOURGLASS, uiX_l, uiY_l-264, 1, 1, 1, false);
 let txtGold = two.makeText("200", uiX_l-48, uiY_l-156, {                 
     size: 14,
@@ -205,7 +205,7 @@ function redrawUILeft() {
     bgSpriteLeft3.translation.set(uiX_l, uiY_l-160);
     bgSpriteLeft4.translation.set(uiX_l, uiY_l-264);
     fgSpriteCoin.translation.set(uiX_l-64, uiY_l-160);
-    fgSpriteFood.translation.set(uiX_l+20, uiY_l-160);
+    fgSpriteFood.translation.set(uiX_l+18, uiY_l-160);
     fgSpriteHourglass.translation.set(uiX_l, uiY_l-264);
     txtQuit.translation.set(uiX_l-76, uiY_l+3);
     txtSave.translation.set(uiX_l-69, uiY_l-77);
@@ -220,10 +220,12 @@ function redrawUILeft() {
 let uiX_r = width - 220;
 let uiY_r = height - 330;
 let bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
-let selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-333, 1, 1, 1, false); //TODO: sprite depending on tile
 bgSpriteRight.visible = false;
+let selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-333, 1, 1, 1, false); //TODO: sprite depending on tile
 selectSprite.visible = false;
-selectSprite.scale = 4;
+selectSprite.visible = false;
+let rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r-60, uiY_r+360, 1, 1, 1, false);
+rndTblSprite.visible = false;
 let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {                 
     size: 20,
     fill: '#FFFF00',
@@ -233,10 +235,12 @@ let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {
 function drawUIRight(desc) {
     bgSpriteRight.visible = true;
     selectSprite.visible = true;
+    rndTblSprite.visible = true;
     txtSelectedName.value = desc;
 
     ui.add(bgSpriteRight);
     ui.add(selectSprite);
+    ui.add(rndTblSprite);
     ui.add(txtSelectedName);
     two.add(ui);    
 }
@@ -245,7 +249,8 @@ function redrawUIRight(desc) {
     uiY_r = window.innerHeight - 330;
     
     bgSpriteRight.translation.set(uiX_r, uiY_r);
-    selectSprite.translation.set(uiX_r, uiY_r-240);
+    selectSprite.translation.set(uiX_r, uiY_r-333);
+    rndTblSprite.translation.set(uiX_r-60, uiY_r+360);
     txtSelectedName.translation.set(uiX_r, uiY_r-190);
 
     drawUIRight(desc);
@@ -253,6 +258,7 @@ function redrawUIRight(desc) {
 function removeUIRight() {
     ui.remove(bgSpriteRight);
     ui.remove(selectSprite);
+    ui.remove(rndTblSprite);
     ui.remove(txtSelectedName);
 }
 
@@ -277,6 +283,5 @@ function fadeToNormal() {
         // allow clicks again after fading out
         // overlay.style.pointerEvents = "none";
         overlay.style.setProperty("pointer-events", "none", "important");
-
     }, 2000); 
 }

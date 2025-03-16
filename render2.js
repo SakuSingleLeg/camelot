@@ -373,9 +373,10 @@ function drawSettlements() {
             addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true);
             isFirst = false;
 
-            // spawn starting unit on valid tile
-            validTiles = checkAllAdjacentHex(j, i, 1, COLOUR_GRASS);
+            // spawn starting unit on valid tile - checks grass first, then forest
+            validTiles = checkAllAdjacentHex(j, i, 1, COLOUR_GRASS) || checkAllAdjacentHex(j, i, 1, COLOUR_FOREST);
             let randomTile = validTiles[Math.floor(Math.random() * validTiles.length)];
+
             let mid = randomTile['id'];
             let miq = document.getElementById(mid);
             addSpriteToTile(PATH_IMG_NPC_KNIGHT, miq, 'King Arthur', 1, 1, 1, false);   
