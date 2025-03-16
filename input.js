@@ -156,7 +156,7 @@ function addZUI() {
             let gridX = elem.gridX !== undefined ? elem.gridX : "?";
             let gridY = elem.gridY !== undefined ? elem.gridY : "?";
             let fillColor = elem.fill || "Unknown";    
-            hexPositionDiv.textContent = `(${gridX}, ${gridY})`;
+            hexPositionDiv.textContent = `(${gridX}, ${gridY}) Depth: ${elem.depth}`;
 
             lastElement = elem;
             

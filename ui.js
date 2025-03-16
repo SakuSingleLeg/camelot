@@ -237,7 +237,7 @@ let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, {
 
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_wideBtn01.visible = false;
-let rUI_wideBtn01Txt = two.makeText("???", uiX_r-1, uiY_r-16, {                 
+let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -245,7 +245,7 @@ let rUI_wideBtn01Txt = two.makeText("???", uiX_r-1, uiY_r-16, {
 });
 let rUI_wideBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-87, 1, 1, 1, false);
 rUI_wideBtn02.visible = false;
-let rUI_wideBtn02Txt = two.makeText("???", uiX_r-1, uiY_r-84, {                 
+let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -253,15 +253,16 @@ let rUI_wideBtn02Txt = two.makeText("???", uiX_r-1, uiY_r-84, {
 });
 let rUI_smolBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+185, 1, 1, 1, false);
 rUI_smolBtn01.visible = false;
-let rUI_smolBtn01Txt = two.makeText("???", uiX_r-84, uiY_r+188, {                 
+let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
-    alignment: 'center'
+    alignment: 'center',
+    visible: 'false'
 });
 let rUI_smolBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+185, 1, 1, 1, false);
-rUI_smolBtn01.visible = false;
-let rUI_smolBtn02Txt = two.makeText("???", uiX_r+81, uiY_r+188, {                 
+rUI_smolBtn02.visible = false;
+let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -269,7 +270,7 @@ let rUI_smolBtn02Txt = two.makeText("???", uiX_r+81, uiY_r+188, {
 });
 let rUI_smolBtn03 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+117, 1, 1, 1, false);
 rUI_smolBtn03.visible = false;
-let rUI_smolBtn03Txt = two.makeText("???", uiX_r-84, uiY_r+120, {                 
+let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -277,7 +278,7 @@ let rUI_smolBtn03Txt = two.makeText("???", uiX_r-84, uiY_r+120, {
 });
 let rUI_smolBtn04 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+117, 1, 1, 1, false);
 rUI_smolBtn04.visible = false;
-let rUI_smolBtn04Txt = two.makeText("???", uiX_r+81, uiY_r+120, {                 
+let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -285,7 +286,7 @@ let rUI_smolBtn04Txt = two.makeText("???", uiX_r+81, uiY_r+120, {
 });
 let rUI_smolBtn05 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+49, 1, 1, 1, false);
 rUI_smolBtn05.visible = false;
-let rUI_smolBtn05Txt = two.makeText("???", uiX_r-84, uiY_r+52, {                 
+let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -293,7 +294,7 @@ let rUI_smolBtn05Txt = two.makeText("???", uiX_r-84, uiY_r+52, {
 });
 let rUI_smolBtn06 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+49, 1, 1, 1, false);
 rUI_smolBtn06.visible = false;
-let rUI_smolBtn06Txt = two.makeText("???", uiX_r+81, uiY_r+52, {                 
+let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, {                 
     size: 16,
     fill: '#808080',
     family: 'Press Start 2P',
@@ -314,6 +315,14 @@ function drawUIRight(desc) {
     rUI_smolBtn04.visible = true;
     rUI_smolBtn05.visible = true;
     rUI_smolBtn06.visible = true;
+    rUI_wideBtn01Txt.value = "???";
+    rUI_wideBtn02Txt.value = "???";
+    rUI_smolBtn01Txt.value = "???";
+    rUI_smolBtn02Txt.value = "???";
+    rUI_smolBtn03Txt.value = "???";
+    rUI_smolBtn04Txt.value = "???";
+    rUI_smolBtn05Txt.value = "???";
+    rUI_smolBtn06Txt.value = "???";
     rUI_txtSelectedName.value = desc;
 
     ui.add(rUI_bgSpriteRight);
@@ -345,7 +354,6 @@ function redrawUIRight(desc) {
     rUI_bgSpriteRight.translation.set(uiX_r, uiY_r);
     rUI_selectSprite.translation.set(uiX_r, uiY_r-353);
     rUI_txtSelectedName.translation.set(uiX_r, uiY_r-210);
-
     rUI_wideBtn01.translation.set(uiX_r-1, uiY_r-19);
     rUI_wideBtn01Txt.translation.set(uiX_r-1, uiY_r-16);
     rUI_wideBtn02.translation.set(uiX_r-1, uiY_r-19);
@@ -362,9 +370,7 @@ function redrawUIRight(desc) {
     rUI_smolBtn05Txt.translation.set(uiX_r-84, uiY_r+52);
     rUI_smolBtn06.translation.set(uiX_r+81, uiY_r+49);
     rUI_smolBtn06Txt.translation.set(uiX_r+81, uiY_r+52);
-    
     rUI_rndTblSprite.translation.set(uiX_r, uiY_r+264);
-
 
     drawUIRight(desc);
 }

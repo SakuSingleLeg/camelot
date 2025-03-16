@@ -89,7 +89,7 @@ function buildGrid(MAP_SEED) {
           hex.linewidth = 2;
           hex.gridX = i;
           hex.gridY = j;
-          colour_hex_group.add(hex);   
+          if (SHOW_DEBUG) colour_hex_group.add(hex);   
 
           let moveCost, atkBonus, defBonus = 0;
             
@@ -170,6 +170,10 @@ function buildGrid(MAP_SEED) {
               addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true);    
               moveCost = 99; 
           }
+          else if (hex.fill === COLOUR_COAST) { 
+            addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);    
+            moveCost = 99; 
+        }
 
           // TODO: add special tiles, ie mordreds lair
           // find mountain_peak tile farthest from center, make it final_tower tile
@@ -177,7 +181,7 @@ function buildGrid(MAP_SEED) {
           
           // TODO: spawn enemies
 
-          stage.add(hex);
+        //   stage.add(hex);
           two.update();  
           
           //all done - populate data array
@@ -220,35 +224,61 @@ function buildGrid(MAP_SEED) {
 }
 
 //sort sprites to prevent z-issues
-// function sortSprites() {
-//   stage.children.sort(function(a, b) {
-//       // Move items with isHex === false to the end
-//       if (!a.isHex && b.isHex) return 1;
-//       if (a.isHex && !b.isHex) return -1;
-
-//       // If both are either hex or not, sort by gridX first, then gridY
-//       // if (a.gridX === b.gridX) { 
-//       //     return a.gridY - b.gridY; 
-//       // }
-//       return a.gridY - b.gridY;
-//   });
-// }
 function sortSprites() {
-  stage.children.sort(function(a, b) {
-      // Prioritize items with depth === 1
-      if (a.depth === 1 && b.depth !== 1) return -1;
-      if (a.depth !== 1 && b.depth === 1) return 1;
+    stage.children.sort((a, b) => {
+        // Prioritize items with depth === 1
+        if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
+        if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
 
-      // Move items with isHex === false to the end
-      if (!a.isHex && b.isHex) return 1;
-      if (a.isHex && !b.isHex) return -1;
+        // Move items with isHex === false to the end
+        if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
 
-      // Sort by gridY
-      return a.gridY - b.gridY;
-  });
+        // Sort by gridY
+        return a.gridY - b.gridY;
+    });
 }
+// function sortSprites() {
+//     // Sort sprites by y-axis, depth, and isHex status
+//     stage.children.sort((a, b) => {
+//         // if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
+//         // if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
+//         // if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
+//         return a.gridY - b.gridY;
+//     });
 
+//     // Cleanup tiles under other tiles
+//     const seenTiles = new Map();
+//     let numTilesRemoved = 0;
 
+//     stage.children.forEach(sprite => {
+//         const key = `${sprite.gridX},${sprite.gridY}`;
+
+//         if (!seenTiles.has(key)) {
+//             seenTiles.set(key, sprite);
+//         } else {
+//             const existingSprite = seenTiles.get(key);
+
+//             // Only process if both are hex tiles
+//             if (sprite.isHex && existingSprite.isHex) {
+//                 if (sprite.depth > existingSprite.depth) {  
+//                     // New tile has higher depth, so it replaces old tile
+//                     numTilesRemoved++;
+//                     stage.remove(existingSprite);
+//                     seenTiles.set(key, sprite);
+//                     console.log("removing new " + sprite.desc + "|" + sprite.path + "|Depth:" + sprite.depth)
+//                 } else {
+//                     // Otherwise, keep the existing tile and remove the new one
+//                     numTilesRemoved++;
+//                     stage.remove(sprite);
+//                     console.log("removing existing " + sprite.desc + "|" + sprite.path + "|Depth:" + sprite.depth)
+//                 }
+//             }
+//         }
+//     });
+
+//     console.log("🚀 ~ sortSprites ~ numTilesRemoved:", numTilesRemoved);
+//     two.update(); // Ensure changes are applied
+// }
 
 var lastTileWasForest = false;
 function drawForests() {
@@ -271,15 +301,11 @@ function drawForests() {
         addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
       } 
       else if (hexColour === COLOUR_COAST) {
-        //add marshes first due to z-fighting????
         if (randomValue < .16) {
           hiq.setAttribute("fill", COLOUR_MARSH);
           HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
           if (Math.random() < .5) {
-            addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, -10, false, true);      
-          }  
-          else {            
-            addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, -10, false, true);       
+            addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
           }
         }
 
@@ -324,7 +350,7 @@ function drawForests() {
                   if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
                     neighborHex.setAttribute("fill", COLOUR_FOREST);
                     HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
-                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true);  
+                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true); 
                   }
               }
           }
@@ -424,12 +450,11 @@ function drawSettlements() {
                             let miq = document.getElementById(mid);
 
                             miq.setAttribute("fill", COLOUR_FARM);
-                            hiq.setAttribute("fill", COLOUR_FARM);
+                            // hiq.setAttribute("fill", COLOUR_FARM);
                             // miq.setAttribute("gridX", i);
                             // miq.setAttribute("gridY", j);
                             HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
-                            addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, false, true);  
-                            addSpriteToTile(PATH_IMG_HEX_FARM01, hiq, 'Farmland', 1, 1, 1, false, 3, false, true);  
+                            addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, false, true);
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
                             let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
                             millSprite.scale = .8;
@@ -441,7 +466,7 @@ function drawSettlements() {
     }
 }
 
-function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false) {
+function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99) {
     // Get the bounding box to determine center
     let bbox = tile.getBoundingClientRect();
     let center_x = bbox.left + bbox.width / 2;
@@ -462,6 +487,7 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
     sprite.desc = desc;
     sprite.clickable = clickable;
     sprite.isHex = isHex;
+    sprite.depth = depth;
     // colour_hex_group.add(sprite);        
     stage.add(sprite); 
 
