@@ -332,109 +332,110 @@ function drawForests() {
 }
 
 function drawSettlements() {      
-  let centerX = Math.floor(GRID_X_SIZE / 2);
-  let centerY = Math.floor(GRID_Y_SIZE / 2);  
-  let hexList = [];
-  let isFirst = true;
+    let centerX = Math.floor(GRID_X_SIZE / 2);
+    let centerY = Math.floor(GRID_Y_SIZE / 2);  
+    let hexList = [];
+    let isFirst = true;
+    let numSpecialAbbeys = 0;
 
-  // Collect all hexes with their distances
-  for (let i = 0; i < GRID_Y_SIZE; i++) {    
-    for (let j = 0; j < GRID_X_SIZE; j++) {    
-      let distance = Math.sqrt(Math.pow(j - centerX, 2) + Math.pow(i - centerY, 2));
-      hexList.push({ i, j, distance });
+    // Collect all hexes with their distances
+    for (let i = 0; i < GRID_Y_SIZE; i++) {    
+      for (let j = 0; j < GRID_X_SIZE; j++) {    
+        let distance = Math.sqrt(Math.pow(j - centerX, 2) + Math.pow(i - centerY, 2));
+        hexList.push({ i, j, distance });
+      }
     }
-  }
 
-  // Sort hexes by distance from center
-  hexList.sort((a, b) => a.distance - b.distance);
+    // Sort hexes by distance from center
+    hexList.sort((a, b) => a.distance - b.distance);
 
-  // Now iterate over hexes in distance order
-  for (let { i, j } of hexList) {
-    let hid = HEX_ARR[i][j]['id'];
-    let hiq = document.getElementById(hid);
-    let hexColour = HEX_ARR[i][j]['colour'];
+    // Now iterate over hexes in distance order
+    for (let { i, j } of hexList) {
+      let hid = HEX_ARR[i][j]['id'];
+      let hiq = document.getElementById(hid);
+      let hexColour = HEX_ARR[i][j]['colour'];
 
-    // Determine if valid tile for a settlement to be placed
-    if (hexColour !== COLOUR_WATER && 
-        hexColour !== COLOUR_WATER_DEEP && 
-        hexColour !== COLOUR_MOUNTAIN && 
-        hexColour !== COLOUR_MOUNTAIN_PEAK && 
-        hexColour !== COLOUR_COAST && 
-        hexColour !== COLOUR_FOREST && 
-        checkAdjacentHex(j, i, 3, COLOUR_WATER)) {
+      // Determine if valid tile for a settlement to be placed
+      if (hexColour !== COLOUR_WATER && 
+          hexColour !== COLOUR_WATER_DEEP && 
+          hexColour !== COLOUR_MOUNTAIN && 
+          hexColour !== COLOUR_MOUNTAIN_PEAK && 
+          hexColour !== COLOUR_COAST && 
+          hexColour !== COLOUR_FOREST && 
+          checkAdjacentHex(j, i, 3, COLOUR_WATER)) {
+            //if first valid tile, make capital city
+            if (isFirst) {
+                console.log("CAPITAL MARKED: " + i + ", " + j);
+                hiq.setAttribute("fill", COLOUR_SETTLEMENT);
+                hiq.setAttribute("gridX", i);
+                hiq.setAttribute("gridY", j);
+                HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
+                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true);
+                isFirst = false;
 
-        //if first valid tile, make capital city
-        if (isFirst) {
-            console.log("CAPITAL MARKED: " + i + ", " + j);
-            hiq.setAttribute("fill", COLOUR_SETTLEMENT);
-            hiq.setAttribute("gridX", i);
-            hiq.setAttribute("gridY", j);
-            HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-            addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true);
-            isFirst = false;
+                // spawn starting unit on valid tile - checks grass first, then forest
+                validTiles = checkAllAdjacentHex(j, i, 1, COLOUR_GRASS) || checkAllAdjacentHex(j, i, 1, COLOUR_FOREST);
+                let randomTile = validTiles[Math.floor(Math.random() * validTiles.length)];
 
-            // spawn starting unit on valid tile - checks grass first, then forest
-            validTiles = checkAllAdjacentHex(j, i, 1, COLOUR_GRASS) || checkAllAdjacentHex(j, i, 1, COLOUR_FOREST);
-            let randomTile = validTiles[Math.floor(Math.random() * validTiles.length)];
-
-            let mid = randomTile['id'];
-            let miq = document.getElementById(mid);
-            addSpriteToTile(PATH_IMG_NPC_KNIGHT, miq, 'King Arthur', 1, 1, 1, false);   
-        }
-
-        numSpecialAbbeys = 0;
-        // If not % chance pass, and not within 8 tiles of another settlement
-        if (Math.random() < 0.18 && !checkAdjacentHex(j, i, 9, COLOUR_SETTLEMENT)) {
-            hiq.setAttribute("fill", COLOUR_SETTLEMENT);
-            HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-
-            //splash in abbeys (closer to home): chance to make this a cursed abbey (up to 4), else settlement
-            if (Math.random() < 0.1 && numSpecialAbbeys<4) {
-                console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
-                hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
-                HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
-                addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Cursed Abbey', 1, 1, 1, false, 0);  
-                numSpecialAbbeys++;
+                let kid = randomTile['id'];
+                let kiq = document.getElementById(kid);
+                addSpriteToTile(PATH_IMG_NPC_KNIGHT, kiq, 'King Arthur', 1, 1, 1, false);   
             }
             else {
-              console.log("SETTLEMENT MARKED: " + i + ", " + j);
-                if (Math.random() < 0.5) {
-                  addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -10);     
-                }
-                else {
-                  addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -10);  
-                }
+                // If not % chance pass, and not within x tiles of another settlement
+                if (Math.random() < 0.18 && !checkAdjacentHex(j, i, 9, COLOUR_SETTLEMENT)) {
+                    //splash in abbeys (closer to home): chance to make this a cursed abbey (up to 4), else settlement
+                    if (Math.random() < 0.1 && numSpecialAbbeys<4) {
+                        console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
+                        hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
+                        HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
+                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Cursed Abbey', 1, 1, 1, false, 0);  
+                        numSpecialAbbeys++;
+                    }
+                    else {
+                        console.log("SETTLEMENT MARKED: " + i + ", " + j);
+                        hiq.setAttribute("fill", COLOUR_SETTLEMENT);
+                        HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
+                    
+                        if (Math.random() < 0.5) {
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -8);     
+                        }
+                        else {
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -9);  
+                        }
+                        
+                        //generate windmill(s) - up to 2
+                        numMills = getRandomInt(2);
+                        let validTiles = []
+                        //if 2 is rolled, another 50% chance to become 1
+                        if (numMills === 2 && Math.random() < 0.5) { numMills = 1; }
+                        // console.log(numMills + " mills generated for this settlement.");
+                        if (numMills > 0) { 
+                            validTiles = checkAllAdjacentHex(j, i, 3, COLOUR_GRASS);
+                        }
+                        //place mills
+                        for (let k = 1; k <= numMills; k++) {
+                            console.log("FARM MARKED: " + i + ", " + j);
+                            let randomTile = validTiles[Math.floor(Math.random() * validTiles.length)];
+                            let mid = randomTile['id'];
+                            let miq = document.getElementById(mid);
 
-                //generate windmill(s) - up to 2
-                numMills = getRandomInt(2);
-                let validTiles = []
-                //if 2 is rolled, another 50% chance to become 1
-                if (numMills === 2 && Math.random() < 0.5) { numMills = 1; }
-                // console.log(numMills + " mills generated for this settlement.");
-                if (numMills > 0) { 
-                    validTiles = checkAllAdjacentHex(j, i, 3, COLOUR_GRASS);
-                }
-                //place mills
-                for (let i = 1; i <= numMills; i++) {
-                    let randomTile = validTiles[Math.floor(Math.random() * validTiles.length)];
-
-                    let mid = randomTile['id'];
-                    let miq = document.getElementById(mid);            
-                    let hexColour = HEX_ARR[i][j]['colour'];
-
-                    miq.setAttribute("fill", COLOUR_FARM);
-                    miq.setAttribute("gridX", i);
-                    miq.setAttribute("gridY", j);
-                    HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
-                    addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farm', 1, 1, 1, false, 3, false, true);  
-                    let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
-                    let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
-                    millSprite.scale = .8;
+                            miq.setAttribute("fill", COLOUR_FARM);
+                            hiq.setAttribute("fill", COLOUR_FARM);
+                            // miq.setAttribute("gridX", i);
+                            // miq.setAttribute("gridY", j);
+                            HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
+                            addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, false, true);  
+                            addSpriteToTile(PATH_IMG_HEX_FARM01, hiq, 'Farmland', 1, 1, 1, false, 3, false, true);  
+                            let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
+                            let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
+                            millSprite.scale = .8;
+                        }
+                    }             
                 }
             }
         }
     }
-  }
 }
 
 function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false) {

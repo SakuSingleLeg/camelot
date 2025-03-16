@@ -228,7 +228,7 @@ bgSpriteRight.visible = false;
 let selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-333, 1, 1, 1, false); //TODO: sprite depending on tile
 selectSprite.visible = false;
 selectSprite.scale = 4;
-let rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+250, 1, 1, 1, false);
+let rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+260, 1, 1, 1, false);
 rndTblSprite.visible = false;
 let txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-190, {                 
     size: 22,
@@ -254,7 +254,7 @@ function redrawUIRight(desc) {
     
     bgSpriteRight.translation.set(uiX_r, uiY_r);
     selectSprite.translation.set(uiX_r, uiY_r-333);
-    rndTblSprite.translation.set(uiX_r, uiY_r+250);
+    rndTblSprite.translation.set(uiX_r, uiY_r+260);
     txtSelectedName.translation.set(uiX_r, uiY_r-190);
 
     drawUIRight(desc);
