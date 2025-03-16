@@ -38,6 +38,7 @@ const PATH_IMG_HEX_CURSEDABBEY  = './img/hex_cursed_abbey.png';
 //old hex grid imgs
 const PATH_IMG_WATER_DEEP       = './img/water_rock';
 const PATH_IMG_FORT             = './img/fort.png';
+const PATH_IMG_CAVE_SM01        = './img/cave_sm_01.png';
 //HEX GRID IMGS - ANIMATED
 const PATH_IMG_MILL_ANIM        = './img/anim_mill.png';
 const PATH_IMG_WAVE_ANIM        = './img/anim_water.png';

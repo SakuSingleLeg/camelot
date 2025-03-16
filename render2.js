@@ -161,6 +161,11 @@ function buildGrid(MAP_SEED) {
               let mountainSpriteChance = Math.random();
               if (mountainSpriteChance < .65) {
                 addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true);
+                //chance to spawn a cave on this tile
+                let caveSpriteChance = Math.random();
+                if (caveSpriteChance < .14) {
+                    caveSpr = addSpriteToTile(PATH_IMG_CAVE_SM01, hex, 'Cave', 1, 1, 1, false, 0, false, false);
+                }
               }
               else {
                 addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true);                
@@ -174,8 +179,7 @@ function buildGrid(MAP_SEED) {
           }
           else if (hex.fill === COLOUR_COAST) { 
             //dont do anything b/c all coasts get overridden anyways
-            // addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);    
-            // moveCost = 99; 
+            // addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);
         }
 
           // TODO: add special tiles, ie mordreds lair
