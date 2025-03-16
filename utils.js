@@ -26,3 +26,19 @@ function hexDistance(q1, r1, q2, r2) {
 function getRandomInt(max) {
     return Math.floor(Math.random() * (max + 1));
 }
+
+function loadConfig() {
+    return $.getJSON("config.json").then(config => {
+        console.log("Config loaded:", config);
+        userConfig = config;
+    }).fail(() => {
+        console.error("Error loading config");
+    });
+}
+
+function loadScript(scriptUrl, callback) {
+    let script = document.createElement("script");
+    script.src = scriptUrl;
+    script.onload = callback;
+    document.head.appendChild(script);
+}

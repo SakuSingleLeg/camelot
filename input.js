@@ -249,7 +249,8 @@ function addZUI() {
     
         $("#tooltip-position").hide();
         zui.translateSurface(dx, dy);           
-        ui.remove();
+        // ui.remove();   
+        removeUIBottom();
         mouse.set(e.clientX, e.clientY);
     }
     

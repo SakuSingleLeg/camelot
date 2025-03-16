@@ -1,52 +1,82 @@
+
+//LOAD CONFIG FROM FILE
+let userConfig = null;
+
+let two; 
+var ui;
+var stage;  
 // MOUSE STUFF
 const cursorPositionDiv = document.getElementById('cursor-position');
 const hexPositionDiv = document.getElementById('hex-position');
 const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
+let MAP_SEED, FOREST_SEED, SETTLEMENT_SEED;
+let GRID_X_SIZE, GRID_Y_SIZE, HEX_ARR;
+let HEX_SIZE, SHOW_DEBUG, params;
 
-//MAIN MENU
-hexPositionDiv.setAttribute('hidden', 'true');
-spriteCountDiv.setAttribute('hidden', 'true');
-tooltipPosition.setAttribute('hidden', 'true');
+let map_start_x, map_start_y;
+let sep_x, sep_y;
+let curr_x, curr_y;
 
-//SEEDS
-let MAP_SEED = Math.random();
-let FOREST_SEED = Math.random();
-let SETTLEMENT_SEED = Math.random();
+let colour_hex_group, debug_hex_group;
 
-//GRID DATA ARRAY//
-// let GRID_X_SIZE = 48;//small
-// let GRID_Y_SIZE = 30;//small
-let GRID_X_SIZE = 72;//medium
-let GRID_Y_SIZE = 48;//medium
-// let GRID_X_SIZE = 96;//large
-// let GRID_Y_SIZE = 60;//large
-let HEX_ARR = [GRID_X_SIZE];
+// **Step 1: Load Config**
+loadConfig().then(() => {
+    console.log("Config Loaded, intializaing...");
+    //MAIN MENU
+    hexPositionDiv.setAttribute('hidden', 'true');
+    spriteCountDiv.setAttribute('hidden', 'true');
+    tooltipPosition.setAttribute('hidden', 'true');
 
-//SET hex grid params
-let HEX_SIZE = 24;
-let SHOW_DEBUG = false;
-let params = {                                                                
-    fullscreen: true,
-    autostart: true
-  };
-let two = new Two(params); 
-var ui = new Two.Group();
-var stage = new Two.Group();  
+    //SEEDS
+    MAP_SEED = Math.random();
+    FOREST_SEED = Math.random();
+    SETTLEMENT_SEED = Math.random();
 
-//hex starting location in px
-let map_start_x = two.width * 0.03;                                                      
-let map_start_y = two.height * 0.05;
-//separation between hexes
-let sep_x = 1.5*HEX_SIZE;                                                     
-let sep_y = .86*HEX_SIZE;
-//x,y that hex will currently be drawn at
-let curr_x = map_start_x;                                                               
-let curr_y = map_start_y;
-let colour_hex_group = new Two.Group();
-colour_hex_group.visible = !SHOW_DEBUG;
-let debug_hex_group = new Two.Group();
-debug_hex_group.visible = SHOW_DEBUG;   
+    //GRID DATA ARRAY//
+    GRID_X_SIZE = userConfig.gridSizeX;//medium
+    GRID_Y_SIZE = userConfig.gridSizeY;//medium
+    HEX_ARR = [GRID_X_SIZE];
+
+    //SET hex grid params
+    HEX_SIZE = 24;
+    SHOW_DEBUG = userConfig.debug;
+    params = {                                                                
+        fullscreen: true,
+        autostart: true
+    };
+    two = new Two(params); 
+    ui = new Two.Group();
+    stage = new Two.Group();  
+
+    //hex starting location in px
+    map_start_x = two.width * 0.03;                                                      
+    map_start_y = two.height * 0.05;
+    //separation between hexes
+    sep_x = 1.5*HEX_SIZE;                                                     
+    sep_y = .86*HEX_SIZE;
+    //x,y that hex will currently be drawn at
+    curr_x = map_start_x;                                                               
+    curr_y = map_start_y;
+    colour_hex_group = new Two.Group();
+    colour_hex_group.visible = !SHOW_DEBUG;
+    debug_hex_group = new Two.Group();
+    debug_hex_group.visible = SHOW_DEBUG;   
+
+    console.log("Now Loading Scripts...");
+
+    // **Step 2: Load Other Scripts (e.g., Two.js, game.js, etc.)**
+    loadScript("ui.js", function () {
+        console.log("ui.js Loaded");        
+        loadScript("utils.js", function () {
+            console.log("utils.js Loaded");
+            loadScript("input.js", function () {
+                console.log("input.js Loaded");            
+            });
+        });
+    });
+});
+
 
 //FUNCTIONS//
 function buildGrid(MAP_SEED) {

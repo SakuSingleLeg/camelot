@@ -1,10 +1,6 @@
 ---------
 TODDO
 ---------
-add depth values 2 & 3 to sprites added later
-during sort for each sprite in stage with gridX and gridY or specific values, remove sprite with lower depth value
-   should reduce sprite total
-
 
 new tiles:
    update mills to their own tile
@@ -29,7 +25,10 @@ ui
    help btn (disabled)
 
 main menu   
+   implement config file that loads options on game start
+    debug mode
    implement options menu
+
 
 ---------
 BACKLOG
@@ -41,7 +40,7 @@ mouseover sprites
 center tooltips under sprites/cursor?
 
 arthur
-    movement/manipulation
+   movement/manipulation
    give him AP
 
 knights
