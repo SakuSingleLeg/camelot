@@ -149,10 +149,12 @@ function buildGrid(MAP_SEED) {
           }
           else if (hex.fill === COLOUR_WATER_DEEP) {
               //chance for extra sprite, but different way
-              let iconNo = getRandomInt(2)+1;
-              let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
               addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true);   
-              addSpriteToTile(imagePath, hex, 'Rocky Islets');  
+              if (Math.random() < 0.4) {
+                let iconNo = getRandomInt(2)+1;
+                let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
+                addSpriteToTile(imagePath, hex, 'Rocky Islets');  
+              }
               moveCost = 99; 
           }
           else if (hex.fill === COLOUR_MOUNTAIN) { 
@@ -171,8 +173,9 @@ function buildGrid(MAP_SEED) {
               moveCost = 99; 
           }
           else if (hex.fill === COLOUR_COAST) { 
-            addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);    
-            moveCost = 99; 
+            //dont do anything b/c all coasts get overridden anyways
+            // addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);    
+            // moveCost = 99; 
         }
 
           // TODO: add special tiles, ie mordreds lair
@@ -306,6 +309,9 @@ function drawForests() {
           HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
           if (Math.random() < .5) {
             addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
+          }
+          else {
+            addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
           }
         }
 
