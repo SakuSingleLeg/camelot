@@ -1,6 +1,13 @@
 ---------
 TODDO
 ---------
+add classes to friendly units to make them glow
+    arthur - blue
+    camelot - white
+
+add classes to enemy units to make them glow
+    settlements
+
 new tiles:
    update mills to their own tile
       32x32 animated sprite
@@ -21,7 +28,7 @@ ui
       sprite + name
       stats
       btns
-   help btn (disabled)
+   help btn (disabled) - book icon
 
 main menu   
    implement config file that loads options on game start

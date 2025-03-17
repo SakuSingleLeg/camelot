@@ -393,7 +393,7 @@ function drawSettlements() {
                 hiq.setAttribute("gridX", i);
                 hiq.setAttribute("gridY", j);
                 HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true);
+                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, false, 99, "friendly");
                 isFirst = false;
 
                 // spawn starting unit on valid tile - checks grass first, then forest
@@ -402,7 +402,7 @@ function drawSettlements() {
 
                 let kid = randomTile['id'];
                 let kiq = document.getElementById(kid);
-                addSpriteToTile(PATH_IMG_NPC_KNIGHT, kiq, 'King Arthur', 1, 1, 1, false);   
+                addSpriteToTile(PATH_IMG_NPC_KNIGHT, kiq, 'King Arthur', 1, 1, 1, false, 0, true, false, 99, "friendly");   
             }
             else {
                 // If not % chance pass, and not within x tiles of another settlement
@@ -460,7 +460,7 @@ function drawSettlements() {
     }
 }
 
-function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99) {
+function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99, friendly = "neutral") {
     // Get the bounding box to determine center
     let bbox = tile.getBoundingClientRect();
     let center_x = bbox.left + bbox.width / 2;
@@ -484,6 +484,22 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
     sprite.depth = depth;
     // colour_hex_group.add(sprite);        
     stage.add(sprite); 
+
+    if (friendly !== "neutral") two.update();
+    let spriteDOM  = document.getElementById(sprite._id);
+    if (spriteDOM) {
+        switch(friendly) {
+            case "friendly":
+                spriteDOM.classList.add('glowing-friendly');
+                break;
+            case "hostile":
+                sprite.classList.push('glowing-hostile');
+                break;
+            case "neutral":
+            default:
+                break;
+        }
+    }
 
     return sprite;
 }

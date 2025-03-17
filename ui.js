@@ -424,3 +424,20 @@ function fadeToNormal() {
         overlay.style.setProperty("pointer-events", "none", "important");
     }, 2000); 
 }
+
+
+//FPS COUNTER
+$(document).ready(function () {
+    console.log("counting all of the frames ...");
+    let fps = 0, lastLoop = performance.now();
+
+    function updateFPS() {
+        let now = performance.now();
+        fps = Math.round(1000 / (now - lastLoop));
+        lastLoop = now;
+        $("#fps-counter").text("FPS: " + fps);
+        requestAnimationFrame(updateFPS);
+    }
+
+    requestAnimationFrame(updateFPS);
+});
