@@ -18,7 +18,7 @@
   background: url("../img/fog2.png") repeat-x;
   background-size: cover;
   opacity: 0.666;
-  animation: fog-animation-l 20s linear infinite;
+  animation: fog-animation-l 30s linear infinite;
 }
 .fog-map {
   position: absolute;
@@ -28,7 +28,7 @@
   background: url("../img/fog2.png") repeat-x;
   background-size: cover;
   opacity: 1;
-  animation: fog-animation-r 20s linear infinite;
+  animation: fog-animation-r 30s linear infinite;
 }
 
 /* Adjust Multiple Fog Layers for Depth */

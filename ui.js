@@ -112,7 +112,7 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     ui.add(txtDefBonus);     
 
     two.add(ui);
-    two.update(); 
+    // two.update(); 
 }
 function redrawUIBottom() {    
     removeUIBottom();
@@ -145,7 +145,7 @@ function redrawUIBottom() {
         ui.add(txtDefBonus);
     }    
 
-    two.render();
+    // two.render();
 }
 function removeUIBottom() {
     if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null)   ui.remove(bgSpriteBottom);
