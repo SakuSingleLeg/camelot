@@ -80,9 +80,9 @@ function buildGrid(MAP_SEED) {
   return new Promise((resolve, reject) => {  
     two.appendTo(document.body);      
 
-    //do stuff every frame
-    // two.bind('update', function(frameCount) {
-    // });
+    two.bind('update', function(frameCount) {
+        //do stuff every frame
+    });
 
     //apply noise
     noise.seed(MAP_SEED);
@@ -243,6 +243,7 @@ function buildGrid(MAP_SEED) {
 
     setTimeout(drawForests, 0);
     setTimeout(drawSettlements, 0);
+    setTimeout(drawTreasure, 0);
     setTimeout(sortSprites, 1000);
 
     two.add(stage);
@@ -461,6 +462,62 @@ function drawSettlements() {
     }
 }
 
+function drawTreasure() {      
+    let centerX = Math.floor(GRID_X_SIZE / 2);
+    let centerY = Math.floor(GRID_Y_SIZE / 2);  
+    let hexList = [];
+    let placedTreasures = []; // Store placed chest coordinates
+    let numTreasure = 0;
+
+    // Collect all hexes with their distances
+    for (let i = 0; i < GRID_Y_SIZE; i++) {    
+        for (let j = 0; j < GRID_X_SIZE; j++) {    
+            let distance = Math.sqrt(Math.pow(j - centerX, 2) + Math.pow(i - centerY, 2));
+            hexList.push({ i, j, distance });
+        }
+    }
+
+    // Sort hexes by distance from center
+    hexList.sort((a, b) => a.distance - b.distance);
+
+    // Function to check if a new chest is at least 9 tiles away from all placed chests
+    function isFarEnough(x, y) {
+        for (let { i, j } of placedTreasures) {
+            let distance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
+            if (distance < 12) return false; // Not far enough
+        }
+        return true;
+    }
+
+    // Now iterate over hexes in distance order
+    for (let { i, j } of hexList) {
+        if (numTreasure >= 10) break; // Stop when 9 treasures are placed
+
+        let hid = HEX_ARR[i][j]['id'];
+        let hiq = document.getElementById(hid);
+        let hexColour = HEX_ARR[i][j]['colour'];
+
+        // Determine if valid tile for a treasure to be placed
+        if (hexColour !== COLOUR_WATER && 
+            hexColour !== COLOUR_WATER_DEEP && 
+            hexColour !== COLOUR_MOUNTAIN && 
+            hexColour !== COLOUR_MOUNTAIN_PEAK && 
+            hexColour !== COLOUR_SETTLEMENT && 
+            hexColour !== COLOUR_CURSEDABBEY && 
+            hexColour !== COLOUR_FARM &&
+            checkAllAdjacentHex(j, i, 8, COLOUR_SETTLEMENT) &&
+            isFarEnough(j, i)) {  // Ensure no nearby chests
+                
+            // Place chest with a 10% chance
+            if (Math.random() < 0.05) {
+                addSpriteToTile(PATH_IMG_CHEST_SM01, hiq, 'Treasure?', 1, 1, 1, false, 12, false, false, 99, "neutral");  
+                placedTreasures.push({ i, j }); // Store the placed chest location
+                numTreasure++;
+            }
+        }
+    }
+}
+
 function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99, friendly = "neutral") {
     // Get the bounding box to determine center
     let bbox = tile.getBoundingClientRect();
@@ -494,7 +551,6 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
                 spriteDOM.classList.add('glowing-friendly');
                 break;
             case "hostile":
-                console.log("🚀 ~ addSpriteToTile ~ friendly:", friendly)
                 spriteDOM.classList.add('glowing-hostile');
                 break;
             case "neutral":

@@ -73,15 +73,16 @@ document.addEventListener("wheel", function(event) {
     }
   }, { passive: false });
 
-//TRACK MOOSE POSITION
-window.addEventListener('pointermove', (event) => {
-    cursorPositionDiv.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
-    spriteCountDiv.textContent = `Total Sprites: ${stage.children.length}`;
-}, false);
-document.addEventListener("mouseout", function (event) {
-    $("#tooltip-position").hide();
-    //removeUI(); // TODO: handle ui on mouseout
-});
+//TRACK MOOSE POSITION (if debugging)
+if (SHOW_DEBUG_OVERLAY) {
+    window.addEventListener('pointermove', (event) => {
+        cursorPositionDiv.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
+        spriteCountDiv.textContent = `Total Sprites: ${stage.children.length}`;
+    }, false);
+    document.addEventListener("mouseout", function (event) {
+        $("#tooltip-position").hide();
+    });
+}
 
 // Listen for window resize
 window.addEventListener('resize', updateUIPositions);
@@ -176,20 +177,20 @@ function addZUI() {
             else {
                 removeUIBottom();
             }
-            if (somethingSelected) {
-                drawUIRight(selectedTileTxt);
-            }
-            drawUILeft();
+            // if (somethingSelected) {
+            //     drawUIRight(selectedTileTxt);
+            // }
+            // drawUILeft();
         }
         else {
-            drawUILeft();
+            // drawUILeft();
             removeUIBottom();
             console.log("elems not here man");
         }
     }
     function throttledMouseover(e) {
         const now = Date.now();
-        if (now - lastMouseMove < 200) return; // Limit to 100ms updates
+        if (now - lastMouseMove < 60) return; // Limit to n ms updates
         lastMouseMove = now;
         mouseover(e);
     }
@@ -239,21 +240,11 @@ function addZUI() {
     //MOOSE MOVE
     function mousemove(e) {
         // Adjust this value to control the maximum movement speed
-        var maxSpeed = 666; 
         var dx = e.clientX - mouse.x;
         var dy = e.clientY - mouse.y;
     
-        // Clamp the movement speed
-        var distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance > maxSpeed) {
-            var ratio = maxSpeed / distance;
-            dx *= ratio;
-            dy *= ratio;
-        }
-    
         $("#tooltip-position").hide();
         zui.translateSurface(dx, dy);           
-        // ui.remove();   
         removeUIBottom();
         mouse.set(e.clientX, e.clientY);
     }

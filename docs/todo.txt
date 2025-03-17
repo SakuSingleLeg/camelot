@@ -1,7 +1,7 @@
 ---------
 TODDO
 ---------
-
+generate treasure chests around the map
 
 new tiles:
    update mills to their own tile

@@ -36,6 +36,7 @@ const PATH_IMG_HEX_SETTLEMENT01 = './img/hex_settlement01.png';
 const PATH_IMG_HEX_SETTLEMENT02 = './img/hex_settlement02.png';
 const PATH_IMG_HEX_CURSEDABBEY  = './img/hex_cursed_abbey.png';
 //HEX GRID IMGS - SMALL
+const PATH_IMG_CHEST_SM01       = './img/chest_sm01.png';
 const PATH_IMG_CAVE_SM01        = './img/cave_sm_01.png';
 const PATH_IMG_MILL_ANIM        = './img/anim_mill.png';
 const PATH_IMG_WAVE_ANIM        = './img/anim_water.png';
