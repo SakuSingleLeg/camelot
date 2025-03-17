@@ -1,12 +1,7 @@
 ---------
 TODDO
 ---------
-add classes to friendly units to make them glow
-    arthur - blue
-    camelot - white
 
-add classes to enemy units to make them glow
-    settlements
 
 new tiles:
    update mills to their own tile
@@ -62,7 +57,8 @@ cloud layer over map
    every 5-30 seconds, spawn a random cloud moving in random direction
       figure out limits of height and width
 
-fog of war (using clipping mask?)
+fog of war
+    using css styling to add grayscale + lower brightness on tiles that have not been explored
 
 npc units/tiles
 

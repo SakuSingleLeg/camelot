@@ -97,7 +97,7 @@ function addZUI() {
     var touches = {};
     var distance = 0;
     var dragging = false;
-    var lastElement;
+    let lastElement = null;
     
     //set intiial zoom + limits //TODO: add pan limits
     zui.addLimits(1.4, 2.4);
@@ -133,27 +133,25 @@ function addZUI() {
     }, false);
 
     //MEESES
-    domElement.addEventListener('mouseover', mouseover, false);
+    domElement.addEventListener('mouseover', throttledMouseover, false);
     domElement.addEventListener('mousedown', mousedown, false);
     domElement.addEventListener('mousewheel', mousewheel, false);
     domElement.addEventListener('wheel', mousewheel, false);
-
+    const tooltip = $("#tooltip-position");
+    let lastMouseMove = 0;
 
     //MOOSE OVER
     function mouseover(e) {
         let elem = stage.children.find(shape => shape._id === e.target.id);
-    
+
+        if (lastElement === elem) return;  // Prevent redundant updates
+        lastElement = elem;
+
         // Ignore elements that should not capture events
         if (elem && elem.noPointerEvents) return;
-
-        //TODO: methinks dis borken
-        if (lastElement) {
-            $("#tooltip-position").hide();
-            // ui.remove();
-        }
     
         if (elem) {
-            $("#tooltip-position").show();
+            tooltip.show();
             let gridX = elem.gridX !== undefined ? elem.gridX : "?";
             let gridY = elem.gridY !== undefined ? elem.gridY : "?";
             let fillColor = elem.fill || "Unknown";    
@@ -161,7 +159,7 @@ function addZUI() {
 
             lastElement = elem;
             
-            $("#tooltip-position")
+            tooltip
                 .text(elem.desc)
                 .css({
                     "left": event.pageX + "px",
@@ -189,7 +187,12 @@ function addZUI() {
             console.log("elems not here man");
         }
     }
-
+    function throttledMouseover(e) {
+        const now = Date.now();
+        if (now - lastMouseMove < 200) return; // Limit to 100ms updates
+        lastMouseMove = now;
+        mouseover(e);
+    }
 
     //MOOSE DOWN
     function mousedown(e) {

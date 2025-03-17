@@ -18,7 +18,7 @@
   background: url("../img/fog2.png") repeat-x;
   background-size: cover;
   opacity: 0.666;
-  animation: fog-animation 20s linear infinite;
+  animation: fog-animation-l 20s linear infinite;
 }
 .fog-map {
   position: absolute;
@@ -28,7 +28,7 @@
   background: url("../img/fog2.png") repeat-x;
   background-size: cover;
   opacity: 1;
-  animation: fog-animation 20s linear infinite;
+  animation: fog-animation-r 20s linear infinite;
 }
 
 /* Adjust Multiple Fog Layers for Depth */
@@ -54,11 +54,19 @@
 }
 
 /* Fog Animation */
-@keyframes fog-animation {
-  from {
-      transform: translateX(0);
+@keyframes fog-animation-l {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
   }
-  to {
-      transform: translateX(-50%);
+  @keyframes fog-animation-r {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
   }
-}

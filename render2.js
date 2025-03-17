@@ -38,7 +38,8 @@ loadConfig().then(() => {
     HEX_SIZE = 24;
     SHOW_DEBUG = userConfig.debug;
     SHOW_DEBUG_OVERLAY = userConfig.debug_overlay;
-    params = {                                                                
+    params = {         
+        type: Two.Types.svg,  // Use Two.Types.canvas for CanvasRenderer                                                       
         fullscreen: true,
         autostart: true
     };
@@ -80,8 +81,8 @@ function buildGrid(MAP_SEED) {
     two.appendTo(document.body);      
 
     //do stuff every frame
-    two.bind('update', function(frameCount) {
-    });
+    // two.bind('update', function(frameCount) {
+    // });
 
     //apply noise
     noise.seed(MAP_SEED);
@@ -216,7 +217,7 @@ function buildGrid(MAP_SEED) {
           // TODO: spawn enemies
 
           if (SHOW_DEBUG) stage.add(hex);
-          two.update();  
+        //   two.update();  
           
           //all done - populate data array
           HEX_ARR[i][j] = {
@@ -421,7 +422,7 @@ function drawSettlements() {
                         HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
                     
                         if (Math.random() < 0.5) {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -1, true, true, 99, "hostile");     
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile");     
                         }
                         else {
                             addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile");  
@@ -448,7 +449,7 @@ function drawSettlements() {
                             // miq.setAttribute("gridX", i);
                             // miq.setAttribute("gridY", j);
                             HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
-                            addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, false, true);
+                            addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile");
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
                             let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
                             millSprite.scale = .8;
