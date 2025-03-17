@@ -1,8 +1,8 @@
 {
     "debug": false,
     "debug_overlay": true,
-    "gridSizeX": 64,
-    "gridSizeY": 48,
+    "gridSizeX": 60,
+    "gridSizeY": 40,
     "effectsVolume": 80,
     "musicVolume": 80
 }

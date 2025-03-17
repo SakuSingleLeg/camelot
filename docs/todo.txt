@@ -68,3 +68,5 @@ npc units/tiles
 
 enemy units
    movement
+
+oops: two abbeys can spawn beside each other

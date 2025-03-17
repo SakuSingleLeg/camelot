@@ -406,13 +406,13 @@ function drawSettlements() {
             }
             else {
                 // If not % chance pass, and not within x tiles of another settlement
-                if (Math.random() < 0.18 && !checkAdjacentHex(j, i, 9, COLOUR_SETTLEMENT)) {
+                if (Math.random() < 0.18 && !checkAdjacentHex(j, i, 9, COLOUR_SETTLEMENT) && !checkAdjacentHex(j, i, 9, COLOUR_CURSEDABBEY)) {
                     //splash in abbeys (closer to home): chance to make this a cursed abbey (up to 4), else settlement
                     if (Math.random() < 0.1 && numSpecialAbbeys<4) {
                         console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
                         HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
-                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Cursed Abbey', 1, 1, 1, false, 1);  
+                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Cursed Abbey', 1, 1, 1, false, 1, true, true, 99, "hostile");  
                         numSpecialAbbeys++;
                     }
                     else {
@@ -421,10 +421,10 @@ function drawSettlements() {
                         HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
                     
                         if (Math.random() < 0.5) {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -8);     
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -1, true, true, 99, "hostile");     
                         }
                         else {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -8);  
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile");  
                         }
                         
                         //generate windmill(s) - up to 2
@@ -493,7 +493,8 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
                 spriteDOM.classList.add('glowing-friendly');
                 break;
             case "hostile":
-                sprite.classList.push('glowing-hostile');
+                console.log("🚀 ~ addSpriteToTile ~ friendly:", friendly)
+                spriteDOM.classList.add('glowing-hostile');
                 break;
             case "neutral":
             default:

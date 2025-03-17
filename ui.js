@@ -85,6 +85,10 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Marsh";
     }
+    else if (hexColour === COLOUR_SETTLEMENT) {
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Settlement";
+    }
     else {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = hexColour;//"Unknown";
@@ -429,13 +433,29 @@ function fadeToNormal() {
 //FPS COUNTER
 $(document).ready(function () {
     console.log("counting all of the frames ...");
-    let fps = 0, lastLoop = performance.now();
+
+    let lastLoop = performance.now();
+    let frameTimes = [];
+    const smoothingWindow = 30; // Number of frames to average
 
     function updateFPS() {
         let now = performance.now();
-        fps = Math.round(1000 / (now - lastLoop));
+        let deltaTime = now - lastLoop;
         lastLoop = now;
-        $("#fps-counter").text("FPS: " + fps);
+
+        let currentFPS = 1000 / deltaTime;
+        frameTimes.push(currentFPS);
+
+        if (frameTimes.length > smoothingWindow) {
+            frameTimes.shift(); // Remove oldest entry to maintain window size
+        }
+
+        let smoothedFPS = Math.round(
+            frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length
+        );
+
+        $("#fps-counter").text("FPS: " + smoothedFPS);
+
         requestAnimationFrame(updateFPS);
     }
 
