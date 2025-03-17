@@ -9,7 +9,7 @@ let userConfig;
 let two, ui, stage;  
 let MAP_SEED, FOREST_SEED, SETTLEMENT_SEED;
 let GRID_X_SIZE, GRID_Y_SIZE, HEX_ARR;
-let HEX_SIZE, SHOW_DEBUG, params;
+let HEX_SIZE, SHOW_DEBUG, SHOW_DEBUG_OVERLAY, params;
 let map_start_x, map_start_y;
 let sep_x, sep_y;
 let curr_x, curr_y;
@@ -37,6 +37,7 @@ loadConfig().then(() => {
     //SET HEX GRID PARAMS
     HEX_SIZE = 24;
     SHOW_DEBUG = userConfig.debug;
+    SHOW_DEBUG_OVERLAY = userConfig.debug_overlay;
     params = {                                                                
         fullscreen: true,
         autostart: true
@@ -121,6 +122,7 @@ function buildGrid(MAP_SEED) {
           //DEBUG GRID
           if (SHOW_DEBUG) {
               let debugHex = hex.clone();
+              debugHex.visible = true;
               debugHex.fill = gray;
               debug_hex_group.add(debugHex);               
               //add hex info text overlay to debug text group, show hex greyscale value
@@ -213,7 +215,7 @@ function buildGrid(MAP_SEED) {
           
           // TODO: spawn enemies
 
-        //   stage.add(hex);
+          if (SHOW_DEBUG) stage.add(hex);
           two.update();  
           
           //all done - populate data array
@@ -233,13 +235,10 @@ function buildGrid(MAP_SEED) {
       //after every row, return to starting x, then increment y
       curr_x = map_start_x;                                                                
       curr_y += sep_y*2;
-      if (SHOW_DEBUG) two.add(debug_hex_group);
+    //   if (SHOW_DEBUG) two.add(debug_hex_group);
     }   
 
-    if (SHOW_DEBUG)  {
-      stage.add(colour_hex_group);
-      stage.add(debug_hex_group);
-    }
+    if (SHOW_DEBUG) stage.add(debug_hex_group);
 
     setTimeout(drawForests, 0);
     setTimeout(drawSettlements, 0);
@@ -247,16 +246,18 @@ function buildGrid(MAP_SEED) {
 
     two.add(stage);
 
-    hexPositionDiv.removeAttribute('hidden');
-    spriteCountDiv.removeAttribute('hidden');
-    tooltipPosition.removeAttribute('hidden');
+    if (SHOW_DEBUG_OVERLAY) {
+        hexPositionDiv.removeAttribute('hidden');
+        spriteCountDiv.removeAttribute('hidden');
+        tooltipPosition.removeAttribute('hidden');
+    }
 
     resolve();
   });
 }
 
 //sort sprites to prevent z-issues
-function sortSprites() {
+function sortSprites() {    
     stage.children.sort((a, b) => {
         // Prioritize items with depth === 1
         if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
@@ -269,48 +270,6 @@ function sortSprites() {
         return a.gridY - b.gridY;
     });
 }
-// function sortSprites() {
-//     // Sort sprites by y-axis, depth, and isHex status
-//     stage.children.sort((a, b) => {
-//         // if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
-//         // if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
-//         // if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
-//         return a.gridY - b.gridY;
-//     });
-
-//     // Cleanup tiles under other tiles
-//     const seenTiles = new Map();
-//     let numTilesRemoved = 0;
-
-//     stage.children.forEach(sprite => {
-//         const key = `${sprite.gridX},${sprite.gridY}`;
-
-//         if (!seenTiles.has(key)) {
-//             seenTiles.set(key, sprite);
-//         } else {
-//             const existingSprite = seenTiles.get(key);
-
-//             // Only process if both are hex tiles
-//             if (sprite.isHex && existingSprite.isHex) {
-//                 if (sprite.depth > existingSprite.depth) {  
-//                     // New tile has higher depth, so it replaces old tile
-//                     numTilesRemoved++;
-//                     stage.remove(existingSprite);
-//                     seenTiles.set(key, sprite);
-//                     console.log("removing new " + sprite.desc + "|" + sprite.path + "|Depth:" + sprite.depth)
-//                 } else {
-//                     // Otherwise, keep the existing tile and remove the new one
-//                     numTilesRemoved++;
-//                     stage.remove(sprite);
-//                     console.log("removing existing " + sprite.desc + "|" + sprite.path + "|Depth:" + sprite.depth)
-//                 }
-//             }
-//         }
-//     });
-
-//     console.log("🚀 ~ sortSprites ~ numTilesRemoved:", numTilesRemoved);
-//     two.update(); // Ensure changes are applied
-// }
 
 var lastTileWasForest = false;
 function drawForests() {

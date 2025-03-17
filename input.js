@@ -88,6 +88,7 @@ window.addEventListener('resize', updateUIPositions);
 
 var zui = null;
 var domElement = null;
+var showDebugTiles = false;
 //ZUI STAGE INPUT HANLDING
 function addZUI() {  
     zui = new Two.ZUI(stage);
@@ -113,16 +114,16 @@ function addZUI() {
         switch (e.key) {
             case "d":
                 //show debug menu - dont enable this until we load zui - otherwise it trigger in main menu
-                if (!SHOW_DEBUG) {
-                debug_hex_group.visible = false;
-                colour_hex_group.visible = true;
+                if (!showDebugTiles) {
+                    debug_hex_group.visible = false;
+                    colour_hex_group.visible = true;
                 }
                 else {
-                debug_hex_group.visible = true;
-                colour_hex_group.visible = false;
+                    debug_hex_group.visible = true;
+                    colour_hex_group.visible = false;
                 }
         
-                SHOW_DEBUG = !SHOW_DEBUG;
+                showDebugTiles = !showDebugTiles;
                 two.update();      
                 break;
             case "down":

@@ -1,7 +1,6 @@
 ---------
 TODDO
 ---------
-
 new tiles:
    update mills to their own tile
       32x32 animated sprite
