@@ -237,7 +237,7 @@ let uiX_r = width - 220;
 let uiY_r = height - 330;
 let rUI_bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
 rUI_bgSpriteRight.visible = false;
-let rUI_selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-353, 1, 1, 1, false); //TODO: sprite depending on tile
+let rUI_selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-353, 1, 1, 1, false);
 rUI_selectSprite.visible = false;
 rUI_selectSprite.scale = 4;
 let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, {                 
@@ -315,7 +315,14 @@ let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, {
 
 let rUI_rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+264, 1, 1, 1, false);
 rUI_rndTblSprite.visible = false;
-function drawUIRight(desc) {
+function drawUIRight(elem) {
+    removeUIRight();
+
+    rUI_selectSprite = two.makeSprite(elem.path, uiX_r, uiY_r-353, 1, 1, 1, false);
+    rUI_selectSprite.scale = elem.isHex ? 8 : 12;
+    rUI_selectSprite.stroke = "#FFFF00";
+    rUI_selectSprite.lineWidth = 3;
+
     rUI_bgSpriteRight.visible = true;
     rUI_selectSprite.visible = true;
     rUI_rndTblSprite.visible = true;
@@ -335,7 +342,7 @@ function drawUIRight(desc) {
     rUI_smolBtn04Txt.value = "???";
     rUI_smolBtn05Txt.value = "???";
     rUI_smolBtn06Txt.value = "???";
-    rUI_txtSelectedName.value = desc;
+    rUI_txtSelectedName.value = elem.desc;
 
     ui.add(rUI_bgSpriteRight);
     ui.add(rUI_selectSprite);
@@ -359,7 +366,7 @@ function drawUIRight(desc) {
     ui.add(rUI_txtSelectedName);
     two.add(ui);    
 }
-function redrawUIRight(desc) {
+function redrawUIRight() {
     uiX_r = window.innerWidth - 220;
     uiY_r = window.innerHeight - 330;
     
@@ -383,8 +390,6 @@ function redrawUIRight(desc) {
     rUI_smolBtn06.translation.set(uiX_r+81, uiY_r+49);
     rUI_smolBtn06Txt.translation.set(uiX_r+81, uiY_r+52);
     rUI_rndTblSprite.translation.set(uiX_r, uiY_r+264);
-
-    drawUIRight(desc);
 }
 function removeUIRight() {
     ui.remove(rUI_bgSpriteRight);

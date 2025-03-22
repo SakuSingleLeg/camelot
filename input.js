@@ -177,10 +177,6 @@ function addZUI() {
             else {
                 removeUIBottom();
             }
-            // if (somethingSelected) {
-            //     drawUIRight(selectedTileTxt);
-            // }
-            // drawUILeft();
         }
         else {
             // drawUILeft();
@@ -223,10 +219,10 @@ function addZUI() {
     
         if (elem) {
             if (elem.clickable) {
-                console.log("somethingSelected = true");
+                console.log(elem);
                 somethingSelected = true;  
                 selectedTileTxt = elem.desc;
-                drawUIRight(elem.desc);
+                drawUIRight(elem);
             }
             else {
                 somethingSelected = false;

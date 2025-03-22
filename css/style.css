@@ -232,14 +232,14 @@ svg {
     text-shadow: 0 0 10px #ffffff, 0 0 20px rgba(0, 0, 255, 0.8);
     filter: drop-shadow(0 0 8px rgba(0, 0, 255, 1));
     animation: glowBlue 1.5s steps(8) infinite alternate;
-    transition: all 0.333s steps(3);
+    transition: all 0.3s steps(3);
 }
 .glowing-hostile {
     color: #fff;
     text-shadow: 0 0 10px red, 0 0 20px rgba(255, 0, 0, 0.8);
     filter: drop-shadow(0 0 10px rgba(255, 0, 0, 1));
     animation: glowRed 1.5s steps(8) infinite alternate;
-    transition: all 0.333s steps(3);
+    transition: all 0.3s steps(3);
 }
 
 
@@ -260,6 +260,16 @@ svg {
     }
     100% {
         text-shadow: 0px 0px 7px red, 0px 0px 14px rgba(255, 0, 0, 1);
+        /* filter: drop-shadow(0px 0px 7px rgba(255, 0, 0, 1)); */
+    }
+}
+@keyframes glowYellow {
+    0% {
+        text-shadow: 0px 0px 4px yellow, 0px 0px 6px rgba(255, 255, 0, 0.8);
+        /* filter: drop-shadow(0px 0px 3px rgba(255, 0, 0, 1)); */
+    }
+    100% {
+        text-shadow: 0px 0px 7px yellow, 0px 0px 14px rgba(255, 255, 0, 1);
         /* filter: drop-shadow(0px 0px 7px rgba(255, 0, 0, 1)); */
     }
 }

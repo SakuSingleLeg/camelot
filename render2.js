@@ -281,9 +281,7 @@ function drawForests() {
       randomValue = Math.random();
       let hid = HEX_ARR[i][j]['id'];
       let hiq = document.getElementById(hid);
-
       if (hiq===null) continue;
-
       let hexColour = HEX_ARR[i][j]['colour'];
       hiq.setAttribute("gridX", i);
       hiq.setAttribute("gridY", j);
@@ -344,6 +342,7 @@ function drawForests() {
               // If the neighbor is grass, give it a chance to become a forest
               if (neighborColour === COLOUR_GRASS) {
                   let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
+                  if (neighborHex===null) continue;
                   neighborHex.setAttribute("gridX", i);
                   neighborHex.setAttribute("gridY", j);
                   if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
@@ -380,7 +379,8 @@ function drawSettlements() {
     // Now iterate over hexes in distance order
     for (let { i, j } of hexList) {
       let hid = HEX_ARR[i][j]['id'];
-      let hiq = document.getElementById(hid);
+      let hiq = document.getElementById(hid);      
+      if (hiq===null) continue;
       let hexColour = HEX_ARR[i][j]['colour'];
 
       // Determine if valid tile for a settlement to be placed
@@ -398,7 +398,7 @@ function drawSettlements() {
                 hiq.setAttribute("gridX", i);
                 hiq.setAttribute("gridY", j);
                 HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, false, 99, "friendly");
+                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, true, 99, "friendly");
                 isFirst = false;
 
                 // spawn starting unit on valid tile - checks grass first, then forest
@@ -498,6 +498,7 @@ function drawTreasure() {
 
         let hid = HEX_ARR[i][j]['id'];
         let hiq = document.getElementById(hid);
+        if (hiq===null) continue;
         let hexColour = HEX_ARR[i][j]['colour'];
 
         // Determine if valid tile for a treasure to be placed
