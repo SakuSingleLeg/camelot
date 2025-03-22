@@ -207,7 +207,7 @@ function buildGrid(MAP_SEED) {
           }
           else if (hex.fill === COLOUR_COAST) { 
             //dont do anything b/c all coasts get overridden anyways
-            // addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);
+            //addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);
         }
 
           // TODO: add special tiles, ie mordreds lair
@@ -281,6 +281,9 @@ function drawForests() {
       randomValue = Math.random();
       let hid = HEX_ARR[i][j]['id'];
       let hiq = document.getElementById(hid);
+
+      if (hiq===null) continue;
+
       let hexColour = HEX_ARR[i][j]['colour'];
       hiq.setAttribute("gridX", i);
       hiq.setAttribute("gridY", j);

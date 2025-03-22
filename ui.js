@@ -89,6 +89,10 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Settlement";
     }
+    else if (hexColour === COLOUR_CURSEDABBEY) {
+        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Cursed Abbey";
+    }
     else {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = hexColour;//"Unknown";

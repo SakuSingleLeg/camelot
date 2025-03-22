@@ -190,7 +190,7 @@ function addZUI() {
     }
     function throttledMouseover(e) {
         const now = Date.now();
-        if (now - lastMouseMove < 60) return; // Limit to n ms updates
+        if (now - lastMouseMove < 50) return; // Limit to n ms updates
         lastMouseMove = now;
         mouseover(e);
     }
