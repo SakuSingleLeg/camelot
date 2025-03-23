@@ -240,20 +240,28 @@ rUI_bgSpriteRight.visible = false;
 let rUI_selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-353, 1, 1, 1, false);
 rUI_selectSprite.visible = false;
 rUI_selectSprite.scale = 4;
-let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, {                 
-    size: 22,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
-let rUI_SpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_r-120, uiY_r-160, 4, 1, 4, true); 
+let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, { size: 22, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'center' });
+//coin/bread
+let rUI_SpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_r-120, uiY_r-160, 4, 1, 4, true);
 rUI_SpriteCoin.visible = false;
-let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
+let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_SpriteBread = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_r-20, uiY_r-160, 1, 1, 1, true);
+rUI_SpriteBread.visible = false;
+let rUI_txtFood = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+//sword/shield/medal
+let rUI_SpriteSword = two.makeSprite(PATH_IMG_ICON_SWORD, uiX_r-120, uiY_r-160, 1, 1, 1, false);
+rUI_SpriteSword.visible = false;
+let rUI_txtAtk = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left'
 });
+let rUI_SpriteShield = two.makeSprite(PATH_IMG_ICON_SHIELD, uiX_r-20, uiY_r-160, 1, 1, 1, false);
+rUI_SpriteShield.visible = false;
+let rUI_txtDef = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left'
+});
+let rUI_SpriteMedal = two.makeSprite(PATH_IMG_ICON_MEDAL, uiX_r+80, uiY_r-160, 1, 1, 1, false);
+rUI_SpriteMedal.visible = false;
+let rUI_txtVrt = two.makeText("", uiX_r+101, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left'
+});
+
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_wideBtn01.visible = false;
 let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, {                 
@@ -342,7 +350,7 @@ function drawUIRight(elem) {
     if (elem.params.type === "castle") {
         console.log("CASTLE")    
         rUI_SpriteCoin.visible = true;
-        rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? 0;
+        rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
     
         rUI_rndTblSprite.visible = true;
         rUI_wideBtn01.visible = true;
@@ -386,12 +394,32 @@ function drawUIRight(elem) {
     //elseif elem is unit
     else if (elem.params.type === "unit") {
         console.log("UNIT")
+        rUI_SpriteSword.visible = true;
+        rUI_SpriteShield.visible = true;
+        rUI_SpriteMedal.visible = true;
+        rUI_txtAtk.value = elem.params.atk ?? -1;
+        rUI_txtDef.value = elem.params.def ?? -1;
+        rUI_txtVrt.value = elem.params.vrt ?? -1;
+
+        ui.add(rUI_SpriteSword);
+        ui.add(rUI_SpriteShield);
+        ui.add(rUI_SpriteMedal);
+        ui.add(rUI_txtAtk);
+        ui.add(rUI_txtDef);
+        ui.add(rUI_txtVrt);
     }
     //elseif elem is settlement
     else if (elem.params.type === "settlement") {
         console.log("SETTLEMENT")
         rUI_SpriteCoin.visible = true;
-        rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? 0;
+        rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
+        rUI_SpriteBread.visible = true;
+        rUI_txtFood.value = "+" + elem.params.food_per_turn ?? -1;
+
+        ui.add(rUI_SpriteCoin);
+        ui.add(rUI_SpriteBread);
+        ui.add(rUI_txtGold);
+        ui.add(rUI_txtFood);
     }
 
     two.add(ui);    
@@ -401,7 +429,16 @@ function redrawUIRight() {
     uiY_r = window.innerHeight - 330;
     
     rUI_SpriteCoin.translation.set(uiX_r-120, uiY_r-160);
+    rUI_SpriteBread.translation.set(uiX_r-20, uiY_r-160);
     rUI_txtGold.translation.set(uiX_r-120, uiY_r-154);
+    rUI_txtFood.translation.set(uiX_r+1, uiY_r-154);
+    
+    rUI_SpriteSword.translation.set(uiX_r-120, uiY_r-160);
+    rUI_SpriteShield.translation.set(uiX_r-20, uiY_r-160);
+    rUI_SpriteMedal.translation.set(uiX_r+80, uiY_r-160);
+    rUI_txtAtk.translation.set(uiX_r-120, uiY_r-154);
+    rUI_txtDef.translation.set(uiX_r+1, uiY_r-154);
+    rUI_txtVrt.translation.set(uiX_r+101, uiY_r-154);
 
     rUI_bgSpriteRight.translation.set(uiX_r, uiY_r);
     rUI_selectSprite.translation.set(uiX_r, uiY_r-353);
@@ -426,7 +463,16 @@ function redrawUIRight() {
 }
 function removeUIRight() {
     ui.remove(rUI_SpriteCoin);
+    ui.remove(rUI_SpriteBread);
     ui.remove(rUI_txtGold);
+    ui.remove(rUI_txtFood);
+
+    ui.remove(rUI_SpriteSword);
+    ui.remove(rUI_SpriteShield);
+    ui.remove(rUI_SpriteMedal);
+    ui.remove(rUI_txtAtk);
+    ui.remove(rUI_txtDef);
+    ui.remove(rUI_txtVrt);
 
     ui.remove(rUI_bgSpriteRight);
     ui.remove(rUI_selectSprite);
