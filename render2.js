@@ -275,85 +275,85 @@ function sortSprites() {
 
 var lastTileWasForest = false;
 function drawForests() {
-  //let randomValue = seededRandom(FOREST_SEED);
   for (let i = 0; i < GRID_Y_SIZE; i++) {
     for (let j = 0; j < GRID_X_SIZE; j++) {
-      randomValue = Math.random();
-      let hid = HEX_ARR[i][j]['id'];
-      let hiq = document.getElementById(hid);
-      if (hiq===null) continue;
-      let hexColour = HEX_ARR[i][j]['colour'];
-      hiq.setAttribute("gridX", i);
-      hiq.setAttribute("gridY", j);
+        //let randomValue = seededRandom(FOREST_SEED);
+        let randomValue = Math.random();
+        let hid = HEX_ARR[i][j]['id'];
+        let hiq = document.getElementById(hid);
+        if (hiq===null) continue;
+        let hexColour = HEX_ARR[i][j]['colour'];
+        hiq.setAttribute("gridX", i);
+        hiq.setAttribute("gridY", j);
 
-      // Convert coastal tiles not beside water into forests, else %chance for coastal
-      if (hexColour === COLOUR_COAST && !checkAdjacentHex(j, i, 1, COLOUR_WATER)) {
-        hiq.setAttribute("fill", COLOUR_FOREST);
-        HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
-        lastTileWasForest = true;
+        // Convert coastal tiles not beside water into forests, else %chance for coastal
+        if (hexColour === COLOUR_COAST && !checkAdjacentHex(j, i, 1, COLOUR_WATER)) {
+            hiq.setAttribute("fill", COLOUR_FOREST);
+            HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
+            lastTileWasForest = true;
 
-        addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
-      } 
-      else if (hexColour === COLOUR_COAST) {
-        if (randomValue < .16) {
-          hiq.setAttribute("fill", COLOUR_MARSH);
-          HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
-          if (Math.random() < .5) {
-            addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
-          }
-          else {
-            addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
-          }
+            addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
+        } 
+        else if (hexColour === COLOUR_COAST) {
+            if (randomValue < .16) {
+            hiq.setAttribute("fill", COLOUR_MARSH);
+            HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
+            if (Math.random() < .5) {
+                addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
+            }
+            else {
+                addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
+            }
+            }
+
+            else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
+            hiq.setAttribute("fill", COLOUR_FOREST);
+            HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
+            lastTileWasForest = true;
+            if (Math.random() < .5) {
+                addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
+            }  
+            else {            
+                addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
+            }
+            }
+            else  {
+                addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, 0, false, true);     
+            }
         }
 
-        else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
-          hiq.setAttribute("fill", COLOUR_FOREST);
-          HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
-          lastTileWasForest = true;
-          if (Math.random() < .5) {
-            addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
-          }  
-          else {            
-            addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
-          }
+        // Check if this tile is a forest, then attempt to spread to neighbors
+        if (HEX_ARR[i][j]['colour'] === COLOUR_FOREST) {
+            // Try spreading forest to adjacent tiles (1 tile away in all directions)
+            let directions = [
+            [-1, 0], [1, 0],    // Left and Right
+            [0, -1], [0, 1],    // Down and Up
+            [-1, 1], [1, -1]    // Bottom-left and Top-right
+            ];
+
+            for (let [dx, dy] of directions) {
+            let nx = j + dx;
+            let ny = i + dy;
+
+            // Ensure the neighbor coordinates are within bounds
+            if (nx >= 0 && nx < GRID_X_SIZE && ny >= 0 && ny < GRID_Y_SIZE) {
+                let neighborColour = HEX_ARR[ny][nx]['colour'];
+
+                // If the neighbor is grass, give it a chance to become a forest
+                if (neighborColour === COLOUR_GRASS) {
+                    let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
+                    if (neighborHex===null) continue;
+                    neighborHex.setAttribute("gridX", i);
+                    neighborHex.setAttribute("gridY", j);
+                    if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
+                        neighborHex.setAttribute("fill", COLOUR_FOREST);
+                        HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
+                        addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true); 
+                    }
+                }
+            }
+            }
         }
-        else  {
-            addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, 0, false, true);     
-        }
-      }
-
-      // Check if this tile is a forest, then attempt to spread to neighbors
-      if (HEX_ARR[i][j]['colour'] === COLOUR_FOREST) {
-        // Try spreading forest to adjacent tiles (1 tile away in all directions)
-        let directions = [
-          [-1, 0], [1, 0],    // Left and Right
-          [0, -1], [0, 1],    // Down and Up
-          [-1, 1], [1, -1]    // Bottom-left and Top-right
-        ];
-
-        for (let [dx, dy] of directions) {
-          let nx = j + dx;
-          let ny = i + dy;
-
-          // Ensure the neighbor coordinates are within bounds
-          if (nx >= 0 && nx < GRID_X_SIZE && ny >= 0 && ny < GRID_Y_SIZE) {
-              let neighborColour = HEX_ARR[ny][nx]['colour'];
-
-              // If the neighbor is grass, give it a chance to become a forest
-              if (neighborColour === COLOUR_GRASS) {
-                  let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
-                  if (neighborHex===null) continue;
-                  neighborHex.setAttribute("gridX", i);
-                  neighborHex.setAttribute("gridY", j);
-                  if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
-                    neighborHex.setAttribute("fill", COLOUR_FOREST);
-                    HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
-                    addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true); 
-                  }
-              }
-          }
-        }
-      }
     }
   }
 }
@@ -509,12 +509,12 @@ function drawTreasure() {
             hexColour !== COLOUR_SETTLEMENT && 
             hexColour !== COLOUR_CURSEDABBEY && 
             hexColour !== COLOUR_FARM &&
-            checkAllAdjacentHex(j, i, 8, COLOUR_SETTLEMENT) &&
+        checkAllAdjacentHex(j, i, 8, COLOUR_SETTLEMENT) &&
             isFarEnough(j, i)) {  // Ensure no nearby chests
                 
             // Place chest with a 10% chance
             if (Math.random() < 0.05) {
-                addSpriteToTile(PATH_IMG_CHEST_SM01, hiq, 'Treasure?', 1, 1, 1, false, 12, false, false, 99, "neutral");  
+                addSpriteToTile(PATH_IMG_CHEST_SM01, hiq, 'Treasure?', 1, 1, 1, false, 12, false, false, 99, "neutral");
                 placedTreasures.push({ i, j }); // Store the placed chest location
                 numTreasure++;
             }
@@ -522,7 +522,7 @@ function drawTreasure() {
     }
 }
 
-function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99, friendly = "neutral") {
+function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99, friendly = "unset") {
     // Get the bounding box to determine center
     let bbox = tile.getBoundingClientRect();
     let center_x = bbox.left + bbox.width / 2;
@@ -547,7 +547,7 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
     // colour_hex_group.add(sprite);        
     stage.add(sprite); 
 
-    if (friendly !== "neutral") two.update();
+    if (friendly !== "unset") two.update();
     let spriteDOM  = document.getElementById(sprite._id);
     if (spriteDOM) {
         switch(friendly) {
@@ -558,6 +558,9 @@ function addSpriteToTile(path, tile, desc = '', rows = 1, cols = 1, framerate = 
                 spriteDOM.classList.add('glowing-hostile');
                 break;
             case "neutral":
+                spriteDOM.classList.add('glowing-neutral');
+                break;
+            case "unset":
             default:
                 break;
         }

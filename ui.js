@@ -319,9 +319,9 @@ function drawUIRight(elem) {
     removeUIRight();
 
     rUI_selectSprite = two.makeSprite(elem.path, uiX_r, uiY_r-353, 1, 1, 1, false);
-    rUI_selectSprite.scale = elem.isHex ? 8 : 12;
-    rUI_selectSprite.stroke = "#FFFF00";
-    rUI_selectSprite.lineWidth = 3;
+    rUI_selectSprite.scale = elem.isHex ? 5:8;
+    // rUI_selectSprite.stroke = "#FFFF00";
+    // rUI_selectSprite.stroke = 2;
 
     rUI_bgSpriteRight.visible = true;
     rUI_selectSprite.visible = true;

@@ -1,7 +1,12 @@
 ---------
 TODDO
 ---------
-generate treasure chests around the map
+ui update
+    3 clickable types
+       camelot
+       unit
+       poi
+       town
 
 new tiles:
    update mills to their own tile

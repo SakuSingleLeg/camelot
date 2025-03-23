@@ -208,7 +208,6 @@ svg {
     background-color: transparent !important;
 }
 
-
 /* Fullscreen black overlay */
 #fadeOverlay {
     position: fixed;
@@ -241,7 +240,16 @@ svg {
     animation: glowRed 1.5s steps(8) infinite alternate;
     transition: all 0.3s steps(3);
 }
-
+.glowing-neutral {
+    transition: all 0.3s steps(3);
+    filter:
+        drop-shadow(0 0 2px rgba(255, 255, 0, 0.8))
+        drop-shadow(1px 1px 4px rgba(255, 255, 0, 0.6))
+        drop-shadow(-1px -1px 6px rgba(255, 255, 0, 0.5))
+        drop-shadow(0 0 10px rgba(255, 255, 0, 0.4));
+                  
+              
+}
 
 @keyframes glowBlue {
     0% {
@@ -255,24 +263,26 @@ svg {
 }
 @keyframes glowRed {
     0% {
-        text-shadow: 0px 0px 4px red, 0px 0px 6px rgba(255, 0, 0, 0.8);
+        text-shadow: 0px 0px 4px red, 0px 0px 10px rgba(255, 0, 0, 0.8);
         /* filter: drop-shadow(0px 0px 3px rgba(255, 0, 0, 1)); */
     }
     100% {
-        text-shadow: 0px 0px 7px red, 0px 0px 14px rgba(255, 0, 0, 1);
+        text-shadow: 0px 0px 8px red, 0px 0px 20px rgba(255, 0, 0, 1);
         /* filter: drop-shadow(0px 0px 7px rgba(255, 0, 0, 1)); */
     }
 }
+
 @keyframes glowYellow {
     0% {
-        text-shadow: 0px 0px 4px yellow, 0px 0px 6px rgba(255, 255, 0, 0.8);
-        /* filter: drop-shadow(0px 0px 3px rgba(255, 0, 0, 1)); */
+        text-shadow: 0px 0px 6px #ffcc00, 0px 0px 15px rgba(255, 204, 0, 0.8);
+        /* filter: drop-shadow(0px 0px 6px rgba(255, 204, 0, 1)); */
     }
     100% {
-        text-shadow: 0px 0px 7px yellow, 0px 0px 14px rgba(255, 255, 0, 1);
-        /* filter: drop-shadow(0px 0px 7px rgba(255, 0, 0, 1)); */
+        text-shadow: 0px 0px 12px #ffcc00, 0px 0px 25px rgba(255, 204, 0, 1);
+        /* filter: drop-shadow(0px 0px 20px rgba(255, 204, 0, 1)); */
     }
 }
+
 
 @font-face {
     font-family: 'Press Start 2P';
