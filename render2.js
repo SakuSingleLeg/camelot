@@ -546,7 +546,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     sprite.isHex = isHex;
     sprite.depth = depth;
     sprite.params = params;
-    // colour_hex_group.add(sprite);        
+    // colour_hex_group.add(sprite);
     stage.add(sprite); 
 
     if (friendly !== "unset") two.update();

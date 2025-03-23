@@ -62,6 +62,9 @@ const PATH_IMG_PANEL_SQUARE     = './img/ui_square.png';
 const PATH_IMG_ANIM_COIN        = './img/anim_coin.png';
 const PATH_IMG_ANIM_MILL_SM     = './img/anim_mill_icon.png';
 const PATH_IMG_ICON_FOOD        = './img/ui_icon_food.png';
+const PATH_IMG_ICON_SWORD       = './img/sword_sm.png';
+const PATH_IMG_ICON_SHIELD      = './img/shield_sm.png';
+const PATH_IMG_ICON_MEDAL       = './img/medal_sm.png';
 const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
 const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
@@ -114,16 +117,15 @@ const unitParams = {
     farm: {
         type: "settlement",
         gold_per_turn: 0,
-        food_per_turn: 0,
+        food_per_turn: 2,
     },
 
     knight_arthur: {
-        name: "unit",
+        type: "unit",
         hp: 25,
         atk: 5,
         def: 5,
-        vir: 4,
-        lvl: 1,
+        vrt: 4,
     },
 
 };

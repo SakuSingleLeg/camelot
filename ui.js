@@ -327,56 +327,72 @@ function drawUIRight(elem) {
 
     rUI_selectSprite = two.makeSprite(elem.path, uiX_r, uiY_r-353, 1, 1, 1, false);
     rUI_selectSprite.scale = elem.isHex ? 5:8;
-    // rUI_selectSprite.stroke = "#FFFF00";
-    // rUI_selectSprite.stroke = 2;
-    
-    rUI_SpriteCoin.visible = true;
-    rUI_txtGold.value = "+1";
+
 
     rUI_bgSpriteRight.visible = true;
     rUI_selectSprite.visible = true;
-    rUI_rndTblSprite.visible = true;
-    rUI_wideBtn01.visible = true;
-    rUI_wideBtn02.visible = true;
-    rUI_smolBtn01.visible = true;
-    rUI_smolBtn02.visible = true;
-    rUI_smolBtn03.visible = true;
-    rUI_smolBtn04.visible = true;
-    rUI_smolBtn05.visible = true;
-    rUI_smolBtn06.visible = true;
-    rUI_wideBtn01Txt.value = "???";
-    rUI_wideBtn02Txt.value = "???";
-    rUI_smolBtn01Txt.value = "???";
-    rUI_smolBtn02Txt.value = "???";
-    rUI_smolBtn03Txt.value = "???";
-    rUI_smolBtn04Txt.value = "???";
-    rUI_smolBtn05Txt.value = "???";
-    rUI_smolBtn06Txt.value = "???";
     rUI_txtSelectedName.value = elem.desc;
 
     ui.add(rUI_bgSpriteRight);
     ui.add(rUI_selectSprite);
-    ui.add(rUI_rndTblSprite);
-    ui.add(rUI_wideBtn01);
-    ui.add(rUI_wideBtn01Txt);
-    ui.add(rUI_wideBtn02);
-    ui.add(rUI_wideBtn02Txt);
-    ui.add(rUI_smolBtn01);
-    ui.add(rUI_smolBtn01Txt);
-    ui.add(rUI_smolBtn02);
-    ui.add(rUI_smolBtn02Txt);
-    ui.add(rUI_smolBtn03);
-    ui.add(rUI_smolBtn03Txt);
-    ui.add(rUI_smolBtn04);
-    ui.add(rUI_smolBtn04Txt);
-    ui.add(rUI_smolBtn05);
-    ui.add(rUI_smolBtn05Txt);
-    ui.add(rUI_smolBtn06);
-    ui.add(rUI_smolBtn06Txt);
     ui.add(rUI_txtSelectedName);
 
-    ui.add(rUI_SpriteCoin);
-    ui.add(rUI_txtGold);
+
+    //if elem is camelot display specific ui
+    if (elem.params.type === "castle") {
+        console.log("CASTLE")    
+        rUI_SpriteCoin.visible = true;
+        rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? 0;
+    
+        rUI_rndTblSprite.visible = true;
+        rUI_wideBtn01.visible = true;
+        rUI_wideBtn02.visible = true;
+        rUI_smolBtn01.visible = true;
+        rUI_smolBtn02.visible = true;
+        rUI_smolBtn03.visible = true;
+        rUI_smolBtn04.visible = true;
+        rUI_smolBtn05.visible = true;
+        rUI_smolBtn06.visible = true;
+        rUI_wideBtn01Txt.value = "???";
+        rUI_wideBtn02Txt.value = "???";
+        rUI_smolBtn01Txt.value = "???";
+        rUI_smolBtn02Txt.value = "???";
+        rUI_smolBtn03Txt.value = "???";
+        rUI_smolBtn04Txt.value = "???";
+        rUI_smolBtn05Txt.value = "???";
+        rUI_smolBtn06Txt.value = "???";
+    
+        ui.add(rUI_rndTblSprite);
+        ui.add(rUI_wideBtn01);
+        ui.add(rUI_wideBtn01Txt);
+        ui.add(rUI_wideBtn02);
+        ui.add(rUI_wideBtn02Txt);
+        ui.add(rUI_smolBtn01);
+        ui.add(rUI_smolBtn01Txt);
+        ui.add(rUI_smolBtn02);
+        ui.add(rUI_smolBtn02Txt);
+        ui.add(rUI_smolBtn03);
+        ui.add(rUI_smolBtn03Txt);
+        ui.add(rUI_smolBtn04);
+        ui.add(rUI_smolBtn04Txt);
+        ui.add(rUI_smolBtn05);
+        ui.add(rUI_smolBtn05Txt);
+        ui.add(rUI_smolBtn06);
+        ui.add(rUI_smolBtn06Txt);
+    
+        ui.add(rUI_SpriteCoin);
+        ui.add(rUI_txtGold);
+    }
+    //elseif elem is unit
+    else if (elem.params.type === "unit") {
+        console.log("UNIT")
+    }
+    //elseif elem is settlement
+    else if (elem.params.type === "settlement") {
+        console.log("SETTLEMENT")
+        rUI_SpriteCoin.visible = true;
+        rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? 0;
+    }
 
     two.add(ui);    
 }

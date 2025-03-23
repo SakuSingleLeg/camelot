@@ -3,11 +3,8 @@ TODDO
 ---------
 ui update
     change rUI based on clickable tyoe
-        camelot
-            add gold bonus to ui
         unit
             add atk/def/vrt bonus to ui
-        poi
         town
     'heal' btn for units
     'scouting' btn for camelot (costs 2g)
