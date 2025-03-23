@@ -475,26 +475,27 @@ function drawTreasure() {
     // Collect all hexes with their distances
     for (let i = 0; i < GRID_Y_SIZE; i++) {    
         for (let j = 0; j < GRID_X_SIZE; j++) {    
-            let distance = Math.sqrt(Math.pow(j - centerX, 2) + Math.pow(i - centerY, 2));
-            hexList.push({ i, j, distance });
+            let centerDistance = Math.sqrt(Math.pow(j - centerX, 2) + Math.pow(i - centerY, 2));
+            hexList.push({ i, j, centerDistance });
         }
     }
 
     // Sort hexes by distance from center
-    hexList.sort((a, b) => a.distance - b.distance);
+    hexList.sort((a, b) => a.centerDistance - b.centerDistance);
 
     // Function to check if a new chest is at least 9 tiles away from all placed chests
     function isFarEnough(x, y) {
         for (let { i, j } of placedTreasures) {
-            let distance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
-            if (distance < 12) return false; // Not far enough
+            let trDistance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
+            if (trDistance < 12) return false; // Not far enough
         }
         return true;
     }
 
     // Now iterate over hexes in distance order
-    for (let { i, j } of hexList) {
-        if (numTreasure >= 10) break; // Stop when 9 treasures are placed
+    for (let { i, j, centerDistance } of hexList) {
+        if (numTreasure >= 9) break; // Stop when 9 treasures are placed
+        if (centerDistance < 6) continue; // Skip hexes too close to center
 
         let hid = HEX_ARR[i][j]['id'];
         let hiq = document.getElementById(hid);
