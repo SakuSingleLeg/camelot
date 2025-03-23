@@ -2,15 +2,17 @@
 TODDO
 ---------
 ui update
-    3 clickable types
-       camelot
-       unit
-       poi
-       town
+    change rUI based on clickable tyoe
+        camelot
+            add gold bonus to ui
+        unit
+            add atk/def/vrt bonus to ui
+        poi
+        town
     'heal' btn for units
     'scouting' btn for camelot (costs 2g)
 message log (top?)
-special tile: red rook tavern 
+special tile: red rook inn 
     limit 1
     rare spawn
     'rumours' btn
@@ -24,6 +26,7 @@ new tiles:
    red rook inn
    mines on mountain tiles?
    docks on marsh tiles?
+   merlin's tower
 
 tile attributes
    generates food (mill, dock)

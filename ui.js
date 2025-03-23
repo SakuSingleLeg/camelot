@@ -246,7 +246,14 @@ let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, {
     family: 'Press Start 2P',
     alignment: 'center'
 });
-
+let rUI_SpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_r-120, uiY_r-160, 4, 1, 4, true); 
+rUI_SpriteCoin.visible = false;
+let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, {                 
+    size: 14,
+    fill: '#FFFF00',
+    family: 'Press Start 2P',
+    alignment: 'left'
+});
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_wideBtn01.visible = false;
 let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, {                 
@@ -322,6 +329,9 @@ function drawUIRight(elem) {
     rUI_selectSprite.scale = elem.isHex ? 5:8;
     // rUI_selectSprite.stroke = "#FFFF00";
     // rUI_selectSprite.stroke = 2;
+    
+    rUI_SpriteCoin.visible = true;
+    rUI_txtGold.value = "+1";
 
     rUI_bgSpriteRight.visible = true;
     rUI_selectSprite.visible = true;
@@ -364,12 +374,19 @@ function drawUIRight(elem) {
     ui.add(rUI_smolBtn06);
     ui.add(rUI_smolBtn06Txt);
     ui.add(rUI_txtSelectedName);
+
+    ui.add(rUI_SpriteCoin);
+    ui.add(rUI_txtGold);
+
     two.add(ui);    
 }
 function redrawUIRight() {
     uiX_r = window.innerWidth - 220;
     uiY_r = window.innerHeight - 330;
     
+    rUI_SpriteCoin.translation.set(uiX_r-120, uiY_r-160);
+    rUI_txtGold.translation.set(uiX_r-120, uiY_r-154);
+
     rUI_bgSpriteRight.translation.set(uiX_r, uiY_r);
     rUI_selectSprite.translation.set(uiX_r, uiY_r-353);
     rUI_txtSelectedName.translation.set(uiX_r, uiY_r-210);
@@ -392,6 +409,9 @@ function redrawUIRight() {
     rUI_rndTblSprite.translation.set(uiX_r, uiY_r+264);
 }
 function removeUIRight() {
+    ui.remove(rUI_SpriteCoin);
+    ui.remove(rUI_txtGold);
+
     ui.remove(rUI_bgSpriteRight);
     ui.remove(rUI_selectSprite);
     ui.remove(rUI_rndTblSprite);
