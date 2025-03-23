@@ -2,10 +2,6 @@
 TODDO
 ---------
 ui update
-    change rUI based on clickable tyoe
-        unit
-            add atk/def/vrt bonus to ui
-        town
     'heal' btn for units
     'scouting' btn for camelot (costs 2g)
 message log (top?)
@@ -77,4 +73,5 @@ npc units/tiles
 enemy units
    movement
 
-oops: two abbeys can spawn beside each other
+sprite sorting:
+    order water renser before all other sprites

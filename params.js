@@ -65,6 +65,7 @@ const PATH_IMG_ICON_FOOD        = './img/ui_icon_food.png';
 const PATH_IMG_ICON_SWORD       = './img/sword_sm.png';
 const PATH_IMG_ICON_SHIELD      = './img/shield_sm.png';
 const PATH_IMG_ICON_MEDAL       = './img/medal_sm.png';
+const PATH_IMG_ICON_HEART       = './img/heart_sm.png';
 const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
 const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
@@ -122,8 +123,9 @@ const unitParams = {
 
     knight_arthur: {
         type: "unit",
-        hp: 25,
-        atk: 5,
+        hp_cur: 25,
+        hp_max: 50,
+        atk: 6,
         def: 5,
         vrt: 4,
     },

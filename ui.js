@@ -249,18 +249,19 @@ let rUI_SpriteBread = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_r-20, uiY_r-160, 1,
 rUI_SpriteBread.visible = false;
 let rUI_txtFood = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 //sword/shield/medal
-let rUI_SpriteSword = two.makeSprite(PATH_IMG_ICON_SWORD, uiX_r-120, uiY_r-160, 1, 1, 1, false);
+let rUI_SpriteSword = two.makeSprite(PATH_IMG_ICON_SWORD, uiX_r-80, uiY_r-160, 1, 1, 1, false);
 rUI_SpriteSword.visible = false;
-let rUI_txtAtk = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left'
-});
-let rUI_SpriteShield = two.makeSprite(PATH_IMG_ICON_SHIELD, uiX_r-20, uiY_r-160, 1, 1, 1, false);
+let rUI_txtAtk = two.makeText("", uiX_r-59, uiY_r-154, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_SpriteShield = two.makeSprite(PATH_IMG_ICON_SHIELD, uiX_r-10, uiY_r-160, 1, 1, 1, false);
 rUI_SpriteShield.visible = false;
-let rUI_txtDef = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left'
-});
-let rUI_SpriteMedal = two.makeSprite(PATH_IMG_ICON_MEDAL, uiX_r+80, uiY_r-160, 1, 1, 1, false);
+let rUI_txtDef = two.makeText("", uiX_r+14, uiY_r-154, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_SpriteMedal = two.makeSprite(PATH_IMG_ICON_MEDAL, uiX_r+60, uiY_r-160, 1, 1, 1, false);
 rUI_SpriteMedal.visible = false;
-let rUI_txtVrt = two.makeText("", uiX_r+101, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left'
-});
+let rUI_txtVrt = two.makeText("", uiX_r+81, uiY_r-154, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+//hitpoints
+let rUI_SpriteHealth = two.makeSprite(PATH_IMG_ICON_HEART, uiX_r-80, uiY_r-124, 1, 1, 1, false);
+rUI_SpriteHealth.visible = false;
+let rUI_txtHP = two.makeText("", uiX_r-59, uiY_r-120, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_wideBtn01.visible = false;
@@ -333,18 +334,15 @@ rUI_rndTblSprite.visible = false;
 function drawUIRight(elem) {
     removeUIRight();
 
+    rUI_bgSpriteRight.visible = true;
     rUI_selectSprite = two.makeSprite(elem.path, uiX_r, uiY_r-353, 1, 1, 1, false);
     rUI_selectSprite.scale = elem.isHex ? 5:8;
-
-
-    rUI_bgSpriteRight.visible = true;
     rUI_selectSprite.visible = true;
     rUI_txtSelectedName.value = elem.desc;
 
     ui.add(rUI_bgSpriteRight);
     ui.add(rUI_selectSprite);
     ui.add(rUI_txtSelectedName);
-
 
     //if elem is camelot display specific ui
     if (elem.params.type === "castle") {
@@ -397,16 +395,22 @@ function drawUIRight(elem) {
         rUI_SpriteSword.visible = true;
         rUI_SpriteShield.visible = true;
         rUI_SpriteMedal.visible = true;
+        rUI_SpriteHealth.visible = true;
         rUI_txtAtk.value = elem.params.atk ?? -1;
         rUI_txtDef.value = elem.params.def ?? -1;
         rUI_txtVrt.value = elem.params.vrt ?? -1;
+        rUI_txtHP.value  = elem.params.hp_cur + " / " + elem.params.hp_max;
 
         ui.add(rUI_SpriteSword);
         ui.add(rUI_SpriteShield);
         ui.add(rUI_SpriteMedal);
+        let medalDOM  = document.getElementById(rUI_SpriteMedal._id);
+        if (medalDOM) medalDOM.classList.add('glowing-neutral2');
+        ui.add(rUI_SpriteHealth);
         ui.add(rUI_txtAtk);
         ui.add(rUI_txtDef);
         ui.add(rUI_txtVrt);
+        ui.add(rUI_txtHP);
     }
     //elseif elem is settlement
     else if (elem.params.type === "settlement") {
@@ -427,18 +431,22 @@ function drawUIRight(elem) {
 function redrawUIRight() {
     uiX_r = window.innerWidth - 220;
     uiY_r = window.innerHeight - 330;
+
+    //TODO: redraw based on elem type
     
     rUI_SpriteCoin.translation.set(uiX_r-120, uiY_r-160);
     rUI_SpriteBread.translation.set(uiX_r-20, uiY_r-160);
     rUI_txtGold.translation.set(uiX_r-120, uiY_r-154);
     rUI_txtFood.translation.set(uiX_r+1, uiY_r-154);
     
-    rUI_SpriteSword.translation.set(uiX_r-120, uiY_r-160);
-    rUI_SpriteShield.translation.set(uiX_r-20, uiY_r-160);
-    rUI_SpriteMedal.translation.set(uiX_r+80, uiY_r-160);
-    rUI_txtAtk.translation.set(uiX_r-120, uiY_r-154);
-    rUI_txtDef.translation.set(uiX_r+1, uiY_r-154);
-    rUI_txtVrt.translation.set(uiX_r+101, uiY_r-154);
+    rUI_SpriteSword.translation.set(uiX_r-80, uiY_r-160);
+    rUI_SpriteShield.translation.set(uiX_r-10, uiY_r-160);
+    rUI_SpriteMedal.translation.set(uiX_r+60, uiY_r-160);
+    rUI_SpriteHealth.translation.set(uiX_r-80, uiY_r-124);
+    rUI_txtAtk.translation.set(uiX_r-59, uiY_r-154);
+    rUI_txtDef.translation.set(uiX_r+14, uiY_r-154);
+    rUI_txtVrt.translation.set(uiX_r+81, uiY_r-154);
+    rUI_txtHP.translation.set(uiX_r-59, uiY_r-120);
 
     rUI_bgSpriteRight.translation.set(uiX_r, uiY_r);
     rUI_selectSprite.translation.set(uiX_r, uiY_r-353);
@@ -470,9 +478,11 @@ function removeUIRight() {
     ui.remove(rUI_SpriteSword);
     ui.remove(rUI_SpriteShield);
     ui.remove(rUI_SpriteMedal);
+    ui.remove(rUI_SpriteHealth);
     ui.remove(rUI_txtAtk);
     ui.remove(rUI_txtDef);
     ui.remove(rUI_txtVrt);
+    ui.remove(rUI_txtHP);
 
     ui.remove(rUI_bgSpriteRight);
     ui.remove(rUI_selectSprite);

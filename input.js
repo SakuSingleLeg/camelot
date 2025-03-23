@@ -193,7 +193,6 @@ function addZUI() {
 
     //MOOSE DOWN
     function mousedown(e) {
-        console.log("mouse clicked on element");
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
