@@ -247,8 +247,6 @@ svg {
         drop-shadow(1px 1px 4px rgba(255, 255, 0, 0.6))
         drop-shadow(-1px -1px 6px rgba(255, 255, 0, 0.5))
         drop-shadow(0 0 10px rgba(255, 255, 0, 0.4));
-                  
-              
 }
 
 @keyframes glowBlue {
@@ -271,7 +269,6 @@ svg {
         /* filter: drop-shadow(0px 0px 7px rgba(255, 0, 0, 1)); */
     }
 }
-
 @keyframes glowYellow {
     0% {
         text-shadow: 0px 0px 6px #ffcc00, 0px 0px 15px rgba(255, 204, 0, 0.8);
@@ -282,7 +279,6 @@ svg {
         /* filter: drop-shadow(0px 0px 20px rgba(255, 204, 0, 1)); */
     }
 }
-
 
 @font-face {
     font-family: 'Press Start 2P';

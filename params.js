@@ -86,3 +86,45 @@ let newMedievalTownNames = [
     "Silverpeak", "Northbay", "Elkford", "Lumberton", "Brookhaven", "Willowdale", "Foxhollow", "Redwater", "Whitestone", "Thunder Bay",
     "Lunenburg", "Stratford", "Corner Brook", "Kingston"
 ];
+
+
+//units stats
+const unitParams = {
+
+    default: {
+        type: "unset",
+    },
+    
+    camelot: {
+        type: "castle",
+        gold_per_turn: 1,
+        food_per_turn: 0,
+    },
+
+    town: {
+        type: "settlement",
+        gold_per_turn: 2,
+        food_per_turn: 0,
+    },
+    village: {
+        type: "settlement",
+        gold_per_turn: 1,
+        food_per_turn: 0,
+    },
+    farm: {
+        type: "settlement",
+        gold_per_turn: 0,
+        food_per_turn: 0,
+    },
+
+    knight_arthur: {
+        name: "unit",
+        hp: 25,
+        atk: 5,
+        def: 5,
+        vir: 4,
+        lvl: 1,
+    },
+
+};
+  

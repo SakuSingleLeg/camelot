@@ -7,6 +7,13 @@ ui update
        unit
        poi
        town
+    'heal' btn for units
+    'scouting' btn for camelot (costs 2g)
+message log (top?)
+special tile: red rook tavern 
+    limit 1
+    rare spawn
+    'rumours' btn
 
 new tiles:
    update mills to their own tile
