@@ -292,6 +292,7 @@ function drawForests() {
         if (hexColour === COLOUR_COAST && !checkAdjacentHex(j, i, 1, COLOUR_WATER)) {
             hiq.setAttribute("fill", COLOUR_FOREST);
             HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
+            HEX_ARR[i][j]['moveCost'] = 1;
             lastTileWasForest = true;
 
             addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
@@ -300,6 +301,7 @@ function drawForests() {
             if (randomValue < .16) {
             hiq.setAttribute("fill", COLOUR_MARSH);
             HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
+            HEX_ARR[i][j]['moveCost'] = 2;
             if (Math.random() < .5) {
                 addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);      
             }
@@ -311,6 +313,7 @@ function drawForests() {
             else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
             hiq.setAttribute("fill", COLOUR_FOREST);
             HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
+            HEX_ARR[i][j]['moveCost'] = 1;
             lastTileWasForest = true;
             if (Math.random() < .5) {
                 addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
@@ -350,6 +353,7 @@ function drawForests() {
                     if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
                         neighborHex.setAttribute("fill", COLOUR_FOREST);
                         HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
+                        HEX_ARR[ny][nx]['moveCost'] = 1;
                         addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true); 
                     }
                 }

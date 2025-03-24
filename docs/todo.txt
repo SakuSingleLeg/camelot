@@ -1,6 +1,8 @@
 ---------
 TODDO
 ---------
+sight & ap icons for unit card
+
 special tile: red rook inn 
     limit 1
     rare spawn

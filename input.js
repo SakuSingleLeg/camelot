@@ -101,9 +101,9 @@ function addZUI() {
     let lastElement = null;
     
     //set intiial zoom + limits //TODO: add pan limits
-    zui.addLimits(1.4, 2.4);
+    zui.addLimits(1.8, 2.6);
     setTimeout(() => {
-        zui.zoomBy(.5, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
+        zui.zoomBy(.7, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
     }, 10);
 
     //draw static ui
@@ -168,6 +168,7 @@ function addZUI() {
                     "top": event.pageY + "px",
                     "display": "block"
             });
+            
 
             fillColor = HEX_ARR[gridX][gridY].colour;
 
@@ -257,7 +258,7 @@ function addZUI() {
 
     //MOOSE WHEEL
     function mousewheel(e) {
-      var dy = (e.wheelDeltaY || - e.deltaY) / 1000;
+      var dy = (e.wheelDeltaY || - e.deltaY) / 2000;
       zui.zoomBy(dy, e.clientX, e.clientY);
     }
 

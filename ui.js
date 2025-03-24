@@ -11,12 +11,18 @@ let eventLog = [" - Your kingdom is pillaged and your Knights are scattered."]
 let uiX_t = width/2;
 let uiY_t = 80;
 let bgSpriteTop = two.makeSprite(PATH_IMG_PANEL_TOP, uiX_t, uiY_t, 1, 1, 1, false);
-bgSpriteTop.opacity = .84;
-let txtLog01 = two.makeText("", uiX_t-580, uiY_t-30, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtLog02 = two.makeText("", uiX_t-580, uiY_t, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtLog03 = two.makeText(eventLog[0], uiX_t-580, uiY_t+30, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+bgSpriteTop.opacity = .9;
+let bgSpriteTopChevronUp = two.makeSprite(PATH_IMG_CHEVRON_UP, uiX_t+540, uiY_t-20, 1, 1, 1, false);
+let bgSpriteTopChevronDown = two.makeSprite(PATH_IMG_CHEVRON_DOWN, uiX_t+540, uiY_t+20, 1, 1, 1, false);
+bgSpriteTopChevronUp.opacity = .9;
+bgSpriteTopChevronDown.opacity = .9;
+let txtLog01 = two.makeText("", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog02 = two.makeText("", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog03 = two.makeText(eventLog[0], uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
 function drawUITop() {
-    ui.add(bgSpriteTop);    
+    ui.add(bgSpriteTop);
+    ui.add(bgSpriteTopChevronUp);
+    ui.add(bgSpriteTopChevronDown);
     ui.add(txtLog01);    
     ui.add(txtLog02);    
     ui.add(txtLog03);    
@@ -26,6 +32,8 @@ function redrawUITop() {
     uiX_t = window.innerWidth/2;
     uiY_t = 80;
     bgSpriteTop.translation.set(uiX_t, uiY_t);
+    bgSpriteTopChevronUp.translation.set(uuiX_t+540, uiY_t-20);
+    bgSpriteTopChevronDown.translation.set(uiX_t+540, uiY_t+20);
     txtLog01.translation.set(uiX_t-580, uiY_t-30);
     txtLog02.translation.set(uiX_t-580, uiY_t);
     txtLog03.translation.set(uiX_t-580, uiY_t+30);
@@ -34,6 +42,8 @@ function redrawUITop() {
 }
 function removeUITop() {
     if (typeof bgSpriteTop !== 'undefined' && bgSpriteTop !== null) ui.remove(bgSpriteTop);
+    if (typeof bgSpriteTopChevronUp !== 'undefined' && bgSpriteTopChevronUp !== null) ui.remove(bgSpriteTopChevronUp);
+    if (typeof bgSpriteTopChevronDown !== 'undefined' && bgSpriteTopChevronDown !== null) ui.remove(bgSpriteTopChevronDown);
     if (typeof txtLog01    !== 'undefined' && txtLog01    !== null) ui.remove(txtLog01);
     if (typeof txtLog02    !== 'undefined' && txtLog02    !== null) ui.remove(txtLog02);
     if (typeof txtLog03    !== 'undefined' && txtLog03    !== null) ui.remove(txtLog03);
@@ -45,6 +55,7 @@ let uiY_b = height-90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
 let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
 bgSpriteBottom.visible = false;
+bgSpriteBottom.opacity = .9;
 lgSprite.visible = false;
 let moveCost, atkBonus, defBonus = 0;
 
@@ -175,8 +186,11 @@ function removeUIBottom() {
 let uiX_l = 150;
 let uiY_l = height -64;
 let bgSpriteLeft1 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l, 1, 1, 1, false); 
+bgSpriteLeft1.opacity = .9;
 let bgSpriteLeft2 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l-80, 1, 1, 1, false);
+bgSpriteLeft2.opacity = .9;
 let bgSpriteLeft3 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l-160, 1, 1, 1, false);
+bgSpriteLeft3.opacity = .9;
 let bgSpriteLeft4 = two.makeSprite(PATH_IMG_PANEL_SQUARE, uiX_l, uiY_l-264, 1, 1, 1, false);
 let fgSpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_l-64, uiY_l-160, 4, 1, 4, true); 
 let fgSpriteFood = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_l+18, uiY_l-160, 1, 1, 1, false);
@@ -224,6 +238,7 @@ function redrawUILeft() {
 let uiX_r = width - 220;
 let uiY_r = height - 330;
 let rUI_bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
+rUI_bgSpriteRight.opacity = .9;
 rUI_bgSpriteRight.visible = false;
 let rUI_selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-353, 1, 1, 1, false);
 rUI_selectSprite.visible = false;

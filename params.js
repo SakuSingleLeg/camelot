@@ -72,7 +72,8 @@ const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
 const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
 const PATH_IMG_PAPER_LABEL      = './img/paper.png';
-
+const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
+const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 
 //STRINGS
 let possibleTownNames = [
