@@ -4,6 +4,7 @@ const hexPositionDiv = document.getElementById('hex-position');
 const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
 
+
 //INIT DECLARATIONS
 let userConfig;
 let two, ui, stage;  
@@ -14,6 +15,7 @@ let map_start_x, map_start_y;
 let sep_x, sep_y;
 let curr_x, curr_y;
 let colour_hex_group, debug_hex_group;
+let townNames = [];
 
 
 //LOAD CONFIG FROM FILE
@@ -568,8 +570,28 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
         }
     }
 
-    //TODO: if params.type is settlement, draw paper label sprite + txt
-    
+
+    //draw paper labels for certain sprites (ie settlements)
+    if (params.type === "castle") {
+        let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
+        let paperText = two.makeText("Camelot", center_x, center_y + 21, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
+        paperSprite.scale = 0.5;
+        paperText.linewidth = 1;
+        paperSprite.noPointerEvents = true;
+        paperText.noPointerEvents = true;
+        stage.add(paperSprite); 
+        stage.add(paperText); 
+    }
+    else if (params.subtype === "town" || params.subtype === "village") {
+        let randomTownName = generateTownName(townNames);
+        let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
+        let paperText = two.makeText(randomTownName, center_x, center_y + 21, { size: 6, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
+        paperSprite.scale = 0.5;
+        paperSprite.noPointerEvents = true;
+        townNames.push(randomTownName);
+        stage.add(paperSprite); 
+        stage.add(paperText); 
+    }    
 
     return sprite;
 }

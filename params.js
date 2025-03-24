@@ -75,7 +75,7 @@ const PATH_IMG_PAPER_LABEL      = './img/paper.png';
 
 
 //STRINGS
-let newMedievalTownNames = [
+let possibleTownNames = [
     "Stormhearth", "Ravenshire", "Blaggerfall", "Ironwood", "Drakenshire", "Frosthelm", "Blackrock", "Wintermere", "Greymoor", "Silvermere",
     "Darkhollow", "Goldhaven", "Stonekeep", "Thunderhold", "Everfrost", "Dragonmere", "Redcliff", "Ironspire", "Grimhold",
     "Valewatch", "Shadowhelm", "Westerglen", "Gildenshire", "Blackmere", "Stormcrest", "Oathwatch", "Ebonhold", "Mournhaven", "Brightvale",
@@ -93,7 +93,22 @@ let newMedievalTownNames = [
     "Silverpeak", "Northbay", "Elkford", "Lumberton", "Brookhaven", "Willowdale", "Foxhollow", "Redwater", "Whitestone", "Thunder Bay",
     "Lunenburg", "Stratford", "Corner Brook", "Kingston"
 ];
-
+//gets a random town names that is not already in passed list
+function generateTownName(selected = null) {
+    if (selected === null) {
+      return possibleTownNames[Math.floor(Math.random() * possibleTownNames.length)];
+    }  
+    // get names not already selected
+    const available = possibleTownNames.filter(name => !selected.includes(name));
+    // in case somehow no names left, then default
+    if (available.length === 0) {
+      return "MFDOOMsville"; 
+    }
+  
+    // finally, return a random string from remaining
+    const randomIndex = Math.floor(Math.random() * available.length);
+    return available[randomIndex];
+  }
 
 //units stats
 const unitParams = {
@@ -110,16 +125,19 @@ const unitParams = {
 
     town: {
         type: "settlement",
+        subtype: "town",
         gold_per_turn: 2,
         food_per_turn: 0,
     },
     village: {
         type: "settlement",
+        subtype: "village",
         gold_per_turn: 1,
         food_per_turn: 0,
     },
     farm: {
         type: "settlement",
+        subtype: "farm",
         gold_per_turn: 0,
         food_per_turn: 2,
     },
