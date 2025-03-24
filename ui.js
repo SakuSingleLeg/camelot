@@ -22,15 +22,21 @@ function drawUITop() {
     ui.add(txtLog03);    
     two.add(ui);
 }
-function redrawUITop() {    
-    uiX_t = width/2;
+function redrawUITop() {  
+    uiX_t = window.innerWidth/2;
     uiY_t = 80;
-    bgSpriteTop.translation.set(uiX_l, uiY_l);
-    txtLog01.translation.set(uiX_l-580, uiY_l-30);
-    txtLog02.translation.set(uiX_l-580, uiY_l);
-    txtLog03.translation.set(uiX_l-580, uiY_l+30);
+    bgSpriteTop.translation.set(uiX_t, uiY_t);
+    txtLog01.translation.set(uiX_t-580, uiY_t-30);
+    txtLog02.translation.set(uiX_t-580, uiY_t);
+    txtLog03.translation.set(uiX_t-580, uiY_t+30);
 
     drawUITop();
+}
+function removeUITop() {
+    if (typeof bgSpriteTop !== 'undefined' && bgSpriteTop !== null) ui.remove(bgSpriteTop);
+    if (typeof txtLog01    !== 'undefined' && txtLog01    !== null) ui.remove(txtLog01);
+    if (typeof txtLog02    !== 'undefined' && txtLog02    !== null) ui.remove(txtLog02);
+    if (typeof txtLog03    !== 'undefined' && txtLog03    !== null) ui.remove(txtLog03);
 }
 
 // BOTTOM UI

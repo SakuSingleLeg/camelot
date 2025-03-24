@@ -1,7 +1,6 @@
 ---------
 TODDO
 ---------
-message log (top?)
 special tile: red rook inn 
     limit 1
     rare spawn
@@ -9,7 +8,7 @@ special tile: red rook inn
 
 units:
     ap cur/max
-
+    sight
 
 new tiles:
    update mills to their own tile

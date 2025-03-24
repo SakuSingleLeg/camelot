@@ -71,6 +71,7 @@ const PATH_IMG_ICON_AID         = './img/firstaid_sm.png';
 const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
 const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
+const PATH_IMG_PAPER_LABEL      = './img/paper.png';
 
 
 //STRINGS
@@ -104,7 +105,7 @@ const unitParams = {
     camelot: {
         type: "castle",
         gold_per_turn: 1,
-        food_per_turn: 0,
+        food_per_turn: 0,        
     },
 
     town: {
@@ -132,6 +133,7 @@ const unitParams = {
         hp_max: 50,
         ap_cur: 0,
         ap_max: 3,
+        sight: 1,
     },
 
 };

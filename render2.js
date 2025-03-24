@@ -568,6 +568,9 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
         }
     }
 
+    //TODO: if params.type is settlement, draw paper label sprite + txt
+    
+
     return sprite;
 }
 
