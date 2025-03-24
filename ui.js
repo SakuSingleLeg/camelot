@@ -247,26 +247,32 @@ rUI_selectSprite.visible = false;
 rUI_selectSprite.scale = 4;
 let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, { size: 22, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'center' });
 //coin/bread
-let rUI_SpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_r-120, uiY_r-160, 4, 1, 4, true);
-rUI_SpriteCoin.visible = false;
-let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_SpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_r-123, uiY_r-160, 4, 1, 4, true);
 let rUI_SpriteBread = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_r-20, uiY_r-160, 1, 1, 1, true);
-rUI_SpriteBread.visible = false;
+let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 let rUI_txtFood = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-//sword/shield/medal
-let rUI_SpriteSword = two.makeSprite(PATH_IMG_ICON_SWORD, uiX_r-80, uiY_r-160, 1, 1, 1, false);
+rUI_SpriteCoin.visible = false;
+rUI_SpriteBread.visible = false;
+//sword/shield/medal/eye
+let rUI_SpriteSword = two.makeSprite(PATH_IMG_ICON_SWORD, uiX_r-125, uiY_r-167, 1, 1, 1, false);
+let rUI_SpriteShield = two.makeSprite(PATH_IMG_ICON_SHIELD, uiX_r-55, uiY_r-167, 1, 1, 1, false);
+let rUI_SpriteMedal = two.makeSprite(PATH_IMG_ICON_MEDAL, uiX_r+15, uiY_r-167, 1, 1, 1, false);
+let rUI_SpriteEye = two.makeSprite(PATH_IMG_ICON_EYE, uiX_r+85, uiY_r-167, 1, 1, 1, false);
+let rUI_txtAtk = two.makeText("", uiX_r-104, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtDef = two.makeText("", uiX_r-31, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtVrt = two.makeText("", uiX_r+36, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtEye = two.makeText("", uiX_r+106, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 rUI_SpriteSword.visible = false;
-let rUI_txtAtk = two.makeText("", uiX_r-59, uiY_r-154, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_SpriteShield = two.makeSprite(PATH_IMG_ICON_SHIELD, uiX_r-10, uiY_r-160, 1, 1, 1, false);
 rUI_SpriteShield.visible = false;
-let rUI_txtDef = two.makeText("", uiX_r+14, uiY_r-154, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_SpriteMedal = two.makeSprite(PATH_IMG_ICON_MEDAL, uiX_r+60, uiY_r-160, 1, 1, 1, false);
 rUI_SpriteMedal.visible = false;
-let rUI_txtVrt = two.makeText("", uiX_r+81, uiY_r-154, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-//hitpoints
-let rUI_SpriteHealth = two.makeSprite(PATH_IMG_ICON_HEART, uiX_r-80, uiY_r-124, 1, 1, 1, false);
+rUI_SpriteEye.visible = false;
+//hp cur/max, ap cur/max
+let rUI_SpriteHealth = two.makeSprite(PATH_IMG_ICON_HEART, uiX_r-125, uiY_r-124, 1, 1, 1, false);
+let rUI_SpriteAction = two.makeSprite(PATH_IMG_ICON_BOOTS, uiX_r+15, uiY_r-124, 1, 1, 1, false);
+let rUI_txtHP = two.makeText("", uiX_r-104, uiY_r-121, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtAP = two.makeText("", uiX_r+36, uiY_r-121, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 rUI_SpriteHealth.visible = false;
-let rUI_txtHP = two.makeText("", uiX_r-59, uiY_r-120, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+rUI_SpriteAction.visible = false;
 //first aid btn
 let rUI_aidBtn = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_aidBtn.visible = false;
@@ -316,7 +322,6 @@ function drawUIRight(elem) {
 
     //if elem is camelot display specific ui
     if (elem.params.type === "castle") {
-        console.log("CASTLE")    
         rUI_SpriteCoin.visible = true;
         rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
     
@@ -359,38 +364,44 @@ function drawUIRight(elem) {
         ui.add(rUI_SpriteCoin);
         ui.add(rUI_txtGold);
     }
-    //elseif elem is unit
+    //else if elem is unit
     else if (elem.params.type === "unit") {
-        console.log("UNIT")
         rUI_SpriteSword.visible = true;
         rUI_SpriteShield.visible = true;
         rUI_SpriteMedal.visible = true;
+        rUI_SpriteEye.visible = true;
         rUI_SpriteHealth.visible = true;
+        rUI_SpriteAction.visible = true;
         rUI_aidBtn.visible = true;
         rUI_SpriteAid.visible = true;
-        rUI_txtAtk.value = elem.params.atk ?? -1;
-        rUI_txtDef.value = elem.params.def ?? -1;
-        rUI_txtVrt.value = elem.params.vrt ?? -1;
-        rUI_txtHP.value  = elem.params.hp_cur + " / " + elem.params.hp_max;
+        rUI_txtAtk.value = elem.params.atk ?? 0;
+        rUI_txtDef.value = elem.params.def ?? 0;
+        rUI_txtVrt.value = elem.params.vrt ?? 0;
+        rUI_txtEye.value = elem.params.eye ?? 0;
+        rUI_txtHP.value  = elem.params.hp_cur + "/" + elem.params.hp_max ;
+        rUI_txtAP.value  = elem.params.ap_cur + "/" + elem.params.ap_max;
         rUI_txtAid.value = "First Aid (5f)";
 
         ui.add(rUI_SpriteSword);
         ui.add(rUI_SpriteShield);
         ui.add(rUI_SpriteMedal);
+        ui.add(rUI_SpriteEye);
         let medalDOM  = document.getElementById(rUI_SpriteMedal._id);
         if (medalDOM) medalDOM.classList.add('glowing-neutral2');
         ui.add(rUI_SpriteHealth);
+        ui.add(rUI_SpriteAction);
         ui.add(rUI_aidBtn);
         ui.add(rUI_SpriteAid);
         ui.add(rUI_txtAtk);
         ui.add(rUI_txtDef);
         ui.add(rUI_txtVrt);
+        ui.add(rUI_txtEye);
         ui.add(rUI_txtHP);
+        ui.add(rUI_txtAP);
         ui.add(rUI_txtAid);
     }
-    //elseif elem is settlement
+    //else if elem is settlement
     else if (elem.params.type === "settlement") {
-        console.log("SETTLEMENT")
         rUI_SpriteCoin.visible = true;
         rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
         rUI_SpriteBread.visible = true;
@@ -410,20 +421,24 @@ function redrawUIRight() {
 
     //TODO: redraw based on elem type
     
-    rUI_SpriteCoin.translation.set(uiX_r-120, uiY_r-160);
+    rUI_SpriteCoin.translation.set(uiX_r-123, uiY_r-160);
     rUI_SpriteBread.translation.set(uiX_r-20, uiY_r-160);
     rUI_txtGold.translation.set(uiX_r-120, uiY_r-154);
     rUI_txtFood.translation.set(uiX_r+1, uiY_r-154);
     
-    rUI_SpriteSword.translation.set(uiX_r-80, uiY_r-160);
-    rUI_SpriteShield.translation.set(uiX_r-10, uiY_r-160);
-    rUI_SpriteMedal.translation.set(uiX_r+60, uiY_r-160);
-    rUI_SpriteHealth.translation.set(uiX_r-80, uiY_r-124);
+    rUI_SpriteSword.translation.set(uiX_r-125, uiY_r-167);
+    rUI_SpriteShield.translation.set(uiX_r-55, uiY_r-167);
+    rUI_SpriteMedal.translation.set(uiX_r+15, uiY_r-167);
+    rUI_SpriteEye.translation.set(uiX_r+85, uiY_r-167);
+    rUI_SpriteHealth.translation.set(uiX_r-125, uiY_r-124);
+    rUI_SpriteAction.translation.set(uiX_r+15, uiY_r-124);
+    rUI_txtAtk.translation.set(uiX_r-104, uiY_r-162);
+    rUI_txtDef.translation.set(uiX_r-31, uiY_r-162);
+    rUI_txtVrt.translation.set(uiX_r+36, uiY_r-162);
+    rUI_txtEye.translation.set(uiX_r+106, uiY_r-162);
+    rUI_txtHP.translation.set(uiX_r-104, uiY_r-121);    
+    rUI_txtAP.translation.set(uiX_r+36, uiY_r-121);    
     rUI_SpriteAid.translation.set(uiX_r-120, uiY_r-19);
-    rUI_txtAtk.translation.set(uiX_r-59, uiY_r-154);
-    rUI_txtDef.translation.set(uiX_r+14, uiY_r-154);
-    rUI_txtVrt.translation.set(uiX_r+81, uiY_r-154);
-    rUI_txtHP.translation.set(uiX_r-59, uiY_r-120);
     rUI_txtAid.translation.set(uiX_r-99, uiY_r-19);
     rUI_aidBtn.translation.set(uiX_r-1, uiY_r-19);
 
@@ -457,11 +472,13 @@ function removeUIRight() {
     ui.remove(rUI_SpriteSword);
     ui.remove(rUI_SpriteShield);
     ui.remove(rUI_SpriteMedal);
+    ui.remove(rUI_SpriteEye);
     ui.remove(rUI_SpriteHealth);
     ui.remove(rUI_SpriteAid);
     ui.remove(rUI_txtAtk);
     ui.remove(rUI_txtDef);
     ui.remove(rUI_txtVrt);
+    ui.remove(rUI_txtEye);
     ui.remove(rUI_txtHP);
     ui.remove(rUI_aidBtn);
     ui.remove(rUI_txtAid);

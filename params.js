@@ -67,6 +67,8 @@ const PATH_IMG_ICON_SWORD       = './img/sword_sm.png';
 const PATH_IMG_ICON_SHIELD      = './img/shield_sm.png';
 const PATH_IMG_ICON_MEDAL       = './img/medal_sm.png';
 const PATH_IMG_ICON_HEART       = './img/heart_sm.png';
+const PATH_IMG_ICON_EYE         = './img/eye_sm.png';
+const PATH_IMG_ICON_BOOTS       = './img/boots_sm.png';
 const PATH_IMG_ICON_AID         = './img/firstaid_sm.png';
 const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
@@ -148,11 +150,11 @@ const unitParams = {
         atk: 6,
         def: 5,
         vrt: 4,
+        eye: 1,
         hp_cur: 25,
         hp_max: 50,
         ap_cur: 0,
         ap_max: 3,
-        sight: 1,
     },
 
     cave: {
