@@ -20,14 +20,14 @@ newMapRandomBtn.addEventListener('click', () => {
         buildGrid(MAP_SEED).then(function () {
             // wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {
-                    // add Zoom User Interface (ZUI) and record how long all this takes
+                setTimeout(() => { 
+                    const endTime = performance.now();
+                    startNewGame();
                     addZUI();
-                    setTimeout(() => { 
-                        const endTime = performance.now();
-                        console.log(`buildGrid+friends execution time: ${(endTime - startTime).toFixed(2)} ms`);
-                        fadeToNormal();
-                        $("#loadingDiv").attr("hidden", "true");
-                    }, 1000);   
+                    fadeToNormal();
+                    $("#loadingDiv").attr("hidden", "true");
+                    console.log(`buildGrid+friends execution time (with delays): ${(endTime - startTime).toFixed(2)} ms`);
+                }, 1000);   
             }, 1);   
         });        
     }, 3000);
@@ -52,14 +52,14 @@ newMapSeededBtn2.on("click", function () {
         buildGrid(seedValue).then(function (){     
             // Wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {
-                    // Add Zoom User Interface (ZUI) and record how long all this takes
+                setTimeout(() => {
+                    const endTime = performance.now();
+                    startNewGame();
                     addZUI();
-                    setTimeout(() => { 
-                        const endTime = performance.now();
-                        console.log(`buildGrid+friends execution time: ${(endTime - startTime).toFixed(2)} ms`);
-                        fadeToNormal();
-                        $("#loadingDiv").attr("hidden", "true");
-                    }, 1000);   
+                    fadeToNormal();
+                    $("#loadingDiv").attr("hidden", "true");
+                    console.log(`buildGrid+friends execution time: ${(endTime - startTime).toFixed(2)} ms`);
+                }, 1000);   
             }, 1);   
         });        
     }, 3000);
@@ -154,8 +154,8 @@ function addZUI() {
     
         if (elem) {
             tooltip.show();
-            let gridX = elem.gridX !== undefined ? elem.gridX : "?";
-            let gridY = elem.gridY !== undefined ? elem.gridY : "?";
+            let gridX = elem.gridX !== undefined ? elem.gridX : -1;
+            let gridY = elem.gridY !== undefined ? elem.gridY : -1;
             let fillColor = elem.fill || "Unknown";    
             hexPositionDiv.textContent = `(${gridX}, ${gridY}) Depth: ${elem.depth}`;
 
@@ -168,22 +168,27 @@ function addZUI() {
                     "top": event.pageY + "px",
                     "display": "block"
             });
-            
 
-            fillColor = HEX_ARR[gridX][gridY].colour;
+            if (HEX_ARR[gridY] !== undefined) {
+                fillColor = HEX_ARR[gridY][gridX].colour;
 
-            //update ui to reflect what has been moused over       
-            if (elem.isHex) {
-                drawUIBottom(gridX, gridY, fillColor, elem.path);
+                //update ui to reflect what has been moused over       
+                if (elem.isHex) {
+                    drawUIBottom(gridX, gridY, fillColor, elem.path);
+                }
+                else {
+                    removeUIBottom();
+                }
             }
-            else {
+            else { 
                 removeUIBottom();
+                console.log("HEX_ARR[gridY] not here man");
             }
         }
         else {
             // drawUILeft();
             removeUIBottom();
-            console.log("elems not here man");
+            console.log("elem not here man");
         }
     }
     function throttledMouseover(e) {
@@ -341,6 +346,12 @@ function addZUI() {
     //   zui.zoomBy(delta / 250, mouse.x, mouse.y);
     //   distance = d;
     // }    
+}
+
+
+function startNewGame() {
+    eventLog.push(" - Your kingdom is pillaged and your Knights are scattered.");
+    redrawUITop();    
 }
 
 function quitToMenu() {

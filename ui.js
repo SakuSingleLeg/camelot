@@ -4,7 +4,6 @@ let height = window.innerHeight; // Get the window height
 let hoverTileTxt = "Unknown Tile";
 let selectedTileTxt = "";
 let somethingSelected = false;
-let eventLog = [" - Your kingdom is pillaged and your Knights are scattered."]
 
 
 // TOP UI
@@ -16,9 +15,9 @@ let bgSpriteTopChevronUp = two.makeSprite(PATH_IMG_CHEVRON_UP, uiX_t+540, uiY_t-
 let bgSpriteTopChevronDown = two.makeSprite(PATH_IMG_CHEVRON_DOWN, uiX_t+540, uiY_t+20, 1, 1, 1, false);
 bgSpriteTopChevronUp.opacity = .9;
 bgSpriteTopChevronDown.opacity = .9;
-let txtLog01 = two.makeText("", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog02 = two.makeText("", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog03 = two.makeText(eventLog[0], uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog01 = two.makeText(eventLog[2] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog02 = two.makeText(eventLog[1] ?? "", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog03 = two.makeText(eventLog[0] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
 function drawUITop() {
     ui.add(bgSpriteTop);
     ui.add(bgSpriteTopChevronUp);
@@ -32,11 +31,14 @@ function redrawUITop() {
     uiX_t = window.innerWidth/2;
     uiY_t = 80;
     bgSpriteTop.translation.set(uiX_t, uiY_t);
-    bgSpriteTopChevronUp.translation.set(uuiX_t+540, uiY_t-20);
+    bgSpriteTopChevronUp.translation.set(uiX_t+540, uiY_t-20);
     bgSpriteTopChevronDown.translation.set(uiX_t+540, uiY_t+20);
     txtLog01.translation.set(uiX_t-580, uiY_t-30);
     txtLog02.translation.set(uiX_t-580, uiY_t);
     txtLog03.translation.set(uiX_t-580, uiY_t+30);
+    txtLog01.value = eventLog[2] ?? "";
+    txtLog02.value = eventLog[1] ?? "";
+    txtLog03.value = eventLog[0] ?? "";
 
     drawUITop();
 }
@@ -128,9 +130,9 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     txtName.value = hoverTileTxt;
     ui.add(txtName);
 
-    moveCost = HEX_ARR[gridX][gridY].moveCost !== undefined ? HEX_ARR[gridX][gridY].moveCost + 1:1;
-    atkBonus = HEX_ARR[gridX][gridY].atkBonus !== undefined ? HEX_ARR[gridX][gridY].atkBonus:0;
-    defBonus = HEX_ARR[gridX][gridY].defBonus !== undefined ? HEX_ARR[gridX][gridY].defBonus:0;
+    moveCost = HEX_ARR[gridY][gridX].moveCost !== undefined ? HEX_ARR[gridY][gridX].moveCost + 1:1;
+    atkBonus = HEX_ARR[gridY][gridX].atkBonus !== undefined ? HEX_ARR[gridY][gridX].atkBonus:0;
+    defBonus = HEX_ARR[gridY][gridX].defBonus !== undefined ? HEX_ARR[gridY][gridX].defBonus:0;
 
     txtMoveCost.value = "MOV: " + moveCost;    
     ui.add(txtMoveCost);  

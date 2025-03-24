@@ -86,13 +86,13 @@ let possibleTownNames = [
     "Glimmerbrook", "Stormhold", "Blackpine", "Mooncliff", "Ironridge", "Valebridge", "Duskhaven", "Fallowmere", "Shadowpine", "Westreach",
     "Emberfall", "Tarnwood", "Frostgate", "Northwood", "Drakehollow", "Silverpine", "Stoneguard", "Windspire", "Ravenrock", "Glenstone",
     "Oathholm", "Fellhaven", "Thistlekeep", "Elderglen", "Darkwatch", "Mistvale", "Dragonwatch", "Torwood", "Greywatch", "Brighthold",
-    "Bjornholm", "Skaldrfjord", "Norrvik", "Jorundal", "Varhjem", "Drekkaheim", "Stormfjord", "Ulfrikstead", "Havngard", "Thrymfell",
-    "Ragnarsvik", "Vinterhold", "Svenholm", "Iskarl", "Frostgard", "Haldorf", "Dunfjell", "Njordhaven", "Runestone",
+    "Highfield", "Berrybrooke", "Norrvik", "Jorundal", "Varhelm", "Dresselheim", "Stormfjord", "Ulfrikstead", "Havngard", "Thrymfell",
+    "Hoppersville", "Vinterhold", "Svenholm", "Iskarl", "Frostgard", "Haldorf", "Dunfjell", "Njordhaven", "Runestone",
     "Dunscaith", "Ballyfirth", "Inverloch", "Carrickmoor", "Lochmere", "Kilvarren", "Duncraig", "Tirnoch", "Caerbaile", "Strathmore",
     "Glenroth", "Eileanholm", "Macduir", "Ardglass", "Torvalen", "Breagha", "Fionnaval", "Kildoran", "Dunhaven", "Lismore",
     "Montclair", "Riversford", "Maplewood", "Halberton", "Newhaven", "Stonemere", "Ashcroft", "Greenhaven", "Fort Aberdeen", "Kingsbury",
     "Silverpeak", "Northbay", "Elkford", "Lumberton", "Brookhaven", "Willowdale", "Foxhollow", "Redwater", "Whitestone", "Thunder Bay",
-    "Lunenburg", "Stratford", "Corner Brook", "Kingston"
+    "Lunenburg", "Stratford", "Cornerbrook", "Kingston"
 ];
 //gets a random town names that is not already in passed list
 function generateTownName(selected = null) {
@@ -109,7 +109,7 @@ function generateTownName(selected = null) {
     // finally, return a random string from remaining
     const randomIndex = Math.floor(Math.random() * available.length);
     return available[randomIndex];
-  }
+}
 
 //units stats
 const unitParams = {
@@ -154,6 +154,22 @@ const unitParams = {
         ap_max: 3,
         sight: 1,
     },
+
+    cave: {
+        type: "poi",
+        eventText: [
+            "A dark entrance appears like a void against the hillside.",
+            "A gap in the rocks is wide enough to enter. A dim glow emanates from within.",
+            "A yawning mouth in the cliff beckons with silent mystery.",
+            "Cold air drifts from the opening, carrying a whisper of danger.",
+            "Faint echoes spill from the darkness, hinting at something inside.",
+            "Just a cave. Definitely not full of spiders.",
+            "Looks cozy - if you're into damp, echoey death traps.",
+            "An ominous hole with no discernable depth. What's the worst that could happen?",
+            "Probably just bats. And maybe ancient doom. But mostly bats.",
+            "A totally normal cave. Not suspicious at all.",
+        ]
+    }
 
 };
   

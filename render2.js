@@ -15,6 +15,7 @@ let map_start_x, map_start_y;
 let sep_x, sep_y;
 let curr_x, curr_y;
 let colour_hex_group, debug_hex_group;
+let eventLog = []
 let townNames = [];
 
 
@@ -34,7 +35,8 @@ loadConfig().then(() => {
     //GRID DATA ARR
     GRID_X_SIZE = userConfig.gridSizeX;//medium
     GRID_Y_SIZE = userConfig.gridSizeY;//medium
-    HEX_ARR = [GRID_X_SIZE];
+    // HEX_ARR = [GRID_Y_SIZE];
+    HEX_ARR = new Array(GRID_Y_SIZE);
 
     //SET HEX GRID PARAMS
     HEX_SIZE = 24;
@@ -91,173 +93,173 @@ function buildGrid(MAP_SEED) {
 
     //iterate by row, col
     for (let i=0; i<GRID_Y_SIZE; i++) {
-      HEX_ARR[i] = [];                         
+        HEX_ARR[i] = new Array(GRID_X_SIZE);                    
       
-      for (let j=0; j<GRID_X_SIZE; j++) {    
-          //odd col, shift down
-          if (j%2!==0) { 
-            curr_y += 0.86*HEX_SIZE; 
-          }       
-          else {
-            curr_y -= 0.86*HEX_SIZE; 
-          }
+        for (let j=0; j<GRID_X_SIZE; j++) {    
+            //odd col, shift down
+            if (j%2!==0) { 
+                curr_y += 0.86*HEX_SIZE; 
+            }       
+            else {
+                curr_y -= 0.86*HEX_SIZE; 
+            }
 
-          //for each grid index, draw hex then increment by separation val
-          let hex = two.makePolygon(curr_x, curr_y, HEX_SIZE, 6);
+            //for each grid index, draw hex then increment by separation val
+            let hex = two.makePolygon(curr_x, curr_y, HEX_SIZE, 6);
 
-          //GENERATE NOISE & COLOUR       
-          let value = (noise.perlin2(curr_x / 200, curr_y / 200) + 1) * 0.5 * 255;
-          value = Math.min(255, Math.max(0, value)); // Ensure it's within the 0-255 range          
-          // Apply a dark bias by using a higher exponent to squash values toward dark
-          value = Math.pow(value / 255, 2.0) * 255; // Exponent greater than 1 to favor darker values          
-          let grayscale = (value << 16) | (value << 8) | value; // Create the grayscale color
-          let gray = '#' + grayscale.toString(16).padStart(6, '0'); // Convert to hex and pad to 6 digits        
-          
-          hex.visible = false;
-          hex.fill = colourize(gray);
-          hex.linewidth = 2;
-          hex.gridX = i;
-          hex.gridY = j;
-          if (SHOW_DEBUG) colour_hex_group.add(hex);   
-
-          let moveCost, atkBonus, defBonus = 0;
+            //GENERATE NOISE & COLOUR       
+            let value = (noise.perlin2(curr_x / 200, curr_y / 200) + 1) * 0.5 * 255;
+            value = Math.min(255, Math.max(0, value)); // Ensure it's within the 0-255 range          
+            // Apply a dark bias by using a higher exponent to squash values toward dark
+            value = Math.pow(value / 255, 2.0) * 255; // Exponent greater than 1 to favor darker values          
+            let grayscale = (value << 16) | (value << 8) | value; // Create the grayscale color
+            let gray = '#' + grayscale.toString(16).padStart(6, '0'); // Convert to hex and pad to 6 digits        
             
-          //DEBUG GRID
-          if (SHOW_DEBUG) {
-              let debugHex = hex.clone();
-              debugHex.visible = true;
-              debugHex.fill = gray;
-              debug_hex_group.add(debugHex);               
-              //add hex info text overlay to debug text group, show hex greyscale value
-              let hexTxt = two.makeText(gray, curr_x, curr_y+10, {                 
-                size: 8,
-                fill: '#FFFF00'
-              });
-              //show grid coord
-              let hexTxt2 = two.makeText(i+","+j, curr_x, curr_y-3, {               
-                size: 15,
-                fill: '#FFFF00'
-              });      
-              debug_hex_group.add(hexTxt, hexTxt2);     
-          }
+            hex.visible = false;
+            hex.fill = colourize(gray);
+            hex.linewidth = 2;
+            hex.gridX = j;
+            hex.gridY = i;
+            if (SHOW_DEBUG) colour_hex_group.add(hex);   
 
-          //rules based on tile type
-          if (hex.fill === COLOUR_GRASS) {
-              let grassSpriteChance = Math.random();
-              let thisSprite = null;
+            let moveCost, atkBonus, defBonus = 0;
+                
+            //DEBUG GRID
+            if (SHOW_DEBUG) {
+                let debugHex = hex.clone();
+                debugHex.visible = true;
+                debugHex.fill = gray;
+                debug_hex_group.add(debugHex);               
+                //add hex info text overlay to debug text group, show hex greyscale value
+                let hexTxt = two.makeText(gray, curr_x, curr_y+10, {                 
+                    size: 8,
+                    fill: '#FFFF00'
+                });
+                //show grid coord
+                let hexTxt2 = two.makeText(i+","+j, curr_x, curr_y-3, {               
+                    size: 15,
+                    fill: '#FFFF00'
+                });      
+                debug_hex_group.add(hexTxt, hexTxt2);     
+            }
 
-              if (grassSpriteChance < 0.7) {
-                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true);   
-                thisSprite.depth = 1;  
-              }
-              else if (grassSpriteChance < 0.75) {
-                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true);     
-                thisSprite.depth = 1;  
-              }
-              else if (grassSpriteChance < 0.8) {
-                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true);     
-                thisSprite.depth = 1;  
-              }
-              else {
-                let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, 3, false, true);     
-                thisSprite.depth = 1;  
-              }
+            //rules based on tile type
+            if (hex.fill === COLOUR_GRASS) {
+                let grassSpriteChance = Math.random();
+                let thisSprite = null;
 
-          }
-          else if (hex.fill === COLOUR_WATER) { 
-              var randSpeed = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-              var randSpawn = Math.random();
-              addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
-              moveCost = 99; 
-              //chance for extra sprite
-              if (randSpawn <= .2 && randSpawn > .1) {
-                addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true, 0, false, false);   
-              }
-              else if (randSpawn <= .1) {
-                addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false);   
-              }
-          }
-          else if (hex.fill === COLOUR_WATER_DEEP) {
-              //chance for extra sprite, but different way
-              addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true);   
-              if (Math.random() < 0.4) {
-                let iconNo = getRandomInt(2)+1;
-                let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
-                addSpriteToTile(imagePath, hex, 'Rocky Islets');  
-              }
-              moveCost = 99; 
-          }
-          else if (hex.fill === COLOUR_MOUNTAIN) { 
-              let mountainSpriteChance = Math.random();
-              if (mountainSpriteChance < .65) {
-                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true);
-                //chance to spawn a cave on this tile
-                let caveSpriteChance = Math.random();
-                if (caveSpriteChance < .12) {
-                    caveSpr = addSpriteToTile(PATH_IMG_CAVE_SM01, hex, 'Cave', 1, 1, 1, false, 0, false, false);
+                if (grassSpriteChance < 0.7) {
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true);   
+                    thisSprite.depth = 1;  
                 }
-              }
-              else {
-                addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true);                
-              }
+                else if (grassSpriteChance < 0.75) {
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true);     
+                    thisSprite.depth = 1;  
+                }
+                else if (grassSpriteChance < 0.8) {
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true);     
+                    thisSprite.depth = 1;  
+                }
+                else {
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, 3, false, true);     
+                    thisSprite.depth = 1;  
+                }
 
-              moveCost = 3;
-          }
-          else if (hex.fill === COLOUR_MOUNTAIN_PEAK) { 
-              addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true);    
-              moveCost = 99; 
-          }
-          else if (hex.fill === COLOUR_COAST) { 
-            //dont do anything b/c all coasts get overridden anyways
-            //addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);
+            }
+            else if (hex.fill === COLOUR_WATER) { 
+                var randSpeed = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+                var randSpawn = Math.random();
+                addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
+                moveCost = 99; 
+                //chance for extra sprite
+                if (randSpawn <= .2 && randSpawn > .1) {
+                    addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true, 0, false, false);   
+                }
+                else if (randSpawn <= .1) {
+                    addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false);   
+                }
+            }
+            else if (hex.fill === COLOUR_WATER_DEEP) {
+                //chance for extra sprite, but different way
+                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true);   
+                if (Math.random() < 0.4) {
+                    let iconNo = getRandomInt(2)+1;
+                    let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
+                    addSpriteToTile(imagePath, hex, 'Rocky Islets');  
+                }
+                moveCost = 99; 
+            }
+            else if (hex.fill === COLOUR_MOUNTAIN) { 
+                let mountainSpriteChance = Math.random();
+                if (mountainSpriteChance < .65) {
+                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true);
+                    //chance to spawn a cave on this tile
+                    let caveSpriteChance = Math.random();
+                    if (caveSpriteChance < .12) {
+                        caveSpr = addSpriteToTile(PATH_IMG_CAVE_SM01, hex, 'Cave', 1, 1, 1, false, 0, false, false);
+                    }
+                }
+                else {
+                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true);                
+                }
+
+                moveCost = 3;
+            }
+            else if (hex.fill === COLOUR_MOUNTAIN_PEAK) { 
+                addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true);    
+                moveCost = 99; 
+            }
+            else if (hex.fill === COLOUR_COAST) { 
+                //dont do anything b/c all coasts get overridden anyways
+                //addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);
+            }
+
+            // TODO: add special tiles, ie mordreds lair
+            // find mountain_peak tile farthest from center, make it final_tower tile
+            // if no peak, use farthest mountain - if no mountain, use farthest forest
+            
+            // TODO: spawn enemies
+
+            if (SHOW_DEBUG) stage.add(hex);
+            //   two.update();  
+            
+            //all done - populate data array
+            HEX_ARR[i][j] = {
+                "id"      : hex._id,
+                "colour"  : hex.fill,
+                "gridX"   : i,
+                "gridY"   : j,
+                "moveCost": moveCost,
+                "atkBonus": atkBonus,
+                "defBonus": defBonus,
+            }      
+            
+            curr_x += sep_x;      
         }
 
-          // TODO: add special tiles, ie mordreds lair
-          // find mountain_peak tile farthest from center, make it final_tower tile
-          // if no peak, use farthest mountain - if no mountain, use farthest forest
-          
-          // TODO: spawn enemies
+        //after every row, return to starting x, then increment y
+        curr_x = map_start_x;                                                                
+        curr_y += sep_y*2;
+        //   if (SHOW_DEBUG) two.add(debug_hex_group);
+        }   
 
-          if (SHOW_DEBUG) stage.add(hex);
-        //   two.update();  
-          
-          //all done - populate data array
-          HEX_ARR[i][j] = {
-            "id"      : hex._id,
-            "colour"  : hex.fill,
-            "gridX"   : i,
-            "gridY"   : j,
-            "moveCost": moveCost,
-            "atkBonus": atkBonus,
-            "defBonus": defBonus,
-          }      
-          
-          curr_x += sep_x;      
-      }
+        if (SHOW_DEBUG) stage.add(debug_hex_group);
 
-      //after every row, return to starting x, then increment y
-      curr_x = map_start_x;                                                                
-      curr_y += sep_y*2;
-    //   if (SHOW_DEBUG) two.add(debug_hex_group);
-    }   
+        setTimeout(drawForests, 0);
+        setTimeout(drawSettlements, 0);
+        setTimeout(drawTreasure, 0);
+        setTimeout(sortSprites, 1000);
 
-    if (SHOW_DEBUG) stage.add(debug_hex_group);
+        two.add(stage);
 
-    setTimeout(drawForests, 0);
-    setTimeout(drawSettlements, 0);
-    setTimeout(drawTreasure, 0);
-    setTimeout(sortSprites, 1000);
+        if (SHOW_DEBUG_OVERLAY) {
+            hexPositionDiv.removeAttribute('hidden');
+            spriteCountDiv.removeAttribute('hidden');
+            tooltipPosition.removeAttribute('hidden');
+        }
 
-    two.add(stage);
-
-    if (SHOW_DEBUG_OVERLAY) {
-        hexPositionDiv.removeAttribute('hidden');
-        spriteCountDiv.removeAttribute('hidden');
-        tooltipPosition.removeAttribute('hidden');
-    }
-
-    resolve();
-  });
+        resolve();
+    });
 }
 
 //sort sprites to prevent z-issues
@@ -285,8 +287,8 @@ function drawForests() {
         let hiq = document.getElementById(hid);
         if (hiq===null) continue;
         let hexColour = HEX_ARR[i][j]['colour'];
-        hiq.setAttribute("gridX", i);
-        hiq.setAttribute("gridY", j);
+        hiq.setAttribute("gridX", j);
+        hiq.setAttribute("gridY", i);
 
         // Convert coastal tiles not beside water into forests, else %chance for coastal
         if (hexColour === COLOUR_COAST && !checkAdjacentHex(j, i, 1, COLOUR_WATER)) {
@@ -348,8 +350,8 @@ function drawForests() {
                 if (neighborColour === COLOUR_GRASS) {
                     let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
                     if (neighborHex===null) continue;
-                    neighborHex.setAttribute("gridX", i);
-                    neighborHex.setAttribute("gridY", j);
+                    neighborHex.setAttribute("gridX", j);
+                    neighborHex.setAttribute("gridY", i);
                     if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
                         neighborHex.setAttribute("fill", COLOUR_FOREST);
                         HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
@@ -574,11 +576,10 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
         }
     }
 
-
     //draw paper labels for certain sprites (ie settlements)
     if (params.type === "castle") {
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
-        let paperText = two.makeText("Camelot", center_x, center_y + 21, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
+        let paperText = two.makeText("Camelot", center_x, center_y + 22, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
         paperText.linewidth = 1;
         paperSprite.noPointerEvents = true;
@@ -589,7 +590,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     else if (params.subtype === "town" || params.subtype === "village") {
         let randomTownName = generateTownName(townNames);
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
-        let paperText = two.makeText(randomTownName, center_x, center_y + 21, { size: 6, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
+        let paperText = two.makeText(randomTownName, center_x, center_y + 22, { size: 6, fill: '#4f4f4f', family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
         paperSprite.noPointerEvents = true;
         townNames.push(randomTownName);
