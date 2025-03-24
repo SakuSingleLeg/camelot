@@ -1,7 +1,9 @@
 ---------
 TODDO
 ---------
-sight & ap icons for unit card
+event log 
+    push when click on pois
+    scroll btns
 
 special tile: red rook inn 
     limit 1

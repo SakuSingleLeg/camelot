@@ -196,7 +196,7 @@ function buildGrid(MAP_SEED) {
                     //chance to spawn a cave on this tile
                     let caveSpriteChance = Math.random();
                     if (caveSpriteChance < .12) {
-                        caveSpr = addSpriteToTile(PATH_IMG_CAVE_SM01, hex, 'Cave', 1, 1, 1, false, 0, false, false);
+                        caveSpr = addSpriteToTile(PATH_IMG_CAVE_SM01, hex, 'Cave', 1, 1, 1, false, 0, false, false, 99, "unset", unitParams.cave);
                     }
                 }
                 else {
@@ -555,7 +555,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     sprite.depth = depth;
     sprite.params = params;
     // colour_hex_group.add(sprite);
-    stage.add(sprite); 
+    stage.add(sprite);
 
     if (friendly !== "unset") two.update();
     let spriteDOM  = document.getElementById(sprite._id);
@@ -574,6 +574,12 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
             default:
                 break;
         }
+    }
+
+    //if a poi, randomly choose one event text from default array
+    if (params.type === "poi") {
+        let chosenEventText = params.eventText[Math.floor(Math.random() * params.eventText.length)];
+        sprite.params.eventText = [chosenEventText];
     }
 
     //draw paper labels for certain sprites (ie settlements)

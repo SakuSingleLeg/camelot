@@ -210,7 +210,6 @@ function addZUI() {
             mouse.y >= bgSpriteLeft1.translation.y - bgSpriteLeft1.height / 2 &&
             mouse.y <= bgSpriteLeft1.translation.y + bgSpriteLeft1.height / 2
         ) {
-            console.log("bgSpriteLeft1 clicked, reloading page");
             // 'return' to main menu when clicked
             quitToMenu();
         }
@@ -224,6 +223,11 @@ function addZUI() {
         if (elem && elem.noPointerEvents) return;
     
         if (elem) {
+            if (elem.params.type === "poi") {;
+                console.log("🚀 ~ mousedown ~ elem:", elem)
+                pushToEventLog(elem.params.eventText[0]);
+            }
+
             if (elem.clickable) {
                 console.log(elem);
                 somethingSelected = true;  
@@ -348,10 +352,10 @@ function addZUI() {
     // }    
 }
 
-
 function startNewGame() {
-    eventLog.push(" - Your kingdom is pillaged and your Knights are scattered.");
-    redrawUITop();    
+    pushToEventLog("Your kingdom is pillaged and your Knights are scattered.");
+
+    //TODO: assign gold, food, other start params
 }
 
 function quitToMenu() {

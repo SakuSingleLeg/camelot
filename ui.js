@@ -36,9 +36,9 @@ function redrawUITop() {
     txtLog01.translation.set(uiX_t-580, uiY_t-30);
     txtLog02.translation.set(uiX_t-580, uiY_t);
     txtLog03.translation.set(uiX_t-580, uiY_t+30);
-    txtLog01.value = eventLog[2] ?? "";
+    txtLog01.value = eventLog[0] ?? "";
     txtLog02.value = eventLog[1] ?? "";
-    txtLog03.value = eventLog[0] ?? "";
+    txtLog03.value = eventLog[2] ?? "";
 
     drawUITop();
 }
@@ -474,12 +474,14 @@ function removeUIRight() {
     ui.remove(rUI_SpriteMedal);
     ui.remove(rUI_SpriteEye);
     ui.remove(rUI_SpriteHealth);
+    ui.remove(rUI_SpriteAction);
     ui.remove(rUI_SpriteAid);
     ui.remove(rUI_txtAtk);
     ui.remove(rUI_txtDef);
     ui.remove(rUI_txtVrt);
     ui.remove(rUI_txtEye);
     ui.remove(rUI_txtHP);
+    ui.remove(rUI_txtAP);
     ui.remove(rUI_aidBtn);
     ui.remove(rUI_txtAid);
 
@@ -528,6 +530,15 @@ function fadeToNormal() {
         // overlay.style.pointerEvents = "none";
         overlay.style.setProperty("pointer-events", "none", "important");
     }, 2000); 
+}
+
+function pushToEventLog(msg) {    
+    if (eventLog.size > 2) {
+        eventLog.shift();
+    }
+    eventLog.push(" - " + msg);
+
+    redrawUITop();    
 }
 
 
