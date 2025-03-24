@@ -2,7 +2,6 @@
 TODDO
 ---------
 ui update
-    'heal' btn for units
     'scouting' btn for camelot (costs 2g)
 message log (top?)
 special tile: red rook inn 

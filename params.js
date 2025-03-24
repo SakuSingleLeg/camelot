@@ -53,6 +53,7 @@ const PATH_IMG_PEAK_LG          = './img/hex_lg_mountain_peak.png';
 const PATH_IMG_NPC_KNIGHT       = './img/unit_knight.png';
 
 //UI
+const PATH_IMG_PANEL_TOP        = './img/ui_top.png';
 const PATH_IMG_PANEL_BOTTOM     = './img/ui_bottom2.png';
 const PATH_IMG_PANEL_RIGHT      = './img/ui_right2.png';
 const PATH_IMG_PANEL_SMALL      = './img/ui_smol.png';
@@ -66,6 +67,7 @@ const PATH_IMG_ICON_SWORD       = './img/sword_sm.png';
 const PATH_IMG_ICON_SHIELD      = './img/shield_sm.png';
 const PATH_IMG_ICON_MEDAL       = './img/medal_sm.png';
 const PATH_IMG_ICON_HEART       = './img/heart_sm.png';
+const PATH_IMG_ICON_AID         = './img/firstaid_sm.png';
 const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
 const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
@@ -77,7 +79,7 @@ let newMedievalTownNames = [
     "Darkhollow", "Goldhaven", "Stonekeep", "Thunderhold", "Everfrost", "Dragonmere", "Redcliff", "Ironspire", "Grimhold",
     "Valewatch", "Shadowhelm", "Westerglen", "Gildenshire", "Blackmere", "Stormcrest", "Oathwatch", "Ebonhold", "Mournhaven", "Brightvale",
     "Thornfield", "Wyrmgate", "Stonebrook", "Stormhaven", "Bloodmoor", "Wolfgate", "Ironvale", "Coldspring", "Darkvale", "Brackenridge",
-    "Ashenford", "Dragon's Roost", "Highmere", "Daggerwatch", "Frostwood", "Stormglen", "Dunhollow", "Silverbrook", "Ironhollow",
+    "Ashenford", "Wyvernroost", "Highmere", "Daggerwatch", "Frostwood", "Stormglen", "Dunhollow", "Silverbrook", "Ironhollow",
     "Darkmoor", "Everhall", "Windmere", "Northwatch", "Vexholm", "Grimstead", "Harrowmere", "Oakenhold", "Wolfpine", "Thundertree",
     "Glimmerbrook", "Stormhold", "Blackpine", "Mooncliff", "Ironridge", "Valebridge", "Duskhaven", "Fallowmere", "Shadowpine", "Westreach",
     "Emberfall", "Tarnwood", "Frostgate", "Northwood", "Drakehollow", "Silverpine", "Stoneguard", "Windspire", "Ravenrock", "Glenstone",

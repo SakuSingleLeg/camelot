@@ -6,6 +6,11 @@ let selectedTileTxt = "";
 let somethingSelected = false;
 
 
+// TOP UI
+let uiX_t = width/2;
+let uiY_t = 90;
+// const PATH_IMG_PANEL_TOP        = './img/ui_top.png';
+
 // BOTTOM UI
 let uiX_b = width/2;
 let uiY_b = height-90;
@@ -15,30 +20,10 @@ bgSpriteBottom.visible = false;
 lgSprite.visible = false;
 let moveCost, atkBonus, defBonus = 0;
 
-let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, {                 
-    size: 20,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-});
-let txtMoveCost = two.makeText("Movement Cost: " + moveCost, uiX_b, uiY_b - 24, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-});
-let txtAtkBonus = two.makeText("Attack Bonus: " + atkBonus, uiX_b, uiY_b + 6, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-}); 
-let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-});
+let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, { size: 20, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtMoveCost = two.makeText("Movement Cost: " + moveCost, uiX_b, uiY_b - 24, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtAtkBonus = two.makeText("Attack Bonus: " + atkBonus, uiX_b, uiY_b + 6, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' }); 
+let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 function drawUIBottom (gridX, gridY, hexColour, path) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
     // not needed and hides other ui elements so TODO : remove?
@@ -91,7 +76,7 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     }
     else if (hexColour === COLOUR_CURSEDABBEY) {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        hoverTileTxt = "Cursed Abbey";
+        hoverTileTxt = "Abbey";
     }
     else {
         lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
@@ -116,7 +101,6 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     ui.add(txtDefBonus);     
 
     two.add(ui);
-    // two.update(); 
 }
 function redrawUIBottom() {    
     removeUIBottom();
@@ -148,8 +132,6 @@ function redrawUIBottom() {
         txtDefBonus.translation.set(uiX_b, uiY_b+36);
         ui.add(txtDefBonus);
     }    
-
-    // two.render();
 }
 function removeUIBottom() {
     if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null)   ui.remove(bgSpriteBottom);
@@ -171,32 +153,10 @@ let bgSpriteLeft4 = two.makeSprite(PATH_IMG_PANEL_SQUARE, uiX_l, uiY_l-264, 1, 1
 let fgSpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_l-64, uiY_l-160, 4, 1, 4, true); 
 let fgSpriteFood = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_l+18, uiY_l-160, 1, 1, 1, false);
 let fgSpriteHourglass = two.makeSprite(PATH_IMG_ICON_HOURGLASS, uiX_l, uiY_l-264, 1, 1, 1, false);
-let txtGold = two.makeText("200", uiX_l-48, uiY_l-156, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-});
-let txtFood = two.makeText("200", uiX_l+36, uiY_l-156, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-});
-let txtSave = two.makeText("Save Quest", uiX_l-69, uiY_l-77, {                 
-    size: 14,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    stroke: '',
-    decoration: 'line-through',
-    alignment: 'left'
-});
-let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, {                 
-    size: 14,
-    fill: '#FFFF00',
-    family: 'Press Start 2P',
-    alignment: 'left'
-});
+let txtGold = two.makeText("000", uiX_l-48, uiY_l-156, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtFood = two.makeText("000", uiX_l+36, uiY_l-156, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtSave = two.makeText("Save Quest", uiX_l-69, uiY_l-77, { size: 14, fill: '#808080', family: 'Press Start 2P', stroke: '', decoration: 'line-through', alignment: 'left' });
+let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 function drawUILeft() {
     //create ui panel sprite(s)
     ui.add(bgSpriteLeft1);
@@ -262,72 +222,37 @@ let rUI_txtVrt = two.makeText("", uiX_r+81, uiY_r-154, { size: 15, fill: '#FFFF0
 let rUI_SpriteHealth = two.makeSprite(PATH_IMG_ICON_HEART, uiX_r-80, uiY_r-124, 1, 1, 1, false);
 rUI_SpriteHealth.visible = false;
 let rUI_txtHP = two.makeText("", uiX_r-59, uiY_r-120, { size: 15, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+//first aid btn
+let rUI_aidBtn = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
+rUI_aidBtn.visible = false;
+let rUI_SpriteAid = two.makeSprite(PATH_IMG_ICON_AID, uiX_r-120, uiY_r-19, 1, 1, 1, false);
+rUI_aidBtn.visible = false;
+let rUI_txtAid = two.makeText("", uiX_r-99, uiY_r-19, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_wideBtn01.visible = false;
-let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_wideBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-87, 1, 1, 1, false);
 rUI_wideBtn02.visible = false;
-let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+185, 1, 1, 1, false);
 rUI_smolBtn01.visible = false;
-let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center',
-    visible: 'false'
-});
+let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center', visible: 'false' });
 let rUI_smolBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+185, 1, 1, 1, false);
 rUI_smolBtn02.visible = false;
-let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn03 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+117, 1, 1, 1, false);
 rUI_smolBtn03.visible = false;
-let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn04 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+117, 1, 1, 1, false);
 rUI_smolBtn04.visible = false;
-let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn05 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+49, 1, 1, 1, false);
 rUI_smolBtn05.visible = false;
-let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn06 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+49, 1, 1, 1, false);
 rUI_smolBtn06.visible = false;
-let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, {                 
-    size: 16,
-    fill: '#808080',
-    family: 'Press Start 2P',
-    alignment: 'center'
-});
+let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 
 let rUI_rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+264, 1, 1, 1, false);
 rUI_rndTblSprite.visible = false;
@@ -362,7 +287,7 @@ function drawUIRight(elem) {
         rUI_wideBtn01Txt.value = "???";
         rUI_wideBtn02Txt.value = "???";
         rUI_smolBtn01Txt.value = "???";
-        rUI_smolBtn02Txt.value = "???";
+        rUI_smolBtn02Txt.value = "Scouts";
         rUI_smolBtn03Txt.value = "???";
         rUI_smolBtn04Txt.value = "???";
         rUI_smolBtn05Txt.value = "???";
@@ -396,10 +321,13 @@ function drawUIRight(elem) {
         rUI_SpriteShield.visible = true;
         rUI_SpriteMedal.visible = true;
         rUI_SpriteHealth.visible = true;
+        rUI_aidBtn.visible = true;
+        rUI_SpriteAid.visible = true;
         rUI_txtAtk.value = elem.params.atk ?? -1;
         rUI_txtDef.value = elem.params.def ?? -1;
         rUI_txtVrt.value = elem.params.vrt ?? -1;
         rUI_txtHP.value  = elem.params.hp_cur + " / " + elem.params.hp_max;
+        rUI_txtAid.value = "First Aid (5 Food)";
 
         ui.add(rUI_SpriteSword);
         ui.add(rUI_SpriteShield);
@@ -407,10 +335,13 @@ function drawUIRight(elem) {
         let medalDOM  = document.getElementById(rUI_SpriteMedal._id);
         if (medalDOM) medalDOM.classList.add('glowing-neutral2');
         ui.add(rUI_SpriteHealth);
+        ui.add(rUI_aidBtn);
+        ui.add(rUI_SpriteAid);
         ui.add(rUI_txtAtk);
         ui.add(rUI_txtDef);
         ui.add(rUI_txtVrt);
         ui.add(rUI_txtHP);
+        ui.add(rUI_txtAid);
     }
     //elseif elem is settlement
     else if (elem.params.type === "settlement") {
@@ -443,18 +374,21 @@ function redrawUIRight() {
     rUI_SpriteShield.translation.set(uiX_r-10, uiY_r-160);
     rUI_SpriteMedal.translation.set(uiX_r+60, uiY_r-160);
     rUI_SpriteHealth.translation.set(uiX_r-80, uiY_r-124);
+    rUI_SpriteAid.translation.set(uiX_r-120, uiY_r-19);
     rUI_txtAtk.translation.set(uiX_r-59, uiY_r-154);
     rUI_txtDef.translation.set(uiX_r+14, uiY_r-154);
     rUI_txtVrt.translation.set(uiX_r+81, uiY_r-154);
     rUI_txtHP.translation.set(uiX_r-59, uiY_r-120);
+    rUI_txtAid.translation.set(uiX_r-99, uiY_r-19);
+    rUI_aidBtn.translation.set(uiX_r-1, uiY_r-19);
 
     rUI_bgSpriteRight.translation.set(uiX_r, uiY_r);
     rUI_selectSprite.translation.set(uiX_r, uiY_r-353);
     rUI_txtSelectedName.translation.set(uiX_r, uiY_r-210);
     rUI_wideBtn01.translation.set(uiX_r-1, uiY_r-19);
     rUI_wideBtn01Txt.translation.set(uiX_r-1, uiY_r-16);
-    rUI_wideBtn02.translation.set(uiX_r-1, uiY_r-19);
-    rUI_wideBtn02Txt.translation.set(uiX_r-1, uiY_r-16);
+    rUI_wideBtn02.translation.set(uiX_r-1, uiY_r-87);
+    rUI_wideBtn02Txt.translation.set(uiX_r-1, uiY_r-84);
     rUI_smolBtn01.translation.set(uiX_r-84, uiY_r+185);
     rUI_smolBtn01Txt.translation.set(uiX_r-84, uiY_r+188);
     rUI_smolBtn02.translation.set(uiX_r+81, uiY_r+185);
@@ -479,10 +413,13 @@ function removeUIRight() {
     ui.remove(rUI_SpriteShield);
     ui.remove(rUI_SpriteMedal);
     ui.remove(rUI_SpriteHealth);
+    ui.remove(rUI_SpriteAid);
     ui.remove(rUI_txtAtk);
     ui.remove(rUI_txtDef);
     ui.remove(rUI_txtVrt);
     ui.remove(rUI_txtHP);
+    ui.remove(rUI_aidBtn);
+    ui.remove(rUI_txtAid);
 
     ui.remove(rUI_bgSpriteRight);
     ui.remove(rUI_selectSprite);
