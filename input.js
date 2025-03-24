@@ -107,6 +107,7 @@ function addZUI() {
     }, 10);
 
     //draw static ui
+    drawUITop();
     drawUILeft();
 
     //KEYBOARD INPUT

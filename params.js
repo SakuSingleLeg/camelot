@@ -125,11 +125,13 @@ const unitParams = {
 
     knight_arthur: {
         type: "unit",
-        hp_cur: 25,
-        hp_max: 50,
         atk: 6,
         def: 5,
         vrt: 4,
+        hp_cur: 25,
+        hp_max: 50,
+        ap_cur: 0,
+        ap_max: 3,
     },
 
 };

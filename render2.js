@@ -299,10 +299,10 @@ function drawForests() {
             hiq.setAttribute("fill", COLOUR_MARSH);
             HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
             if (Math.random() < .5) {
-                addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
+                addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);      
             }
             else {
-                addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 1, false, 1, false, true);      
+                addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);      
             }
             }
 

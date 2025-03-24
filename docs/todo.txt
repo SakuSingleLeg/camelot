@@ -1,13 +1,15 @@
 ---------
 TODDO
 ---------
-ui update
-    'scouting' btn for camelot (costs 2g)
 message log (top?)
 special tile: red rook inn 
     limit 1
     rare spawn
     'rumours' btn
+
+units:
+    ap cur/max
+
 
 new tiles:
    update mills to their own tile
@@ -32,18 +34,22 @@ ui
       btns
    help btn (disabled) - book icon
 
-main menu   
-   implement config file that loads options on game start
-    debug mode
-   implement options menu
+main menu
+    implement options menu
+        show fps
+
 
 
 ---------
 BACKLOG
 ---------
-mouseover sprites
+town names
    assign town names to settlements
-   show town name on hover
+   show on map
+   hide (slow?) on hover
+
+
+fog of war
 
 center tooltips under sprites/cursor?
 
@@ -73,4 +79,9 @@ enemy units
    movement
 
 sprite sorting:
-    order water renser before all other sprites
+    sortering: water first before all other sprites
+
+abilities
+    first aid
+    scouts
+    squires

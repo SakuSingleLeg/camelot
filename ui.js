@@ -4,12 +4,34 @@ let height = window.innerHeight; // Get the window height
 let hoverTileTxt = "Unknown Tile";
 let selectedTileTxt = "";
 let somethingSelected = false;
+let eventLog = [" - Your kingdom is pillaged and your Knights are scattered."]
 
 
 // TOP UI
 let uiX_t = width/2;
-let uiY_t = 90;
-// const PATH_IMG_PANEL_TOP        = './img/ui_top.png';
+let uiY_t = 80;
+let bgSpriteTop = two.makeSprite(PATH_IMG_PANEL_TOP, uiX_t, uiY_t, 1, 1, 1, false);
+bgSpriteTop.opacity = .84;
+let txtLog01 = two.makeText("", uiX_t-580, uiY_t-30, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtLog02 = two.makeText("", uiX_t-580, uiY_t, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtLog03 = two.makeText(eventLog[0], uiX_t-580, uiY_t+30, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+function drawUITop() {
+    ui.add(bgSpriteTop);    
+    ui.add(txtLog01);    
+    ui.add(txtLog02);    
+    ui.add(txtLog03);    
+    two.add(ui);
+}
+function redrawUITop() {    
+    uiX_t = width/2;
+    uiY_t = 80;
+    bgSpriteTop.translation.set(uiX_l, uiY_l);
+    txtLog01.translation.set(uiX_l-580, uiY_l-30);
+    txtLog02.translation.set(uiX_l-580, uiY_l);
+    txtLog03.translation.set(uiX_l-580, uiY_l+30);
+
+    drawUITop();
+}
 
 // BOTTOM UI
 let uiX_b = width/2;
@@ -287,7 +309,7 @@ function drawUIRight(elem) {
         rUI_wideBtn01Txt.value = "???";
         rUI_wideBtn02Txt.value = "???";
         rUI_smolBtn01Txt.value = "???";
-        rUI_smolBtn02Txt.value = "Scouts";
+        rUI_smolBtn02Txt.value = "???";
         rUI_smolBtn03Txt.value = "???";
         rUI_smolBtn04Txt.value = "???";
         rUI_smolBtn05Txt.value = "???";
@@ -327,7 +349,7 @@ function drawUIRight(elem) {
         rUI_txtDef.value = elem.params.def ?? -1;
         rUI_txtVrt.value = elem.params.vrt ?? -1;
         rUI_txtHP.value  = elem.params.hp_cur + " / " + elem.params.hp_max;
-        rUI_txtAid.value = "First Aid (5 Food)";
+        rUI_txtAid.value = "First Aid (5f)";
 
         ui.add(rUI_SpriteSword);
         ui.add(rUI_SpriteShield);
@@ -444,6 +466,7 @@ function removeUIRight() {
 }
 
 function updateUIPositions() {
+    redrawUITop();
     redrawUILeft();
     redrawUIBottom();
     redrawUIRight();
