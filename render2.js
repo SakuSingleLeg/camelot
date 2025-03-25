@@ -16,8 +16,8 @@ let sep_x, sep_y;
 let curr_x, curr_y;
 let colour_hex_group, debug_hex_group;
 let townNames = [];
-let eventLog = ["", "", ""];
-let shownLog = ["", "", ""];
+let eventLog = [];
+let shownLog = [];
 let logIndex = -1;
 
 

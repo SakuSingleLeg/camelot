@@ -15,9 +15,9 @@ let bgSpriteTopChevronUp = two.makeSprite(PATH_IMG_CHEVRON_UP, uiX_t+540, uiY_t-
 let bgSpriteTopChevronDown = two.makeSprite(PATH_IMG_CHEVRON_DOWN, uiX_t+540, uiY_t+20, 1, 1, 1, false);
 bgSpriteTopChevronUp.opacity = .9;
 bgSpriteTopChevronDown.opacity = .9;
-let txtLog01 = two.makeText(shownLog[2] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog01 = two.makeText(shownLog[0] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
 let txtLog02 = two.makeText(shownLog[1] ?? "", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog03 = two.makeText(shownLog[0] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog03 = two.makeText(shownLog[2] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
 function drawUITop() {
     ui.add(bgSpriteTop);
     ui.add(bgSpriteTopChevronUp);
@@ -189,6 +189,9 @@ let uiX_l = 150;
 let uiY_l = height -64;
 let bgSpriteLeft1 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l, 1, 1, 1, false); 
 bgSpriteLeft1.opacity = .9;
+bgSpriteLeft1.addEventListener('click', () => {
+    quitToMenu();
+});
 let bgSpriteLeft2 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l-80, 1, 1, 1, false);
 bgSpriteLeft2.opacity = .9;
 let bgSpriteLeft3 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l-160, 1, 1, 1, false);
@@ -545,6 +548,7 @@ function pushToEventLog(msg) {
     redrawUITop();
 }
 function eventLogUp() {
+    console.log("eventLogUp");
     if (logIndex > 2) {
         logIndex--;
         shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
@@ -552,6 +556,7 @@ function eventLogUp() {
     }
 }
 function eventLogDown() {
+    console.log("eventLogDown");
     if (logIndex + 1 < eventLog.length) {
         logIndex++;
         shownLog = eventLog.slice(logIndex - 2, logIndex + 1);

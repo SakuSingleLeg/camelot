@@ -203,16 +203,12 @@ function addZUI() {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
-        //check if menu btns clicked - if click is inside sprite bounds
-        if (
-            mouse.x  >= bgSpriteLeft1.translation.x - bgSpriteLeft1.width / 2 &&
-            mouse.x  <= bgSpriteLeft1.translation.x + bgSpriteLeft1.width / 2 &&
-            mouse.y >= bgSpriteLeft1.translation.y - bgSpriteLeft1.height / 2 &&
-            mouse.y <= bgSpriteLeft1.translation.y + bgSpriteLeft1.height / 2
-        ) {
-            // 'return' to main menu when clicked
-            quitToMenu();
-        }
+        //click quit btn
+        if (isMouseOver(bgSpriteLeft1, mouse)) quitToMenu();
+        //click log up/down
+        if (isMouseOver(bgSpriteTopChevronUp, mouse)) eventLogUp();
+        if (isMouseOver(bgSpriteTopChevronDown, mouse)) eventLogDown();
+
 
         window.addEventListener('mousemove', mousemove, false);
         window.addEventListener('mouseup', mouseup, false);
@@ -363,4 +359,13 @@ function quitToMenu() {
     setTimeout(() => {
         location.reload();
     }, 2000);
+}
+
+function isMouseOver(sprite, mouse) {
+    return (
+        mouse.x >= sprite.translation.x - sprite.width / 2 &&
+        mouse.x <= sprite.translation.x + sprite.width / 2 &&
+        mouse.y >= sprite.translation.y - sprite.height / 2 &&
+        mouse.y <= sprite.translation.y + sprite.height / 2
+    );
 }
