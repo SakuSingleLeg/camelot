@@ -533,11 +533,12 @@ function fadeToNormal() {
 }
 
 function pushToEventLog(msg) {    
-    if (eventLog.size > 2) {
+    if (eventLog.length > 2) {
         eventLog.shift();
     }
     eventLog.push(" - " + msg);
 
+    console.log("🚀 ~ pushToEventLog ~ eventLog.size:", eventLog.length)
     redrawUITop();    
 }
 

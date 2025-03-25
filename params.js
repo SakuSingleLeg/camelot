@@ -171,7 +171,15 @@ const unitParams = {
             "Probably just bats. And maybe ancient doom. But mostly bats.",
             "A totally normal cave. Not suspicious at all.",
         ]
-    }
+    },
+
+    chest: {
+        type: "item",
+        eventText: [
+            "There may be items of great value within.",
+            "A sealed box, brimming with possibilities.",
+        ]
+    },
 
 };
   
