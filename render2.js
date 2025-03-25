@@ -15,8 +15,10 @@ let map_start_x, map_start_y;
 let sep_x, sep_y;
 let curr_x, curr_y;
 let colour_hex_group, debug_hex_group;
-let eventLog = []
 let townNames = [];
+let eventLog = ["", "", ""];
+let shownLog = ["", "", ""];
+let logIndex = -1;
 
 
 //LOAD CONFIG FROM FILE

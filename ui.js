@@ -15,9 +15,9 @@ let bgSpriteTopChevronUp = two.makeSprite(PATH_IMG_CHEVRON_UP, uiX_t+540, uiY_t-
 let bgSpriteTopChevronDown = two.makeSprite(PATH_IMG_CHEVRON_DOWN, uiX_t+540, uiY_t+20, 1, 1, 1, false);
 bgSpriteTopChevronUp.opacity = .9;
 bgSpriteTopChevronDown.opacity = .9;
-let txtLog01 = two.makeText(eventLog[2] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog02 = two.makeText(eventLog[1] ?? "", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog03 = two.makeText(eventLog[0] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog01 = two.makeText(shownLog[2] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog02 = two.makeText(shownLog[1] ?? "", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog03 = two.makeText(shownLog[0] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
 function drawUITop() {
     ui.add(bgSpriteTop);
     ui.add(bgSpriteTopChevronUp);
@@ -36,9 +36,9 @@ function redrawUITop() {
     txtLog01.translation.set(uiX_t-580, uiY_t-30);
     txtLog02.translation.set(uiX_t-580, uiY_t);
     txtLog03.translation.set(uiX_t-580, uiY_t+30);
-    txtLog01.value = eventLog[0] ?? "";
-    txtLog02.value = eventLog[1] ?? "";
-    txtLog03.value = eventLog[2] ?? "";
+    txtLog01.value = shownLog[0] ?? "";
+    txtLog02.value = shownLog[1] ?? "";
+    txtLog03.value = shownLog[2] ?? "";
 
     drawUITop();
 }
@@ -532,16 +532,32 @@ function fadeToNormal() {
     }, 2000); 
 }
 
-function pushToEventLog(msg) {    
-    if (eventLog.length > 2) {
+function pushToEventLog(msg) {
+    // Prevent memory overflow
+    if (eventLog.length > 9999) {
         eventLog.shift();
+        logIndex--;
     }
-    eventLog.push(" - " + msg);
-
-    console.log("🚀 ~ pushToEventLog ~ eventLog.size:", eventLog.length)
-    redrawUITop();    
+    const formattedMsg = " - " + msg;
+    eventLog.push(formattedMsg);
+    logIndex = eventLog.length - 1;
+    shownLog = eventLog.slice(Math.max(0, logIndex - 2), logIndex + 1);
+    redrawUITop();
 }
-
+function eventLogUp() {
+    if (logIndex > 2) {
+        logIndex--;
+        shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
+        redrawUITop();
+    }
+}
+function eventLogDown() {
+    if (logIndex + 1 < eventLog.length) {
+        logIndex++;
+        shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
+        redrawUITop();
+    }
+}
 
 //FPS COUNTER
 $(document).ready(function () {
