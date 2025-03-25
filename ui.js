@@ -280,7 +280,7 @@ rUI_SpriteAction.visible = false;
 let rUI_aidBtn = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 rUI_aidBtn.visible = false;
 let rUI_SpriteAid = two.makeSprite(PATH_IMG_ICON_AID, uiX_r-120, uiY_r-19, 1, 1, 1, false);
-rUI_aidBtn.visible = false;
+rUI_SpriteAid.visible = false;
 let rUI_txtAid = two.makeText("", uiX_r-99, uiY_r-19, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
@@ -563,35 +563,3 @@ function eventLogDown() {
         redrawUITop();
     }
 }
-
-//FPS COUNTER
-$(document).ready(function () {
-    console.log("counting all of the frames ...");
-
-    let lastLoop = performance.now();
-    let frameTimes = [];
-    const smoothingWindow = 30; // Number of frames to average
-
-    function updateFPS() {
-        let now = performance.now();
-        let deltaTime = now - lastLoop;
-        lastLoop = now;
-
-        let currentFPS = 1000 / deltaTime;
-        frameTimes.push(currentFPS);
-
-        if (frameTimes.length > smoothingWindow) {
-            frameTimes.shift(); // Remove oldest entry to maintain window size
-        }
-
-        let smoothedFPS = Math.round(
-            frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length
-        );
-
-        $("#fps-counter").text("FPS: " + smoothedFPS);
-
-        requestAnimationFrame(updateFPS);
-    }
-
-    requestAnimationFrame(updateFPS);
-});

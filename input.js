@@ -360,12 +360,3 @@ function quitToMenu() {
         location.reload();
     }, 2000);
 }
-
-function isMouseOver(sprite, mouse) {
-    return (
-        mouse.x >= sprite.translation.x - sprite.width / 2 &&
-        mouse.x <= sprite.translation.x + sprite.width / 2 &&
-        mouse.y >= sprite.translation.y - sprite.height / 2 &&
-        mouse.y <= sprite.translation.y + sprite.height / 2
-    );
-}

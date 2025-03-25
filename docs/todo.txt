@@ -1,18 +1,6 @@
 ---------
 TODDO
 ---------
-event log 
-    push when click on pois
-    scroll btns
-
-special tile: red rook inn 
-    limit 1
-    rare spawn
-    'rumours' btn
-
-units:
-    ap cur/max
-    sight
 
 new tiles:
    update mills to their own tile
@@ -20,27 +8,17 @@ new tiles:
       farmland colour
       its own details in ui
       ui: food bonus, gold bonus
-   red rook inn
-   mines on mountain tiles?
-   docks on marsh tiles?
-   merlin's tower
-
-tile attributes
-   generates food (mill, dock)
-   generates gold (mine, dock)
 
 ui
-   crop shadow on ui components
-   object info (right)
-      sprite + name
-      stats
-      btns
-   help btn (disabled) - book icon
+    crop shadow on ui components
+    help btn (disabled) - book icon
+    save btn (disabled) - quill icon
 
 main menu
     implement options menu
+        music volume
+        sfx volume
         show fps
-
 
 
 ---------
@@ -88,3 +66,19 @@ abilities
     first aid
     scouts
     squires
+
+new tiles:
+   update mills to their own tile
+      32x32 animated sprite
+      farmland colour
+      its own details in ui
+      ui: food bonus, gold bonus
+   red rook inn
+   mines on mountain tiles?
+   docks on marsh tiles?
+   merlin's tower
+
+special tile: red rook inn 
+    limit 1
+    rare spawn
+    'rumours' btn

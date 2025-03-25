@@ -73,8 +73,11 @@ loadConfig().then(() => {
         console.log("ui.js Loaded");        
         loadScript("utils.js", function () {
             console.log("utils.js Loaded");
-            loadScript("input.js", function () {
-                console.log("input.js Loaded");            
+            loadScript("utilstwo.js", function () {
+                console.log("utilstwo.js Loaded");     
+                loadScript("input.js", function () {
+                    console.log("input.js Loaded");            
+                });       
             });
         });
     });
@@ -678,11 +681,6 @@ function colourize(grayscale) {
     else {  // Default for middle-range brightness -> Grass
         return COLOUR_GRASS;
     }
-}
-
-// Function to get a shape by ID
-function getShapeById(id) {
-    return stage.children.find(shape => shape._id === id);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

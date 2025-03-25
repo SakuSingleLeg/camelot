@@ -94,7 +94,7 @@ let possibleTownNames = [
     "Glenroth", "Eileanholm", "Macduir", "Ardglass", "Torvalen", "Breagha", "Fionnaval", "Kildoran", "Dunhaven", "Lismore",
     "Montclair", "Riversford", "Maplewood", "Halberton", "Newhaven", "Stonemere", "Ashcroft", "Greenhaven", "Fort Aberdeen", "Kingsbury",
     "Silverpeak", "Northbay", "Elkford", "Lumberton", "Brookhaven", "Willowdale", "Foxhollow", "Redwater", "Whitestone", "Thunder Bay",
-    "Lunenburg", "Stratford", "Cornerbrook", "Kingston"
+    "Lunenburg", "Stratford", "Cornerbrook", "Kingston", "Cornwall", "Belleville", "Westport"
 ];
 //gets a random town names that is not already in passed list
 function generateTownName(selected = null) {
