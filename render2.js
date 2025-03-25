@@ -553,7 +553,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     sprite.clickable = clickable;
     sprite.isHex = isHex;
     sprite.depth = depth;
-    sprite.params = params;
+    sprite.params = structuredClone(params);
     // colour_hex_group.add(sprite);
     stage.add(sprite);
 
@@ -578,7 +578,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
 
     //if a poi, randomly choose one event text from default array
     if (params.type === "poi") {
-        let chosenEventText = params.eventText[Math.floor(Math.random() * params.eventText.length)];
+        let chosenEventText = params.eventText[Math.floor(Math.random() * params.eventText.length)];        
         sprite.params.eventText = [chosenEventText];
     }
 

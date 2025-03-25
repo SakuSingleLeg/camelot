@@ -224,7 +224,6 @@ function addZUI() {
     
         if (elem) {
             if (elem.params.type === "poi") {;
-                console.log("🚀 ~ mousedown ~ elem:", elem)
                 pushToEventLog(elem.params.eventText[0]);
             }
 
