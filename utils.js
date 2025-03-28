@@ -42,3 +42,22 @@ function loadScript(scriptUrl, callback) {
     script.onload = callback;
     document.head.appendChild(script);
 }
+
+//takes a (presumably) long string and returns an array of strings of given max length
+function wrapText(text, maxChars) {
+    const words = text.split(' ');
+    let lines = [];
+    let currentLine = '';
+  
+    for (let word of words) {
+      if ((currentLine + word).length <= maxChars) {
+        currentLine += word + ' ';
+      } else {
+        lines.push(currentLine.trim());
+        currentLine = word + ' ';
+      }
+    }
+    if (currentLine) lines.push(currentLine.trim());
+  
+    return lines;
+  }

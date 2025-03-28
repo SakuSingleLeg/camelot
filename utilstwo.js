@@ -3,16 +3,43 @@ function getShapeById(id) {
     return stage.children.find(shape => shape._id === id);
 }
 
-function isMouseOver(sprite, mouse) {
+//checks if mouse is currently within bounds of a two.js object
+function isMouseOver(obj, mouse) {
+    const buffer = 5; // padding for easier clicking
+  
+    let width = 0;
+    let height = 0;
+  
+    // Handle Text
+    if (obj._renderer.type === 'text') {
+      width = obj.value.length * obj.size * 0.6; // rough width estimate
+      height = obj.size;
+    }
+  
+    // Handle Sprite
+    else if (obj._renderer.type === 'sprite') {
+      width = obj.width;
+      height = obj.height;
+    }
+  
+    // Optional fallback if you use rects or other shapes
+    else if (obj.width && obj.height) {
+      width = obj.width;
+      height = obj.height;
+    }
+  
+    const x = obj.translation.x - width / 2 - buffer;
+    const y = obj.translation.y - height / 2 - buffer;
+  
     return (
-        mouse.x >= sprite.translation.x - sprite.width / 2 &&
-        mouse.x <= sprite.translation.x + sprite.width / 2 &&
-        mouse.y >= sprite.translation.y - sprite.height / 2 &&
-        mouse.y <= sprite.translation.y + sprite.height / 2
+      mouse.x >= x &&
+      mouse.x <= x + width + buffer * 2 &&
+      mouse.y >= y &&
+      mouse.y <= y + height + buffer * 2
     );
 }
-
-//FPS COUNTER
+  
+//fps counter
 let SHOW_FPS = userConfig.show_fps ?? false;
 if (SHOW_FPS) {
     $(document).ready(function () {

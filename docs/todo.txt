@@ -1,13 +1,28 @@
 ---------
 TODDO
 ---------
+dialogs
+    background sprite
+    dialog01
+        text para
+        ok btn
+    dialog02
+        text para
+        yes/no btns
+    game start dialog
+    treasure pickup dialog
+
+treasure
+    class?
+    rewards
+        gold
+        nothing
 
 new tiles:
    update mills to their own tile
       32x32 animated sprite
       farmland colour
       its own details in ui
-      ui: food bonus, gold bonus
 
 ui
     crop shadow on ui components
@@ -20,19 +35,16 @@ main menu
         sfx volume
         show fps
 
+enemy units
+    spawn on map
+    skelly
+    bandits
+    ogblin?
 
 ---------
 BACKLOG
 ---------
-town names
-   assign town names to settlements
-   show on map
-   hide (slow?) on hover
-
-
-fog of war
-
-center tooltips under sprites/cursor?
+center tooltips under sprite/cursor?
 
 arthur
    movement/manipulation
@@ -82,3 +94,17 @@ special tile: red rook inn
     limit 1
     rare spawn
     'rumours' btn
+
+intro slides
+    nfi logo
+
+settlements
+    banner beside name to show friendly/hostile
+
+music
+    main menu
+sfx
+    btn click
+    
+unit panel
+    item (relic?) slots

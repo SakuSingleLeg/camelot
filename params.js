@@ -60,6 +60,7 @@ const PATH_IMG_PANEL_SMALL      = './img/ui_smol.png';
 const PATH_IMG_PANEL_SMALLER    = './img/ui_smoller.png';
 const PATH_IMG_PANEL_SMALLWIDE  = './img/ui_smol_wide.png';
 const PATH_IMG_PANEL_SQUARE     = './img/ui_square.png';
+const PATH_IMG_DIALOG_BG_01    = './img/paper_dialog_01.png';
 const PATH_IMG_ANIM_COIN        = './img/anim_coin.png';
 const PATH_IMG_ANIM_MILL_SM     = './img/anim_mill_icon.png';
 const PATH_IMG_ICON_FOOD        = './img/ui_icon_food.png';
@@ -74,6 +75,7 @@ const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
 const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
 const PATH_IMG_PAPER_LABEL      = './img/paper.png';
+const PATH_IMG_PAPER_LABEL_2    = './img/paper2.png'; //TODO: use this?
 const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
 const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 
@@ -115,17 +117,17 @@ function generateTownName(selected = null) {
 
 //units stats
 const unitParams = {
-
+    //default
     default: {
         type: "unset",
     },
-    
+    //castle
     camelot: {
         type: "castle",
         gold_per_turn: 1,
         food_per_turn: 0,        
     },
-
+    //settlement
     town: {
         type: "settlement",
         subtype: "town",
@@ -144,19 +146,19 @@ const unitParams = {
         gold_per_turn: 0,
         food_per_turn: 2,
     },
-
+    //unit
     knight_arthur: {
         type: "unit",
         atk: 6,
-        def: 5,
-        vrt: 4,
+        def: 4,
+        vrt: 3,
         eye: 1,
         hp_cur: 25,
         hp_max: 50,
         ap_cur: 0,
         ap_max: 3,
     },
-
+    //poi
     cave: {
         type: "poi",
         eventText: [
@@ -172,14 +174,21 @@ const unitParams = {
             "A totally normal cave. Not suspicious at all.",
         ]
     },
-
     chest: {
-        type: "item",
+        type: "poi",
         eventText: [
             "There may be items of great value within.",
             "A sealed box, brimming with possibilities.",
         ]
     },
-
 };
   
+//units stats
+const dialogParams = {
+    openingDialog: [
+        "Arthur has returned from the crusades, bloodied and weary.",
+        "He finds his once proud kingdom in ruin, taken over by evil forces.",
+        "Only Camelot remains.",
+        "Gather the Knights of the Round and recover the Grail to restore the kingdom.",
+    ]
+}

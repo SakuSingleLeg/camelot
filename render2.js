@@ -411,7 +411,7 @@ function drawSettlements() {
                 hiq.setAttribute("gridX", i);
                 hiq.setAttribute("gridY", j);
                 HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, true, 99, "friendly", unitParams.camelot);
+                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, false, 99, "friendly", unitParams.camelot);
                 isFirst = false;
 
                 // spawn starting unit on valid tile - checks grass first, then forest
@@ -528,7 +528,7 @@ function drawTreasure() {
                 
             // Place chest with a 10% chance
             if (Math.random() < 0.05) {
-                addSpriteToTile(PATH_IMG_CHEST_SM01, hiq, 'Treasure?', 1, 1, 1, false, 12, false, false, 99, "neutral");
+                addSpriteToTile(PATH_IMG_CHEST_SM01, hiq, 'Treasure?', 1, 1, 1, false, 12, false, false, 99, "neutral", unitParams.chest);
                 placedTreasures.push({ i, j }); // Store the placed chest location
                 numTreasure++;
             }
@@ -590,7 +590,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     //draw paper labels for certain sprites (ie settlements)
     if (params.type === "castle") {
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
-        let paperText = two.makeText("Camelot", center_x, center_y + 22, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
+        let paperText = two.makeText("Camelot", center_x, center_y + 21, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
         paperText.linewidth = 1;
         paperSprite.noPointerEvents = true;
@@ -601,7 +601,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     else if (params.subtype === "town" || params.subtype === "village") {
         let randomTownName = generateTownName(townNames);
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
-        let paperText = two.makeText(randomTownName, center_x, center_y + 22, { size: 6, fill: '#4f4f4f', family: 'Press Start 2P', alignment: 'center' });
+        let paperText = two.makeText(randomTownName, center_x, center_y + 21, { size: 6, fill: '#4f4f4f', family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
         paperSprite.noPointerEvents = true;
         townNames.push(randomTownName);

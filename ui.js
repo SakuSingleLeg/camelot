@@ -1,9 +1,10 @@
 // initial UI params
-let width = window.innerWidth;  // Get the window width
-let height = window.innerHeight; // Get the window height
+let width = window.innerWidth;
+let height = window.innerHeight;
 let hoverTileTxt = "Unknown Tile";
 let selectedTileTxt = "";
 let somethingSelected = false;
+let isDialogOpen = false;
 
 
 // TOP UI
@@ -146,33 +147,36 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
 function redrawUIBottom() {    
     removeUIBottom();
 
-    uiX_b = window.innerWidth/2;
-    uiY_b = window.innerHeight-90;
+    if (!isDialogOpen) {
+        uiX_b = window.innerWidth/2;
+        uiY_b = window.innerHeight-90;
+    
+        if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null) {
+               bgSpriteBottom.translation.set(uiX_b, uiY_b);
+               ui.add(bgSpriteBottom);
+        }
+        if (typeof lgSprite         !== 'undefined' && lgSprite         !== null) {
+            lgSprite.translation.set(uiX_b-300, uiY_b+4);
+            ui.add(lgSprite);
+        }
+        if (typeof txtName          !== 'undefined' && txtName          !== null) {
+            txtName.translation.set(uiX_b-300, uiY_b+24);
+            ui.add(txtName);
+        }
+        if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null) {
+            txtMoveCost.translation.set(uiX_b, uiY_b-24);
+            ui.add(txtMoveCost);
+        }
+        if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null) {
+            txtAtkBonus.translation.set(uiX_b, uiY_b+6);
+            ui.add(txtAtkBonus);
+        }
+        if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null) {
+            txtDefBonus.translation.set(uiX_b, uiY_b+36);
+            ui.add(txtDefBonus);
+        }    
 
-    if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null) {
-           bgSpriteBottom.translation.set(uiX_b, uiY_b);
-           ui.add(bgSpriteBottom);
     }
-    if (typeof lgSprite         !== 'undefined' && lgSprite         !== null) {
-        lgSprite.translation.set(uiX_b-300, uiY_b+4);
-        ui.add(lgSprite);
-    }
-    if (typeof txtName          !== 'undefined' && txtName          !== null) {
-        txtName.translation.set(uiX_b-300, uiY_b+24);
-        ui.add(txtName);
-    }
-    if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null) {
-        txtMoveCost.translation.set(uiX_b, uiY_b-24);
-        ui.add(txtMoveCost);
-    }
-    if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null) {
-        txtAtkBonus.translation.set(uiX_b, uiY_b+6);
-        ui.add(txtAtkBonus);
-    }
-    if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null) {
-        txtDefBonus.translation.set(uiX_b, uiY_b+36);
-        ui.add(txtDefBonus);
-    }    
 }
 function removeUIBottom() {
     if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null)   ui.remove(bgSpriteBottom);
@@ -282,40 +286,41 @@ rUI_aidBtn.visible = false;
 let rUI_SpriteAid = two.makeSprite(PATH_IMG_ICON_AID, uiX_r-120, uiY_r-19, 1, 1, 1, false);
 rUI_SpriteAid.visible = false;
 let rUI_txtAid = two.makeText("", uiX_r-99, uiY_r-19, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-
+//castle panel
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
-rUI_wideBtn01.visible = false;
-let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_wideBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-87, 1, 1, 1, false);
-rUI_wideBtn02.visible = false;
-let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+185, 1, 1, 1, false);
-rUI_smolBtn01.visible = false;
-let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center', visible: 'false' });
 let rUI_smolBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+185, 1, 1, 1, false);
-rUI_smolBtn02.visible = false;
-let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn03 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+117, 1, 1, 1, false);
-rUI_smolBtn03.visible = false;
-let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn04 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+117, 1, 1, 1, false);
-rUI_smolBtn04.visible = false;
-let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn05 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r-84, uiY_r+49, 1, 1, 1, false);
-rUI_smolBtn05.visible = false;
-let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 let rUI_smolBtn06 = two.makeSprite(PATH_IMG_PANEL_SMALLER, uiX_r+81, uiY_r+49, 1, 1, 1, false);
-rUI_smolBtn06.visible = false;
-let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-
 let rUI_rndTblSprite = two.makeSprite(PATH_IMG_ICON_RNDTABLE, uiX_r, uiY_r+264, 1, 1, 1, false);
+rUI_wideBtn01.visible = false;
+rUI_wideBtn02.visible = false;
+rUI_smolBtn01.visible = false;
+rUI_smolBtn02.visible = false;
+rUI_smolBtn03.visible = false;
+rUI_smolBtn04.visible = false;
+rUI_smolBtn05.visible = false;
+rUI_smolBtn06.visible = false;
 rUI_rndTblSprite.visible = false;
+let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center', visible: 'false' });
+let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
 function drawUIRight(elem) {
     removeUIRight();
 
     rUI_bgSpriteRight.visible = true;
     rUI_selectSprite = two.makeSprite(elem.path, uiX_r, uiY_r-353, 1, 1, 1, false);
     rUI_selectSprite.scale = elem.isHex ? 5:8;
+    rUI_selectSprite.scale = elem.path===PATH_IMG_HEX_CASTLE01 ? 4:rUI_selectSprite.scale;
+    //TODO: add css class for highlight
     rUI_selectSprite.visible = true;
     rUI_txtSelectedName.value = elem.desc;
 
@@ -511,15 +516,20 @@ function removeUIRight() {
 }
 
 function updateUIPositions() {
+    //removeUITop();
+    //removeUILeft();
+    removeUIBottom();
+    //removeUIRight();
     redrawUITop();
     redrawUILeft();
     redrawUIBottom();
     redrawUIRight();
+    redrawUDialog();
 }
 
+  // fade to black
 function fadeToBlack() {
   let overlay = document.getElementById("fadeOverlay");
-  // fade to black
   overlay.style.opacity = "1";
   // prevents clicks while blacked out
   overlay.style.pointerEvents = "auto";
@@ -548,7 +558,6 @@ function pushToEventLog(msg) {
     redrawUITop();
 }
 function eventLogUp() {
-    console.log("eventLogUp");
     if (logIndex > 2) {
         logIndex--;
         shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
@@ -556,10 +565,59 @@ function eventLogUp() {
     }
 }
 function eventLogDown() {
-    console.log("eventLogDown");
     if (logIndex + 1 < eventLog.length) {
         logIndex++;
         shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
         redrawUITop();
     }
+}
+
+
+// DIALOGS
+const maxCharsPerLine = 48;
+const maxLines = 8;
+
+let dialog01Background = two.makeSprite(PATH_IMG_DIALOG_BG_01, width/2, height/2, 1, 1, 1, false);
+let dialog01Text = two.makeText("", width/2, height/2-240, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog02Text = two.makeText("", width/2, height/2-210, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog03Text = two.makeText("", width/2, height/2-180, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog04Text = two.makeText("", width/2, height/2-150, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+dialog01Background.visible = false;
+function dialog01(msg) {
+    console.log("dialog 01: " + msg);
+    isDialogOpen = true;
+
+    dialog01Text.value = msg[0];
+    dialog02Text.value = msg[1];
+    dialog03Text.value = msg[2];
+    dialog03Text.value = msg[3];
+
+    ui.add(dialog01Background);
+    ui.add(dialog01Text);
+    ui.add(dialog02Text);
+    // ui.add(dialog03Text);
+    // ui.add(dialog04Text);
+    ui.add(dialogOKText);
+    dialog01Background.visible = true;
+
+}
+function redrawUDialog() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    dialog01Background.translation.set(width/2, height/2);
+    dialog01Text.translation.set(width/2, height/2-240);
+    dialog02Text.translation.set(width/2, height/2-210);
+    dialog03Text.translation.set(width/2, height/2-180);
+    dialog04Text.translation.set(width/2, height/2+240);
+}
+function removeDialog() {
+    ui.remove(dialog01Background);
+    ui.remove(dialog01Text);
+    ui.remove(dialog02Text);
+    ui.remove(dialog03Text);
+    ui.remove(dialog04Text);
+    ui.remove(dialogOKText);
+    isDialogOpen = false;
 }

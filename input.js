@@ -144,51 +144,53 @@ function addZUI() {
 
     //MOOSE OVER
     function mouseover(e) {
-        let elem = stage.children.find(shape => shape._id === e.target.id);
-
-        if (lastElement === elem) return;  // Prevent redundant updates
-        lastElement = elem;
-
-        // Ignore elements that should not capture events
-        if (elem && elem.noPointerEvents) return;
+        if (!isDialogOpen) {
+            let elem = stage.children.find(shape => shape._id === e.target.id);
     
-        if (elem) {
-            tooltip.show();
-            let gridX = elem.gridX !== undefined ? elem.gridX : -1;
-            let gridY = elem.gridY !== undefined ? elem.gridY : -1;
-            let fillColor = elem.fill || "Unknown";    
-            hexPositionDiv.textContent = `(${gridX}, ${gridY}) Depth: ${elem.depth}`;
-
+            if (lastElement === elem) return;  // Prevent redundant updates
             lastElement = elem;
-            
-            tooltip
-                .text(elem.desc)
-                .css({
-                    "left": event.pageX + "px",
-                    "top": event.pageY + "px",
-                    "display": "block"
-            });
-
-            if (HEX_ARR[gridY] !== undefined) {
-                fillColor = HEX_ARR[gridY][gridX].colour;
-
-                //update ui to reflect what has been moused over       
-                if (elem.isHex) {
-                    drawUIBottom(gridX, gridY, fillColor, elem.path);
+    
+            // Ignore elements that should not capture events
+            if (elem && elem.noPointerEvents) return;
+        
+            if (elem) {
+                tooltip.show();
+                let gridX = elem.gridX !== undefined ? elem.gridX : -1;
+                let gridY = elem.gridY !== undefined ? elem.gridY : -1;
+                let fillColor = elem.fill || "Unknown";    
+                hexPositionDiv.textContent = `(${gridX}, ${gridY}) Depth: ${elem.depth}`;
+    
+                lastElement = elem;
+                
+                tooltip
+                    .text(elem.desc)
+                    .css({
+                        "left": event.pageX + "px",
+                        "top": event.pageY + "px",
+                        "display": "block"
+                });
+    
+                if (HEX_ARR[gridY] !== undefined) {
+                    fillColor = HEX_ARR[gridY][gridX].colour;
+    
+                    //update ui to reflect what has been moused over       
+                    if (elem.isHex) {
+                        drawUIBottom(gridX, gridY, fillColor, elem.path);
+                    }
+                    else {
+                        removeUIBottom();
+                    }
                 }
-                else {
+                else { 
                     removeUIBottom();
+                    console.log("HEX_ARR[gridY] not here man");
                 }
             }
-            else { 
+            else {
+                // drawUILeft();
                 removeUIBottom();
-                console.log("HEX_ARR[gridY] not here man");
+                console.log("elem not here man");
             }
-        }
-        else {
-            // drawUILeft();
-            removeUIBottom();
-            console.log("elem not here man");
         }
     }
     function throttledMouseover(e) {
@@ -202,6 +204,9 @@ function addZUI() {
     function mousedown(e) {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+
+        //dialog OK btn
+        if (isMouseOver(dialogOKText, mouse)) removeDialog();
 
         //click quit btn
         if (isMouseOver(bgSpriteLeft1, mouse)) quitToMenu();
@@ -224,14 +229,12 @@ function addZUI() {
             }
 
             if (elem.clickable) {
-                console.log(elem);
                 somethingSelected = true;  
                 selectedTileTxt = elem.desc;
                 drawUIRight(elem);
             }
             else {
                 somethingSelected = false;
-                console.log("somethingSelected = false");
                 removeUIRight();
             }
         }
@@ -240,14 +243,16 @@ function addZUI() {
 
     //MOOSE MOVE
     function mousemove(e) {
-        // Adjust this value to control the maximum movement speed
-        var dx = e.clientX - mouse.x;
-        var dy = e.clientY - mouse.y;
-    
-        $("#tooltip-position").hide();
-        zui.translateSurface(dx, dy);           
-        removeUIBottom();
-        mouse.set(e.clientX, e.clientY);
+        if (!isDialogOpen) {
+            // Adjust this value to control the maximum movement speed
+            var dx = e.clientX - mouse.x;
+            var dy = e.clientY - mouse.y;
+        
+            $("#tooltip-position").hide();
+            zui.translateSurface(dx, dy);           
+            removeUIBottom();
+            mouse.set(e.clientX, e.clientY);
+        }
     }
     
 
@@ -348,7 +353,9 @@ function addZUI() {
 }
 
 function startNewGame() {
+    //show opening game log & dialog
     pushToEventLog("Your kingdom is pillaged and your Knights are scattered.");
+    dialog01(dialogParams.openingDialog);
 
     //TODO: assign gold, food, other start params
 }
