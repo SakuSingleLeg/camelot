@@ -26,10 +26,13 @@ const PATH_IMG_HEX_FOREST02     = './img/hex_forest02.png';
 const PATH_IMG_HEX_FOREST03     = './img/hex_forest03.png';
 const PATH_IMG_HEX_FOREST04     = './img/hex_forest04.png';
 const PATH_IMG_HEX_FARM01       = './img/hex_farm01.png';
+const PATH_IMG_HEX_FARM02       = './img/hex_farm02.png';
 const PATH_IMG_HEX_MOUNTAIN01   = './img/hex_mountain01.png';
 const PATH_IMG_HEX_MOUNTAIN02   = './img/hex_mountain02.png';
 const PATH_IMG_HEX_PEAK01       = './img/hex_peak01.png';
 const PATH_IMG_HEX_WATER01      = './img/hex_water01.png';
+const PATH_IMG_HEX_WATER02      = './img/hex_water02.png';
+const PATH_IMG_HEX_WATER03      = './img/hex_water03.png';
 const PATH_IMG_HEX_WATER_DEEP01 = './img/hex_water_deep01.png';
 const PATH_IMG_HEX_CASTLE01     = './img/hex_castle01.png';
 const PATH_IMG_HEX_SETTLEMENT01 = './img/hex_settlement01.png';
@@ -188,7 +191,7 @@ const dialogParams = {
     openingDialog: [
         "Arthur has returned from the crusades, bloodied and weary.",
         "He finds his once proud kingdom in ruin, taken over by evil forces.",
-        "Only Camelot remains.",
-        "Gather the Knights of the Round and recover the Grail to restore the kingdom.",
+        "Only Castle Camelot remains.",
+        "Recover the Grail to restore the kingdom.",
     ]
 }

@@ -174,14 +174,18 @@ function buildGrid(MAP_SEED) {
             else if (hex.fill === COLOUR_WATER) { 
                 var randSpeed = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
                 var randSpawn = Math.random();
-                addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
                 moveCost = 99; 
                 //chance for extra sprite
                 if (randSpawn <= .2 && randSpawn > .1) {
-                    addSpriteToTile(PATH_IMG_WAVE_ANIM, hex, '', 6, 1, randSpeed, true, 0, false, false);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 2, false, false);   
                 }
                 else if (randSpawn <= .1) {
-                    addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false);   
+                    // addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
+                    // addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 2, false, false);   
+                }
+                else {
+                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
                 }
             }
             else if (hex.fill === COLOUR_WATER_DEEP) {
@@ -466,10 +470,20 @@ function drawSettlements() {
                             // miq.setAttribute("gridX", i);
                             // miq.setAttribute("gridY", j);
                             HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
-                            addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
+
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
-                            let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
-                            millSprite.scale = .8;
+                            if (Math.random() < 0.5) {
+                                addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
+                                let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
+                                millSprite.scale = .7;
+                            }
+                            else {
+                                addSpriteToTile(PATH_IMG_HEX_FARM02, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
+                                let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, false);
+                                // millSprite.scale = .8;
+                            }
+
+                            
                         }
                     }             
                 }

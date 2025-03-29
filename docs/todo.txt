@@ -2,14 +2,9 @@
 TODDO
 ---------
 dialogs
-    background sprite
-    dialog01
-        text para
-        ok btn
     dialog02
         text para
         yes/no btns
-    game start dialog
     treasure pickup dialog
 
 treasure

@@ -103,7 +103,7 @@ function addZUI() {
     //set intiial zoom + limits //TODO: add pan limits
     zui.addLimits(1.8, 2.6);
     setTimeout(() => {
-        zui.zoomBy(.7, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
+        zui.zoomBy(1, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
     }, 10);
 
     //draw static ui

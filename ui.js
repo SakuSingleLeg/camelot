@@ -591,13 +591,13 @@ function dialog01(msg) {
     dialog01Text.value = msg[0];
     dialog02Text.value = msg[1];
     dialog03Text.value = msg[2];
-    dialog03Text.value = msg[3];
+    dialog04Text.value = msg[3];
 
     ui.add(dialog01Background);
     ui.add(dialog01Text);
     ui.add(dialog02Text);
-    // ui.add(dialog03Text);
-    // ui.add(dialog04Text);
+    ui.add(dialog03Text);
+    ui.add(dialog04Text);
     ui.add(dialogOKText);
     dialog01Background.visible = true;
 
