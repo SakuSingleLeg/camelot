@@ -585,7 +585,6 @@ let dialog04Text = two.makeText("", width/2, height/2-150, { size: 16, fill: '#5
 let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 dialog01Background.visible = false;
 function dialog01(msg) {
-    console.log("dialog 01: " + msg);
     isDialogOpen = true;
 
     dialog01Text.value = msg[0];

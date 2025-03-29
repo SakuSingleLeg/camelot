@@ -101,7 +101,7 @@ function addZUI() {
     let lastElement = null;
     
     //set intiial zoom + limits //TODO: add pan limits
-    zui.addLimits(.8, 2.6);
+    zui.addLimits(1.6, 2.6);
     setTimeout(() => {
         zui.zoomBy(1, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
     }, 10);

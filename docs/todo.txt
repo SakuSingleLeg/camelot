@@ -3,16 +3,6 @@ TODDO
 ---------
 VERSION 0.3
 
-remove duplicate hexes
-    sort func: log duplicate coords
-    remove bottom hexes at dupe coords
-
-treasure
-    class?
-    reward attribute
-        gold
-        nothing
-
 main menu
     options menu
         music volume
@@ -24,8 +14,6 @@ enemy units
     skelly
     bandits
     ogblin?
-
-optimize ui rendering
 
 ---------
 BACKLOG
@@ -51,6 +39,9 @@ arthur
 knights
     additional units
    can acquire retinue
+
+treasure
+    obtain by moving to same tile
 
 turns & action points
    'next turn' btn restores ap

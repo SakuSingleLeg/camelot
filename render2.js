@@ -257,6 +257,7 @@ function buildGrid(MAP_SEED) {
         setTimeout(drawForests, 0);
         setTimeout(drawSettlements, 0);
         setTimeout(drawTreasure, 0);
+        setTimeout(drawEnemies, 0);
         setTimeout(sortSprites, 1000);
 
         two.add(stage);
@@ -276,29 +277,25 @@ function sortSprites() {
     let removedSprites = 0;
     stage.children.sort((a, b) => {
         if (a.gridX === b.gridX && a.gridY === b.gridY && a.isHex && b.isHex) {
-            console.log(`Matching grid coords: A(${a.gridX}, ${a.gridY}) vs B(${b.gridX}, ${b.gridY})`);
-            console.log(a.path+"||"+a.depth);
-            console.log(b.path+"||"+b.depth);
-
             if (a.depth === 1) {
                 stage.remove(a);
-                console.log(`Removing depth=1 sprite:`, a.path);
+                //console.log(`Removing depth=1 sprite:`, a.path);
                 removedSprites++;
             }
             else if (b.depth === 1) {
                 stage.remove(b);
-                console.log(`Removing depth=1 sprite:`, b.path);
+                //console.log(`Removing depth=1 sprite:`, b.path);
                 removedSprites++;
             }
         }
         
-        //// Prioritize items with depth === 1
+        ////prioritize items with depth === 1
         // if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
         // if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
-        //// Move items with isHex === false to the end
+        //move items with isHex === false to the end
         // if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
 
-        // Sort by gridY
+        //sort by gridY
         return a.gridY - b.gridY;
     });
 
@@ -526,15 +523,14 @@ function drawTreasure() {
             hexList.push({ i, j, centerDistance });
         }
     }
-
     // Sort hexes by distance from center
     hexList.sort((a, b) => a.centerDistance - b.centerDistance);
 
-    // Function to check if a new chest is at least 9 tiles away from all placed chests
+    // Function to check if a new chest is at least x tiles away from all placed chests
     function isFarEnough(x, y) {
         for (let { i, j } of placedTreasures) {
             let trDistance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
-            if (trDistance < 12) return false; // Not far enough
+            if (trDistance < 12) return false;
         }
         return true;
     }
@@ -568,6 +564,65 @@ function drawTreasure() {
             }
         }
     }
+}
+
+function drawEnemies() {      
+    let centerX = Math.floor(GRID_X_SIZE / 2);
+    let centerY = Math.floor(GRID_Y_SIZE / 2);  
+    let hexList = [];
+    let placedEnemies = []; // Store placed chest coordinates
+    let numEnemies = 0;
+
+    // Collect all hexes with their distances
+    for (let i = 0; i < GRID_Y_SIZE; i++) {    
+        for (let j = 0; j < GRID_X_SIZE; j++) {    
+            let centerDistance = Math.sqrt(Math.pow(j - centerX, 2) + Math.pow(i - centerY, 2));
+            hexList.push({ i, j, centerDistance });
+        }
+    }
+    // Sort hexes by distance from center
+    hexList.sort((a, b) => b.centerDistance - a.centerDistance);
+
+    // Function to check if an enemy is at least x tiles away from all placed chests
+    function isFarEnough(x, y) {
+        for (let { i, j } of placedEnemies) {
+            let trDistance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
+            if (trDistance < 9) return false;
+        }
+        return true;
+    }
+
+    // Now iterate over hexes in distance order
+    for (let { i, j, centerDistance } of hexList) {
+        if (numEnemies >= 20) break; // Stop when x treasures are placed
+        if (centerDistance < 12) continue; // Skip hexes too close to center
+
+        let hid = HEX_ARR[i][j]['id'];
+        let hiq = document.getElementById(hid);
+        if (hiq===null) continue;
+        let hexColour = HEX_ARR[i][j]['colour'];
+
+        // Determine if valid tile for an enemy to be placed
+        if (hexColour !== COLOUR_WATER && 
+            hexColour !== COLOUR_WATER_DEEP && 
+            hexColour !== COLOUR_MOUNTAIN && 
+            hexColour !== COLOUR_MOUNTAIN_PEAK && 
+            hexColour !== COLOUR_SETTLEMENT && 
+            hexColour !== COLOUR_CURSEDABBEY && 
+            hexColour !== COLOUR_FARM &&
+        checkAllAdjacentHex(j, i, 8, COLOUR_SETTLEMENT) &&
+            isFarEnough(j, i)) {  // Ensure no nearby enemies
+                
+            // Place enemy with a % chance
+            if (Math.random() < 0.15) {
+                addSpriteToTile(PATH_IMG_NPC_SKELLY, hiq, 'Skeletons', 1, 1, 1, false, 6, false, false, 99, "hostile", unitParams.skelly);
+                placedEnemies.push({ i, j }); // Store the placed enemy location
+                numEnemies++;
+            }
+        }
+    }
+
+    console.log("Enemies spawned: " + numEnemies);
 }
 
 function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, start = false, yOffset = 0, clickable = false, isHex = false, depth = 99, friendly = "unset", params = unitParams.default) {
@@ -626,6 +681,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
         let paperText = two.makeText("Camelot", center_x, center_y + 21, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
+        paperSprite.depth = 99;
         paperText.linewidth = 1;
         paperSprite.noPointerEvents = true;
         paperText.noPointerEvents = true;
@@ -637,6 +693,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
         let paperText = two.makeText(randomTownName, center_x, center_y + 21, { size: 6, fill: '#4f4f4f', family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
+        paperSprite.depth = 99;
         paperSprite.noPointerEvents = true;
         townNames.push(randomTownName);
         stage.add(paperSprite); 

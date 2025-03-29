@@ -54,6 +54,7 @@ const PATH_IMG_MOUNTAIN_LG      = './img/hex_lg_mountain_peak.png';
 const PATH_IMG_PEAK_LG          = './img/hex_lg_mountain_peak.png';
 //CHARACTERS
 const PATH_IMG_NPC_KNIGHT       = './img/unit_knight.png';
+const PATH_IMG_NPC_SKELLY       = './img/unit_skelly.png';
 
 //UI
 const PATH_IMG_PANEL_TOP        = './img/ui_top.png';
@@ -160,6 +161,18 @@ const unitParams = {
         hp_max: 50,
         ap_cur: 0,
         ap_max: 3,
+    },
+    //unit
+    skelly: {
+        type: "unit",
+        atk: 3,
+        def: 3,
+        vrt: 1,
+        eye: 1,
+        hp_cur: 30,
+        hp_max: 30,
+        ap_cur: 0,
+        ap_max: 2,
     },
     //poi
     cave: {
