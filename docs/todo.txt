@@ -1,31 +1,20 @@
 ---------
 TODDO
 ---------
-dialogs
-    dialog02
-        text para
-        yes/no btns
-    treasure pickup dialog
+VERSION 0.3
+
+remove duplicate hexes
+    sort func: log duplicate coords
+    remove bottom hexes at dupe coords
 
 treasure
     class?
-    rewards
+    reward attribute
         gold
         nothing
 
-new tiles:
-   update mills to their own tile
-      32x32 animated sprite
-      farmland colour
-      its own details in ui
-
-ui
-    crop shadow on ui components
-    help btn (disabled) - book icon
-    save btn (disabled) - quill icon
-
 main menu
-    implement options menu
+    options menu
         music volume
         sfx volume
         show fps
@@ -36,9 +25,23 @@ enemy units
     bandits
     ogblin?
 
+optimize ui rendering
+
 ---------
 BACKLOG
 ---------
+dialogs
+    dialog02
+        text para
+        yes/no btns
+    treasure pickup dialog
+
+ui
+    crop shadow on ui components
+    help btn (disabled) - book icon
+    save btn (disabled) - quill icon
+
+
 center tooltips under sprite/cursor?
 
 arthur

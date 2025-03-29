@@ -93,7 +93,7 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
         hoverTileTxt = "Forest";
     }
     else if (hexColour === COLOUR_WATER) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(PATH_IMG_HEX_WATER01, uiX_b-300, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Water";
     }
     else if (hexColour === COLOUR_WATER_DEEP) {

@@ -2,7 +2,7 @@
     "debug": false,
     "debug_overlay": true,
     "show_fps": true,
-    "gridSizeX": 60,
+    "gridSizeX": 56,
     "gridSizeY": 40,
     "effectsVolume": 80,
     "musicVolume": 80

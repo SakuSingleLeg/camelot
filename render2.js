@@ -89,9 +89,9 @@ function buildGrid(MAP_SEED) {
   return new Promise((resolve, reject) => {  
     two.appendTo(document.body);      
 
-    two.bind('update', function(frameCount) {
+    // two.bind('update', function(frameCount) {
         //do stuff every frame
-    });
+    // });
 
     //apply noise
     noise.seed(MAP_SEED);
@@ -154,19 +154,19 @@ function buildGrid(MAP_SEED) {
                 let thisSprite = null;
 
                 if (grassSpriteChance < 0.7) {
-                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true);   
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true, 1);   
                     thisSprite.depth = 1;  
                 }
                 else if (grassSpriteChance < 0.75) {
-                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true);     
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true, 1);     
                     thisSprite.depth = 1;  
                 }
                 else if (grassSpriteChance < 0.8) {
-                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true);     
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true, 1);     
                     thisSprite.depth = 1;  
                 }
                 else {
-                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, 3, false, true);     
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, 3, false, true, 1);     
                     thisSprite.depth = 1;  
                 }
 
@@ -177,20 +177,20 @@ function buildGrid(MAP_SEED) {
                 moveCost = 99; 
                 //chance for extra sprite
                 if (randSpawn <= .2 && randSpawn > .1) {
-                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 2, false, false);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 2, false, true, 1);   
                 }
                 else if (randSpawn <= .1) {
-                    // addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
-                    // addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false);   
-                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 2, false, false);   
+                    // addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true, 1);   
+                    // addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 2, false, true, 1);   
                 }
                 else {
-                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true, 1);   
                 }
             }
             else if (hex.fill === COLOUR_WATER_DEEP) {
                 //chance for extra sprite, but different way
-                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true);   
+                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true, 1);   
                 if (Math.random() < 0.4) {
                     let iconNo = getRandomInt(2)+1;
                     let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
@@ -201,7 +201,7 @@ function buildGrid(MAP_SEED) {
             else if (hex.fill === COLOUR_MOUNTAIN) { 
                 let mountainSpriteChance = Math.random();
                 if (mountainSpriteChance < .65) {
-                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true);
+                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true, 1);
                     //chance to spawn a cave on this tile
                     let caveSpriteChance = Math.random();
                     if (caveSpriteChance < .12) {
@@ -209,18 +209,18 @@ function buildGrid(MAP_SEED) {
                     }
                 }
                 else {
-                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true);                
+                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true, 1);                
                 }
 
                 moveCost = 3;
             }
             else if (hex.fill === COLOUR_MOUNTAIN_PEAK) { 
-                addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true);    
+                addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true, 1);    
                 moveCost = 99; 
             }
             else if (hex.fill === COLOUR_COAST) { 
                 //dont do anything b/c all coasts get overridden anyways
-                //addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true);
+                //addSpriteToTile(PATH_IMG_HEX_MARSH02, hex, 'Coast??', 1, 1, 1, false, 1, false, true, 1);
             }
 
             // TODO: add special tiles, ie mordreds lair
@@ -273,17 +273,37 @@ function buildGrid(MAP_SEED) {
 
 //sort sprites to prevent z-issues
 function sortSprites() {    
+    let removedSprites = 0;
     stage.children.sort((a, b) => {
-        // Prioritize items with depth === 1
-        if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
-        if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
+        if (a.gridX === b.gridX && a.gridY === b.gridY && a.isHex && b.isHex) {
+            console.log(`Matching grid coords: A(${a.gridX}, ${a.gridY}) vs B(${b.gridX}, ${b.gridY})`);
+            console.log(a.path+"||"+a.depth);
+            console.log(b.path+"||"+b.depth);
 
-        // Move items with isHex === false to the end
-        if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
+            if (a.depth === 1) {
+                stage.remove(a);
+                console.log(`Removing depth=1 sprite:`, a.path);
+                removedSprites++;
+            }
+            else if (b.depth === 1) {
+                stage.remove(b);
+                console.log(`Removing depth=1 sprite:`, b.path);
+                removedSprites++;
+            }
+        }
+        
+        //// Prioritize items with depth === 1
+        // if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
+        // if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
+        //// Move items with isHex === false to the end
+        // if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
 
         // Sort by gridY
         return a.gridY - b.gridY;
     });
+
+    
+    console.log("Sprites sorted. Duplicates removed: " + removedSprites);
 }
 
 var lastTileWasForest = false;
@@ -314,10 +334,10 @@ function drawForests() {
             HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
             HEX_ARR[i][j]['moveCost'] = 2;
             if (Math.random() < .5) {
-                addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);      
+                addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
             }
             else {
-                addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);      
+                addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
             }
             }
 
@@ -359,8 +379,8 @@ function drawForests() {
                 if (neighborColour === COLOUR_GRASS) {
                     let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
                     if (neighborHex===null) continue;
-                    neighborHex.setAttribute("gridX", j);
-                    neighborHex.setAttribute("gridY", i);
+                    neighborHex.setAttribute("gridX", nx);
+                    neighborHex.setAttribute("gridY", ny);
                     if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
                         neighborHex.setAttribute("fill", COLOUR_FOREST);
                         HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
