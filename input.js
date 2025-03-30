@@ -282,17 +282,20 @@ function addZUI() {
 
         if (elem) {           
             let spriteDOM  = document.getElementById(elem._id);
-            console.log("🚀 ~ mousedown ~ spriteDOM:", spriteDOM)
             if (elem.params.eventText !== undefined) {;
                 pushToEventLog(elem.params.eventText[0]);
             }
 
             if (elem.clickable) {
+                console.log("🚀 ~ mousedown ~ elem:", elem)
                 selectedTile = elem; 
                 somethingSelected = true;  
                 selectedTileTxt = elem.desc;
                 spriteDOM.classList.add('glowing-selected');
                 drawUIRight(elem);
+
+                //TODO: if this is a knight, show movement hexes
+
             }
             else {
                 somethingSelected = false;

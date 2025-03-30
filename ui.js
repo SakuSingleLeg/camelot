@@ -373,7 +373,7 @@ function drawUIRight(elem) {
         ui.add(rUI_txtGold);
     }
     //else if elem is unit
-    else if (elem.params.type === "unit") {
+    else if (elem.params.type === "knight") {
         rUI_SpriteSword.visible = true;
         rUI_SpriteShield.visible = true;
         rUI_SpriteMedal.visible = true;
@@ -522,12 +522,12 @@ let dialog01Text = two.makeText("", width/2, height/2-210, { size: 18, fill: '#5
 let dialog02Text = two.makeText("", width/2, height/2-180, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 let dialog03Text = two.makeText("", width/2, height/2-150, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 let dialog04Text = two.makeText("", width/2, height/2-120, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center', decoration: 'underline' });
+
 dialog01Background.visible = false;
 dialog01Background.scale = 2;
 function dialog01(msg) {
     isDialogOpen = true;
-
     dialog01Text.value = msg[0];
     dialog02Text.value = msg[1];
     dialog03Text.value = msg[2];
@@ -541,6 +541,11 @@ function dialog01(msg) {
     ui.add(dialogOKText);
     dialog01Background.visible = true;
 
+    let dSprite = document.getElementById(dialogOKText._id);
+    if (dSprite) {
+        dSprite.addEventListener('mouseover', () => { dialogOKText.fill = '#FF0000'; });
+        dSprite.addEventListener('mouseout',  () => { dialogOKText.fill = '#5B4636'; });
+    }
 }
 function redrawUDialogs() {
     width = window.innerWidth;

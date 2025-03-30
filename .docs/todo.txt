@@ -8,30 +8,21 @@ arthur movement
     click on destination moves sprite
         translate (hourglass cursor)
         use ap
-
     --
     interact with poi
         treasure
         cave
 
 dialogs
-    highlight btn txt on hover
     dialog02
         text para
         yes/no btns
     treasure pickup dialog
 
 ui
-    drop shadow on ui components
-    help btn (disabled) - book icon
-    save btn (disabled) - quill icon
     hourglass btn
         show enemy move/end turn dialog
         restore ap on units
-
-turns & action points
-   'next turn' btn restores ap
-
 
 
 ---------
@@ -87,3 +78,13 @@ unit panel
 enemy units
     bandits
     ogblin?
+
+ui
+    help btn (disabled) - book icon
+    save btn (disabled) - quill icon
+    drop shadow on ui components
+    settlements: add ui components
+
+game over
+    dialog
+    fade & reset

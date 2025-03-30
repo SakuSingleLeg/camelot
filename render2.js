@@ -165,7 +165,7 @@ function buildGrid(MAP_SEED) {
                     thisSprite.depth = 1;  
                 }
                 else {
-                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 1, false, 3, false, true, 1);     
+                    let thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 0, false, 3, false, true, 1);     
                     thisSprite.depth = 1;  
                 }
 
@@ -288,9 +288,9 @@ function sortSprites() {
             }
         }
         
-        ////prioritize items with depth === 1
-        // if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
-        // if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
+        //prioritize items with depth === 1
+        if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
+        if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
         //move items with isHex === false to the end
         // if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
 
@@ -326,15 +326,15 @@ function drawForests() {
         } 
         else if (hexColour === COLOUR_COAST) {
             if (randomValue < .16) {
-            hiq.setAttribute("fill", COLOUR_MARSH);
-            HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
-            HEX_ARR[i][j]['moveCost'] = 2;
-            if (Math.random() < .5) {
-                addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
-            }
-            else {
-                addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
-            }
+                hiq.setAttribute("fill", COLOUR_MARSH);
+                HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
+                HEX_ARR[i][j]['moveCost'] = 2;
+                if (Math.random() < .5) {
+                    addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
+                }
+                else {
+                    addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
+                }
             }
 
             else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
@@ -346,11 +346,11 @@ function drawForests() {
                 addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
             }  
             else {            
-                addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
+                addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -2, false, true);   
             }
             }
             else  {
-                addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, 0, false, true);     
+                addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -2, false, true);     
             }
         }
 

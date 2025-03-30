@@ -159,9 +159,9 @@ const unitParams = {
         gold_per_turn: 0,
         food_per_turn: 2,
     },
-    //unit
+    //knight
     knight_arthur: {
-        type: "unit",
+        type: "knight",
         atk: 6,
         def: 4,
         vrt: 3,
@@ -171,9 +171,9 @@ const unitParams = {
         ap_cur: 0,
         ap_max: 3,
     },
-    //unit
+    //monster
     skelly: {
-        type: "unit",
+        type: "monster",
         atk: 3,
         def: 3,
         vrt: 1,
