@@ -90,6 +90,7 @@ const PATH_IMG_PAPER_LABEL      = './img/paper.png';
 const PATH_IMG_PAPER_LABEL_2    = './img/paper2.png'; //TODO: use this?
 const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
 const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
+const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
 
 //STRINGS
 let possibleTownNames = [

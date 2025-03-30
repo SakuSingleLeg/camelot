@@ -51,6 +51,11 @@ backBtn.on("click", function () {
 
 newMapRandomBtn.on("click", function () {
     const startTime = performance.now();
+    
+    //save original cursor, set to hourglass
+    const originalCursor = $("body").css("cursor");
+    $("body").css("cursor", `url('${PATH_IMG_MOUSE_HOURGLASS}'), auto`);
+
     console.log("Height Seed: " + MAP_SEED);
     menuParentDiv.hide();
     optionsBtn.hide(); //whyyyyy
@@ -68,6 +73,8 @@ newMapRandomBtn.on("click", function () {
                     addZUI();
                     fadeToNormal();
                     $("#loadingDiv").attr("hidden", "true");
+                    //restore original cursor
+                    $("body").css("cursor", originalCursor);
                     console.log(`buildGrid+friends execution time (with delays): ${(endTime - startTime).toFixed(2)} ms`);
                 }, 1000);   
             }, 1);   

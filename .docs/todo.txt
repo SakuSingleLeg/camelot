@@ -1,43 +1,48 @@
 ---------
 TODDO
 ---------
-VERSION 0.3 !!!!!
+VERSION 0.4
 
-clickables glow white when selected
+arthur movement
+    show unit movement highlight on select
+    click on destination moves sprite
+        translate (hourglass cursor)
+        use ap
 
----------
-BACKLOG
----------
+    --
+    interact with poi
+        treasure
+        cave
+
 dialogs
+    highlight btn txt on hover
     dialog02
         text para
         yes/no btns
     treasure pickup dialog
 
 ui
-    crop shadow on ui components
+    drop shadow on ui components
     help btn (disabled) - book icon
     save btn (disabled) - quill icon
     hourglass btn
         show enemy move/end turn dialog
         restore ap on units
 
+turns & action points
+   'next turn' btn restores ap
+
+
+
+---------
+BACKLOG
+---------
 
 center tooltips under sprite/cursor?
-
-arthur
-   movement/manipulation
-   give him AP
 
 knights
     additional units
     can acquire retinue
-
-treasure
-    obtain by moving to same tile
-
-turns & action points
-   'next turn' btn restores ap
 
 cloud layer over map
    must be a group in order to not be screen relative
