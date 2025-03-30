@@ -4,7 +4,6 @@ const hexPositionDiv = document.getElementById('hex-position');
 const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
 
-
 //INIT DECLARATIONS
 let userConfig;
 let two, ui, stage;  
@@ -19,18 +18,11 @@ let townNames = [];
 let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
-let opt_showFPS = false;
-let opt_musicVol = 80;
-let opt_sfxVol = 80;
 
 
 //LOAD CONFIG FROM FILE
 loadConfig().then(() => {
     console.log("Config Loaded, intializaing...");
-
-    let opt_showFPS = userConfig.show_fps;
-    let opt_musicVol = userConfig.musicVolume;
-    let opt_sfxVol = userConfig.effectsVolume;
 
     hexPositionDiv.setAttribute('hidden', 'true');
     spriteCountDiv.setAttribute('hidden', 'true');

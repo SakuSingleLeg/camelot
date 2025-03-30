@@ -1,5 +1,5 @@
 
-//MINA MENU CONTROL
+//#region MINA MENU CONTROL
 const menuParentDiv = $('#menuParentDiv');
 const loadingDiv = document.getElementById('loadingDiv');
 const menuClouds = document.getElementById('menuClouds');
@@ -15,8 +15,15 @@ const optionsBtn = $('#mainmenu_options');
 const backBtn = $('#mainmenu_back');
 const mainMenuDiv = $('#mainmenu_div');
 const optionsMenuDiv = $('#optionsmenu_div');
+const showFPS_input = $("#optionsmenu_showFPS_input");
+const musicVolume_input= $("#optionsmenu_volumeMusic_input");
+const effectsVolume_input = $("#optionsmenu_volumeFX_input");
 
 optionsBtn.on("click", function () {
+    showFPS_input.text(userConfig.show_fps);
+    musicVolume_input.text(userConfig.musicVolume);
+    effectsVolume_input.text(userConfig.effectsVolume);
+
     optionsBtn.hide();
     backBtn.show();
     mainMenuDiv.hide();
@@ -86,9 +93,9 @@ newMapSeededBtn2.on("click", function () {
         });        
     }, 3000);
 });
+//#endregion
 
-
-
+//#region GLOBAL INPUTS
 //suppress ctrl+mousewheel scroll b/c its weird with ZUI zoom is mixed with this
 document.addEventListener("wheel", function(event) {
     if (event.ctrlKey) {
@@ -109,8 +116,9 @@ if (SHOW_DEBUG_OVERLAY) {
 
 // Listen for window resize
 window.addEventListener('resize', updateUIPositions);
+//#endregion
 
-
+//#region ZUI
 var zui = null;
 var domElement = null;
 var showDebugTiles = false;
@@ -375,6 +383,7 @@ function addZUI() {
     //   distance = d;
     // }    
 }
+//#endregion
 
 function startNewGame() {
     //show opening game log & dialog
