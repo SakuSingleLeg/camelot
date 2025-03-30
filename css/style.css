@@ -249,6 +249,23 @@ svg {
     background-color: transparent !important;
 }
 
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    padding: 0px;
+    text-align: center; /* Aligns text like <p>, not inputs */
+}
+
+input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* if you also want the number centered inside */
+}
+
 /* Fullscreen black overlay */
 #fadeOverlay {
     position: fixed;
@@ -273,6 +290,20 @@ svg {
     text-shadow: 0 0 10px #ffffff, 0 0 20px rgba(0, 0, 255, 0.8);
     filter: drop-shadow(0 0 8px rgba(0, 0, 255, 1));
     animation: glowBlue 1.5s steps(8) infinite alternate;
+    transition: all 0.3s steps(3);
+}
+.glowing-friendly:hover{
+    color: #fff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+    animation: glowWhite 1.5s steps(8) infinite alternate;
+    transition: all 0.3s steps(3);
+}
+.glowing-selected{
+    color: #fff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+    animation: glowWhite 1.5s steps(8) infinite alternate;
     transition: all 0.3s steps(3);
 }
 .glowing-hostile {
@@ -317,15 +348,24 @@ svg {
 }
 
 
-
+@keyframes glowWhite {
+    0% {
+        text-shadow: 0px 0px 4px #ffffff, 0px 0px 10px rgba(255, 255, 255, 0.8);
+        filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8));
+    }
+    100% {
+        text-shadow: 0px 0px 8px #ffffff, 0px 0px 20px rgba(255, 255, 255, 1);
+        filter: drop-shadow(0px 0px 12px rgba(255, 255, 255, 1));
+    }
+}
 @keyframes glowBlue {
     0% {
-        text-shadow: 0px 0px 4px #ffffff, 0px 0px 10px rgba(255, 255, 255, 1);
-        /* filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 1)); */
+        text-shadow: 0px 0px 4px #87CEEB, 0px 0px 10px rgba(255, 255, 255, 1);
+        filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 1));
     }
     100% {
         text-shadow: 0px 0px 8px #87CEEB, 0px 0px 20px rgba(0, 0, 255, 1);
-        /* filter: drop-shadow(0px 0px 9px rgba(0, 0, 255, 1)); */
+        filter: drop-shadow(0px 0px 9px rgba(0, 0, 255, 1));
     }
 }
 @keyframes glowRed {
@@ -353,23 +393,4 @@ svg {
     src: url('../lib/PressStart2P-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-}
-
-
-.row {
-    display: flex;
-}
-
-.column {
-    flex: 1;
-    padding: 0px;
-    text-align: center; /* Aligns text like <p>, not inputs */
-}
-
-
-input {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center; /* if you also want the number centered inside */
 }

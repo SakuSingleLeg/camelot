@@ -17,6 +17,7 @@ let townNames = [];
 let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
+let selectedTile;
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -456,13 +457,6 @@ function drawSettlements() {
                         //console.log("SETTLEMENT MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_SETTLEMENT);
                         HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-                    
-                        if (Math.random() < 0.5) {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);     
-                        }
-                        else {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);  
-                        }
                         
                         //generate windmill(s) - up to 2
                         numMills = getRandomInt(2);
@@ -482,8 +476,8 @@ function drawSettlements() {
 
                             miq.setAttribute("fill", COLOUR_FARM);
                             // hiq.setAttribute("fill", COLOUR_FARM);
-                            // miq.setAttribute("gridX", i);
-                            // miq.setAttribute("gridY", j);
+                            miq.setAttribute("gridX", i);
+                            miq.setAttribute("gridY", j);
                             HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
 
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
@@ -500,7 +494,15 @@ function drawSettlements() {
 
                             
                         }
-                    }             
+                    }    
+                    
+                    //add settlement sprite after so it renders on top?
+                    if (Math.random() < 0.5) {
+                        addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);     
+                    }
+                    else {
+                        addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);  
+                    }         
                 }
             }
         }

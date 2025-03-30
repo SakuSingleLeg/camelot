@@ -267,14 +267,24 @@ function addZUI() {
         // ignore elements that should not capture events
         if (elem && elem.noPointerEvents) return;
     
-        if (elem) {
+        //clear last selected tile (if exists)
+        if (selectedTile) {
+            spriteDOM = document.getElementById(selectedTile._id);
+            spriteDOM.classList.remove('glowing-selected');
+        }
+
+        if (elem) {           
+            let spriteDOM  = document.getElementById(elem._id);
+            console.log("🚀 ~ mousedown ~ spriteDOM:", spriteDOM)
             if (elem.params.eventText !== undefined) {;
                 pushToEventLog(elem.params.eventText[0]);
             }
 
             if (elem.clickable) {
+                selectedTile = elem; 
                 somethingSelected = true;  
                 selectedTileTxt = elem.desc;
+                spriteDOM.classList.add('glowing-selected');
                 drawUIRight(elem);
             }
             else {

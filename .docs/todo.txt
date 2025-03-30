@@ -3,6 +3,8 @@ TODDO
 ---------
 VERSION 0.3 !!!!!
 
+clickables glow white when selected
+
 ---------
 BACKLOG
 ---------
@@ -16,6 +18,9 @@ ui
     crop shadow on ui components
     help btn (disabled) - book icon
     save btn (disabled) - quill icon
+    hourglass btn
+        show enemy move/end turn dialog
+        restore ap on units
 
 
 center tooltips under sprite/cursor?
@@ -26,7 +31,7 @@ arthur
 
 knights
     additional units
-   can acquire retinue
+    can acquire retinue
 
 treasure
     obtain by moving to same tile
