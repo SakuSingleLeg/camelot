@@ -6,8 +6,7 @@ let selectedTileTxt = "";
 let somethingSelected = false;
 let isDialogOpen = false;
 
-
-// TOP UI
+//#region TOP UI
 let uiX_t = width/2;
 let uiY_t = 80;
 let bgSpriteTop = two.makeSprite(PATH_IMG_PANEL_TOP, uiX_t, uiY_t, 1, 1, 1, false);
@@ -51,8 +50,9 @@ function removeUITop() {
     if (typeof txtLog02    !== 'undefined' && txtLog02    !== null) ui.remove(txtLog02);
     if (typeof txtLog03    !== 'undefined' && txtLog03    !== null) ui.remove(txtLog03);
 }
+//#endregion 
 
-// BOTTOM UI
+//#region BOTTOM UI
 let uiX_b = width/2;
 let uiY_b = height-90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
@@ -186,9 +186,9 @@ function removeUIBottom() {
     if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null)   ui.remove(txtAtkBonus);
     if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null)   ui.remove(txtDefBonus);
 }
+//#endregion 
 
-
-// LEFT UI
+//#region LEFT UI
 let uiX_l = 150;
 let uiY_l = height -64;
 let bgSpriteLeft1 = two.makeSprite(PATH_IMG_PANEL_SMALL, uiX_l, uiY_l, 1, 1, 1, false); 
@@ -241,9 +241,9 @@ function redrawUILeft() {
 
     drawUILeft();
 }
+//#endregion 
 
-
-// RIGHT UI
+//#region RIGHT UI
 let uiX_r = width - 220;
 let uiY_r = height - 330;
 let rUI_bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
@@ -514,69 +514,9 @@ function removeUIRight() {
     ui.remove(rUI_smolBtn06Txt);
     ui.remove(rUI_txtSelectedName);
 }
+//#endregion 
 
-function updateUIPositions() {
-    //removeUITop();
-    //removeUILeft();
-    removeUIBottom();
-    //removeUIRight();
-    redrawUITop();
-    redrawUILeft();
-    redrawUIBottom();
-    redrawUIRight();
-    redrawUDialogs();
-}
-
-  // fade to black
-function fadeToBlack() {
-  let overlay = document.getElementById("fadeOverlay");
-  overlay.style.opacity = "1";
-  // prevents clicks while blacked out
-  overlay.style.pointerEvents = "auto";
-}
-
-function fadeToNormal() {
-    let overlay = document.getElementById("fadeOverlay");
-    overlay.style.opacity = "0";
-    setTimeout(() => {
-        // allow clicks again after fading out
-        // overlay.style.pointerEvents = "none";
-        overlay.style.setProperty("pointer-events", "none", "important");
-    }, 2000); 
-}
-
-function pushToEventLog(msg) {
-    // Prevent memory overflow
-    if (eventLog.length > 9999) {
-        eventLog.shift();
-        logIndex--;
-    }
-    const formattedMsg = " - " + msg;
-    eventLog.push(formattedMsg);
-    logIndex = eventLog.length - 1;
-    shownLog = eventLog.slice(Math.max(0, logIndex - 2), logIndex + 1);
-    redrawUITop();
-}
-function eventLogUp() {
-    if (logIndex > 2) {
-        logIndex--;
-        shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
-        redrawUITop();
-    }
-}
-function eventLogDown() {
-    if (logIndex + 1 < eventLog.length) {
-        logIndex++;
-        shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
-        redrawUITop();
-    }
-}
-
-
-// DIALOGS
-const maxCharsPerLine = 48;
-const maxLines = 8;
-
+//#region DIALOGS
 let dialog01Background = two.makeSprite(PATH_IMG_DIALOG_BG_01, width/2, height/2, 1, 1, 1, false);
 let dialog01Text = two.makeText("", width/2, height/2-210, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 let dialog02Text = two.makeText("", width/2, height/2-180, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
@@ -622,3 +562,61 @@ function removeDialog() {
     ui.remove(dialogOKText);
     isDialogOpen = false;
 }
+//#endregion
+
+function updateUIPositions() {
+    //removeUITop();
+    //removeUILeft();
+    removeUIBottom();
+    //removeUIRight();
+    redrawUITop();
+    redrawUILeft();
+    redrawUIBottom();
+    redrawUIRight();
+    redrawUDialogs();
+}
+
+function fadeToBlack() {
+  let overlay = document.getElementById("fadeOverlay");
+  overlay.style.opacity = "1";
+  // prevents clicks while blacked out
+  overlay.style.pointerEvents = "auto";
+}
+function fadeToNormal() {
+    let overlay = document.getElementById("fadeOverlay");
+    overlay.style.opacity = "0";
+    setTimeout(() => {
+        // allow clicks again after fading out
+        // overlay.style.pointerEvents = "none";
+        overlay.style.setProperty("pointer-events", "none", "important");
+    }, 2000); 
+}
+
+//#region EVENT LOGGER
+function pushToEventLog(msg) {
+    // Prevent memory overflow
+    if (eventLog.length > 9999) {
+        eventLog.shift();
+        logIndex--;
+    }
+    const formattedMsg = " - " + msg;
+    eventLog.push(formattedMsg);
+    logIndex = eventLog.length - 1;
+    shownLog = eventLog.slice(Math.max(0, logIndex - 2), logIndex + 1);
+    redrawUITop();
+}
+function eventLogUp() {
+    if (logIndex > 2) {
+        logIndex--;
+        shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
+        redrawUITop();
+    }
+}
+function eventLogDown() {
+    if (logIndex + 1 < eventLog.length) {
+        logIndex++;
+        shownLog = eventLog.slice(logIndex - 2, logIndex + 1);
+        redrawUITop();
+    }
+}
+//#endregion 

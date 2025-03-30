@@ -1,5 +1,4 @@
-
-//#region MINA MENU CONTROL
+//#region MAIN MENU CONTROL
 const menuParentDiv = $('#menuParentDiv');
 const loadingDiv = document.getElementById('loadingDiv');
 const menuClouds = document.getElementById('menuClouds');
@@ -30,22 +29,6 @@ optionsBtn.on("click", function () {
     mainMenuDiv.hide();
     optionsMenuDiv.show();
 });
-backBtn.on("click", function () {
-
-    userConfig.show_fps = showFPS_btn.val();
-    userConfig.musicVolume = musicVolume_input.val();
-    userConfig.effectsVolume = effectsVolume_input.val();
-    saveConfig(userConfig);
-
-    // backBtn.hide();
-    // optionsBtn.show();
-    // mainMenuDiv.show();
-    // optionsMenuDiv.hide();
-
-    quitToMenu(true);
-});
-
-
 showFPS_btn.on("click", function () {
     console.log("showFPS_btn clicked");
     if (showFPS_btn.val() === true) {
@@ -56,6 +39,14 @@ showFPS_btn.on("click", function () {
         showFPS_btn.text("true");
         showFPS_btn.val(true);
     }
+});
+
+backBtn.on("click", function () {
+    userConfig.show_fps = showFPS_btn.val();
+    userConfig.musicVolume = musicVolume_input.val();
+    userConfig.effectsVolume = effectsVolume_input.val();
+    saveConfig(userConfig);
+    quitToMenu(true);
 });
 
 newMapRandomBtn.on("click", function () {
@@ -69,7 +60,7 @@ newMapRandomBtn.on("click", function () {
     setTimeout(() => {
         menuClouds.setAttribute('hidden', 'true')
         buildGrid(MAP_SEED).then(function () {
-            // wait for UI to update, then run buildGrid (so that 'loading...' shows)
+            //wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {
                 setTimeout(() => { 
                     const endTime = performance.now();
@@ -86,7 +77,6 @@ newMapRandomBtn.on("click", function () {
 
 newMapSeededBtn.on("click", function () {
     console.log("New Map (Seeded) clicked");
-    // unhide seed options
     newMapSeededInput.show();
     newMapSeededBtn2.show();
 });
@@ -101,7 +91,7 @@ newMapSeededBtn2.on("click", function () {
         let seedValue = parseInt(newMapSeededInput.val(), 10);
         menuClouds.setAttribute('hidden', 'true')
         buildGrid(seedValue).then(function (){     
-            // Wait for UI to update, then run buildGrid (so that 'loading...' shows)
+            //wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {
                 setTimeout(() => {
                     const endTime = performance.now();
@@ -125,7 +115,7 @@ document.addEventListener("wheel", function(event) {
     }
   }, { passive: false });
 
-//TRACK MOOSE POSITION (if debugging)
+//track moose pos(if debugging)
 if (SHOW_DEBUG_OVERLAY) {
     window.addEventListener('pointermove', (event) => {
         cursorPositionDiv.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
@@ -136,7 +126,7 @@ if (SHOW_DEBUG_OVERLAY) {
     });
 }
 
-// Listen for window resize
+//listen for window resize & adjust static elements
 window.addEventListener('resize', updateUIPositions);
 //#endregion
 
@@ -158,7 +148,7 @@ function addZUI() {
     zui.addLimits(1.6, 2.6);
     setTimeout(() => {
         zui.zoomBy(1, GRID_X_SIZE*HEX_SIZE, GRID_Y_SIZE*HEX_SIZE);
-    }, 10);
+    }, 1);
 
     //draw static ui
     drawUITop();
@@ -188,7 +178,7 @@ function addZUI() {
         }
     }, false);
 
-    //MEESES
+    //MEESE STOOF
     domElement.addEventListener('mouseover', throttledMouseover, false);
     domElement.addEventListener('mousedown', mousedown, false);
     domElement.addEventListener('mousewheel', mousewheel, false);
@@ -294,7 +284,6 @@ function addZUI() {
         }
     }
 
-
     //MOOSE MOVE
     function mousemove(e) {
         if (!isDialogOpen) {
@@ -309,7 +298,6 @@ function addZUI() {
         }
     }
     
-
     //MOOSE UP
     function mouseup(e) {
         // drawUILeft();
@@ -317,7 +305,6 @@ function addZUI() {
         window.removeEventListener('mousemove', mousemove, false);
         window.removeEventListener('mouseup', mouseup, false);   
     }
-
 
     //MOOSE WHEEL
     function mousewheel(e) {
@@ -416,7 +403,6 @@ function startNewGame() {
 }
 
 function quitToMenu(fast = false) {
-    console.log("quitToMenu()");
     if (fast) {
         location.reload();
     }

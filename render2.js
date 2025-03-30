@@ -1,10 +1,9 @@
-// MOUSE POS INFO
+//#region INIT DECLARATIONS
+//moose pos info
 const cursorPositionDiv = document.getElementById('cursor-position');
 const hexPositionDiv = document.getElementById('hex-position');
 const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
-
-//INIT DECLARATIONS
 let userConfig;
 let two, ui, stage;  
 let MAP_SEED, FOREST_SEED, SETTLEMENT_SEED;
@@ -18,7 +17,7 @@ let townNames = [];
 let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
-
+//#endregion
 
 //LOAD CONFIG FROM FILE
 loadConfig().then(() => {
