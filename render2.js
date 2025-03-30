@@ -426,7 +426,7 @@ function drawSettlements() {
           checkAdjacentHex(j, i, 3, COLOUR_WATER)) {
             //if first valid tile, make capital city
             if (isFirst) {
-                console.log("CAPITAL MARKED: " + i + ", " + j);
+                //console.log("CAPITAL MARKED: " + i + ", " + j);
                 hiq.setAttribute("fill", COLOUR_SETTLEMENT);
                 hiq.setAttribute("gridX", i);
                 hiq.setAttribute("gridY", j);
@@ -447,14 +447,14 @@ function drawSettlements() {
                 if (Math.random() < 0.18 && !checkAdjacentHex(j, i, 9, COLOUR_SETTLEMENT) && !checkAdjacentHex(j, i, 9, COLOUR_CURSEDABBEY)) {
                     //splash in abbeys (closer to home): chance to make this an abbey (up to 4), else settlement
                     if (Math.random() < 0.1 && numSpecialAbbeys<4) {
-                        console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
+                        //console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
                         HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
                         addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Abbey', 1, 1, 1, false, 1, false, true, 99, "hostile");  
                         numSpecialAbbeys++;
                     }
                     else {
-                        console.log("SETTLEMENT MARKED: " + i + ", " + j);
+                        //console.log("SETTLEMENT MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_SETTLEMENT);
                         HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
                     
@@ -476,7 +476,7 @@ function drawSettlements() {
                         }
                         //place mills
                         for (let k = 1; k <= numMills; k++) {
-                            console.log("FARM MARKED: " + i + ", " + j);
+                            //console.log("FARM MARKED: " + i + ", " + j);
                             let randomTile = validTiles[Math.floor(Math.random() * validTiles.length)];
                             let mid = randomTile['id'];
                             let miq = document.getElementById(mid);

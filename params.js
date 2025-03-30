@@ -1,4 +1,4 @@
-const DEFAULT_GAME_OPTIONS = {
+const DEFAULT_GAME_OPTIONS = `{
     "debug": false,
     "debug_overlay": true,
     "show_fps": true,
@@ -6,7 +6,7 @@ const DEFAULT_GAME_OPTIONS = {
     "gridSizeY": 40,
     "effectsVolume": 80,
     "musicVolume": 80
-}
+}`;
 
 //HEX GRID DISPLAY//  
 const COLOUR_FARM               = "#DAA520";
@@ -222,8 +222,8 @@ const unitParams = {
 const dialogParams = {
     openingDialog: [
         "Arthur has returned from the crusades, bloodied and weary.",
-        "He finds his once proud kingdom in ruin, taken over by evil forces.",
-        "Only Castle Camelot remains.",
+        "He finds his once proud kingdom ruined by evil forces.",
+        "Only Castle Camelot remains uncaptured.",
         "Recover the Grail to restore the kingdom.",
     ]
 }

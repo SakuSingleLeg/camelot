@@ -40,6 +40,17 @@ body {
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE/Edge */
+
+    /* hide chevrons for number inputs: Chrome, Safari, Edge, Opera */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 }
 /* Cursor when mouse is clicked anywhere on the page */*
 body:active {
@@ -170,10 +181,10 @@ svg {
 .menu-input {
     font-family: 'Press Start 2P', cursive;
     font-size: medium;
-    padding: 10px 20px;
-    margin: 10px auto;
+    padding: 10px 10px;
     border-radius: 5px;
     text-align: center;
+    color: #fff;
     transition: background-color 1.0s ease;
     background-color: transparent;
     display: block;
@@ -188,7 +199,11 @@ svg {
     z-index: 5555 !important;
 }
 
-#mainMenuDiv {
+#mainmenu_div {
+    text-align: center;
+    z-index: 5555 !important;
+}
+#optionsmenu_div {
     text-align: center;
     z-index: 5555 !important;
 }
@@ -347,7 +362,15 @@ svg {
 }
 
 .column {
-    flex: 1;           /* Equal width */
-    padding: 0px;     /* Optional spacing */
-    text-align: right;
+    flex: 1;
+    padding: 0px;
+    text-align: center; /* Aligns text like <p>, not inputs */
+}
+
+
+input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* if you also want the number centered inside */
 }

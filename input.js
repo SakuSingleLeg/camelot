@@ -15,14 +15,15 @@ const optionsBtn = $('#mainmenu_options');
 const backBtn = $('#mainmenu_back');
 const mainMenuDiv = $('#mainmenu_div');
 const optionsMenuDiv = $('#optionsmenu_div');
-const showFPS_input = $("#optionsmenu_showFPS_input");
+const showFPS_btn = $("#optionsmenu_showFPS_btn");
 const musicVolume_input= $("#optionsmenu_volumeMusic_input");
 const effectsVolume_input = $("#optionsmenu_volumeFX_input");
 
 optionsBtn.on("click", function () {
-    showFPS_input.text(userConfig.show_fps);
-    musicVolume_input.text(userConfig.musicVolume);
-    effectsVolume_input.text(userConfig.effectsVolume);
+    showFPS_btn.text(userConfig.show_fps);
+    showFPS_btn.val(userConfig.show_fps);
+    musicVolume_input.val(userConfig.musicVolume);
+    effectsVolume_input.val(userConfig.effectsVolume);
 
     optionsBtn.hide();
     backBtn.show();
@@ -30,10 +31,31 @@ optionsBtn.on("click", function () {
     optionsMenuDiv.show();
 });
 backBtn.on("click", function () {
-    backBtn.hide();
-    optionsBtn.show();
-    mainMenuDiv.show();
-    optionsMenuDiv.hide();
+
+    userConfig.show_fps = showFPS_btn.val();
+    userConfig.musicVolume = musicVolume_input.val();
+    userConfig.effectsVolume = effectsVolume_input.val();
+    saveConfig(userConfig);
+
+    // backBtn.hide();
+    // optionsBtn.show();
+    // mainMenuDiv.show();
+    // optionsMenuDiv.hide();
+
+    quitToMenu(true);
+});
+
+
+showFPS_btn.on("click", function () {
+    console.log("showFPS_btn clicked");
+    if (showFPS_btn.val() === true) {
+        showFPS_btn.text("false");
+        showFPS_btn.val(false);
+    }
+    else {
+        showFPS_btn.text("true");
+        showFPS_btn.val(true);
+    }
 });
 
 newMapRandomBtn.on("click", function () {
@@ -393,10 +415,15 @@ function startNewGame() {
     //TODO: assign gold, food, other start params
 }
 
-function quitToMenu() {
+function quitToMenu(fast = false) {
     console.log("quitToMenu()");
-    fadeToBlack();
-    setTimeout(() => {
+    if (fast) {
         location.reload();
-    }, 2000);
+    }
+    else {
+        fadeToBlack();
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    }
 }

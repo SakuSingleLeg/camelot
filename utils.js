@@ -28,23 +28,25 @@ function getRandomInt(max) {
 }
 
 function loadConfig() {
-
-    //load from browser localStorage - unless does not exist, then load defaults from local config file
     if (localStorage.getItem("userConfig") !== null) {
         console.log("loading config from localStorage");
         userConfig = JSON.parse(localStorage.getItem("userConfig"));
         return Promise.resolve(userConfig);
     } else {
         console.log("loading config from default");
-        return JSON.parse(DEFAULT_GAME_OPTIONS).then(config => {
+        return Promise.resolve(JSON.parse(DEFAULT_GAME_OPTIONS)).then(config => {
             console.log("Config loaded:", config);
             userConfig = config;
             localStorage.setItem("userConfig", JSON.stringify(config));
-        }).fail(() => {
+            return config;
+        }).catch(() => {
             console.error("Error loading config");
         });
     }
-
+}
+function saveConfig() {
+    console.log("saving config to localStorage");
+    localStorage.setItem("userConfig", JSON.stringify(userConfig))
 }
 
 function loadScript(scriptUrl, callback) {

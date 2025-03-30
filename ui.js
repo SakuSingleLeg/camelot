@@ -524,7 +524,7 @@ function updateUIPositions() {
     redrawUILeft();
     redrawUIBottom();
     redrawUIRight();
-    redrawUDialog();
+    redrawUDialogs();
 }
 
   // fade to black
@@ -578,11 +578,11 @@ const maxCharsPerLine = 48;
 const maxLines = 8;
 
 let dialog01Background = two.makeSprite(PATH_IMG_DIALOG_BG_01, width/2, height/2, 1, 1, 1, false);
-let dialog01Text = two.makeText("", width/2, height/2-240, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialog02Text = two.makeText("", width/2, height/2-210, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialog03Text = two.makeText("", width/2, height/2-180, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialog04Text = two.makeText("", width/2, height/2-150, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog01Text = two.makeText("", width/2, height/2-210, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog02Text = two.makeText("", width/2, height/2-180, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog03Text = two.makeText("", width/2, height/2-150, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialog04Text = two.makeText("", width/2, height/2-120, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
+let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 dialog01Background.visible = false;
 dialog01Background.scale = 2;
 function dialog01(msg) {
@@ -602,15 +602,16 @@ function dialog01(msg) {
     dialog01Background.visible = true;
 
 }
-function redrawUDialog() {
+function redrawUDialogs() {
     width = window.innerWidth;
     height = window.innerHeight;
 
     dialog01Background.translation.set(width/2, height/2);
-    dialog01Text.translation.set(width/2, height/2-240);
-    dialog02Text.translation.set(width/2, height/2-210);
-    dialog03Text.translation.set(width/2, height/2-180);
-    dialog04Text.translation.set(width/2, height/2+240);
+    dialog01Text.translation.set(width/2, height/2-210);
+    dialog02Text.translation.set(width/2, height/2-180);
+    dialog03Text.translation.set(width/2, height/2-150);
+    dialog04Text.translation.set(width/2, height/2-120);
+    dialogOKText.translation.set(width/2, height/2+240);
 }
 function removeDialog() {
     ui.remove(dialog01Background);
