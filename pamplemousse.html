@@ -44,33 +44,54 @@
 
     <!-- main menu -->
     <main>
-      <div id="mainMenuDiv">
-        <img src="./img/title_crest.png"/>
-        <br><br><br><br>   
-        <br><br>  
-        <div id="mainmenu_title" class="menu-title">CAMELOT</div>
-        <br><br><br><br>   
-        <br><br><br><br>   
-        <div id="mainmenu_newMapRandom" class="menu-btn">New Map (Random)</div>
-        <br>        
-        <div id="mainmenu_newMapSeeded" class="menu-btn">New Map (Seeded)</div>
-        <input id="mainmenu_mapSeed" class="menu-input">
-        <div id="mainmenu_newMapSeeded2" class="menu-btn">Load Seed</div>
-        <br><br><br><br>   
-        <div id="mainmenu_options" class="menu-btn btn-disabled">Options</div>        
-        <br><br>  
-        <div id="version_number" class="">0.2.250323</div>
-      </div>
+        <div id="menuParentDiv" class="text-center">
 
-      <div id="loadingDiv" class="menu-title" hidden>
-          <span>Loading ...</span>
-      </div>      
+            <img id="titleCrest_img" src="./img/title_crest.png"/>
+            <br><br><br>
+            <div id="mainmenu_title" class="menu-title">CAMELOT</div>
+            <br><br><br><br>   
+            <br><br><br><br>   
+
+            <!--MAIN MENU-->
+            <div id="mainmenu_div">
+                <div id="mainmenu_newMapRandom" class="menu-btn">New Map (Random)</div> <br>        
+                <div id="mainmenu_newMapSeeded" class="menu-btn">New Map (Seeded)</div> <br>        
+                <input id="mainmenu_mapSeed" class="menu-input" style="display: none">
+                <div id="mainmenu_newMapSeeded2" class="menu-btn" style="display: none">Seed Map</div>
+                <div id="mainmenu_loadGame" class="menu-btn btn-disabled">Load Quest</div>
+            </div>
+            <!--OPTIONS MENU-->
+            <div id="optionsmenu_div" class="row" style="display: none">
+                <div class="column">
+                    <div id="optionsmenu_showFPS" class="menu-txt">Show FPS</div> <br>
+                    <div id="optionsmenu_volumeMusic" class="menu-txt">Music Volume</div> <br>
+                    <div id="optionsmenu_volumeFX" class="menu-txt">SFX Volume</div> <br>
+                </div>
+                <div class="column">
+                    <div id="optionsmenu_showFPS2" class="menu-btn">asd</div> <br>
+                    <div id="optionsmenu_volumeMusic2" class="menu-btn">000</div> <br>
+                    <div id="optionsmenu_volumeFX2" class="menu-btn">000</div> <br></div>
+                </div>
+            </div>
+
+            <br><br><br><br>
+            <div id="mainmenu_options" class="menu-btn">Options</div>
+            <div id="mainmenu_back" class="menu-btn" style="display: none">Back</div>
+
+            <!--VERSION NO / FOOTER--> 
+            <br><br>  
+            <div id="version_number" class="">0.3.250329</div>
+
+        </div>
+        <div id="loadingDiv" class="menu-title" hidden>
+            <span>Loading ...</span>
+        </div>
     </main>    
   </body>
 
   <!-- not my libs -->
   <script src="./lib/jquery-3.7.1.min.js"></script>
-  <script src="./lib/two.js"></script>
+  <script src="./lib/two.min.js"></script>
   <script src="./lib/zui.js"></script>
   <script src="./lib/noise/perlin.js"></script>
   <!-- my libs -->

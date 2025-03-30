@@ -56,7 +56,7 @@ function removeUITop() {
 let uiX_b = width/2;
 let uiY_b = height-90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
-let lgSprite = two.makeSprite(PATH_IMG_UNKNOWN_LG, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+let lgSprite = two.makeSprite(PATH_IMG_HEX_GRASS01, uiX_b-300, uiY_b+4, 1, 1, 1, false);
 bgSpriteBottom.visible = false;
 bgSpriteBottom.opacity = .9;
 lgSprite.visible = false;
@@ -249,7 +249,7 @@ let uiY_r = height - 330;
 let rUI_bgSpriteRight = two.makeSprite(PATH_IMG_PANEL_RIGHT, uiX_r, uiY_r, 1, 1, 1, false);
 rUI_bgSpriteRight.opacity = .9;
 rUI_bgSpriteRight.visible = false;
-let rUI_selectSprite = two.makeSprite(PATH_IMG_CASTLE_SELECT, uiX_r, uiY_r-353, 1, 1, 1, false);
+let rUI_selectSprite = two.makeSprite(PATH_IMG_HEX_CASTLE01, uiX_r, uiY_r-353, 1, 1, 1, false);
 rUI_selectSprite.visible = false;
 rUI_selectSprite.scale = 4;
 let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, { size: 22, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'center' });
@@ -584,6 +584,7 @@ let dialog03Text = two.makeText("", width/2, height/2-180, { size: 16, fill: '#5
 let dialog04Text = two.makeText("", width/2, height/2-150, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 16, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
 dialog01Background.visible = false;
+dialog01Background.scale = 2;
 function dialog01(msg) {
     isDialogOpen = true;
 

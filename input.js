@@ -1,18 +1,40 @@
 
-//MENU BTNS
-const mainMenuDiv = document.getElementById('mainMenuDiv');
+//MINA MENU CONTROL
+const menuParentDiv = $('#menuParentDiv');
 const loadingDiv = document.getElementById('loadingDiv');
 const menuClouds = document.getElementById('menuClouds');
-const newMapRandomBtn = document.getElementById('mainmenu_newMapRandom');
+const newMapRandomBtn = $('#mainmenu_newMapRandom');
 const newMapSeededBtn = $('#mainmenu_newMapSeeded');
 const newMapSeededInput = $('#mainmenu_mapSeed');
 const newMapSeededBtn2 = $('#mainmenu_newMapSeeded2');
+const loadQuestBtn = $('#mainmenu_loadGame');
+const showFPSTxt = $('#optionsmenu_showFPS');
+const musicVolumeTxt = $('#optionsmenu_volumeMusic');
+const effectsVolumeTxt = $('#optionsmenu_volumeFX');
+const optionsBtn = $('#mainmenu_options');
+const backBtn = $('#mainmenu_back');
+const mainMenuDiv = $('#mainmenu_div');
+const optionsMenuDiv = $('#optionsmenu_div');
 
-newMapRandomBtn.addEventListener('click', () => {
+optionsBtn.on("click", function () {
+    optionsBtn.hide();
+    backBtn.show();
+    mainMenuDiv.hide();
+    optionsMenuDiv.show();
+});
+backBtn.on("click", function () {
+    backBtn.hide();
+    optionsBtn.show();
+    mainMenuDiv.show();
+    optionsMenuDiv.hide();
+});
+
+newMapRandomBtn.on("click", function () {
     const startTime = performance.now();
     console.log("Height Seed: " + MAP_SEED);
-    loadingDiv.removeAttribute('hidden')
-    mainMenuDiv.setAttribute('hidden', 'true')
+    menuParentDiv.hide();
+    optionsBtn.hide(); //whyyyyy
+    loadingDiv.removeAttribute('hidden');
     fadeToBlack();
 
     setTimeout(() => {
@@ -42,8 +64,8 @@ newMapSeededBtn.on("click", function () {
 newMapSeededBtn2.on("click", function () {    
     const startTime = performance.now();
     console.log("Height Seed: " + MAP_SEED);
-    loadingDiv.removeAttribute('hidden')
-    mainMenuDiv.setAttribute('hidden', 'true')
+    loadingDiv.removeAttribute('hidden');
+    menuParentDiv.hide();
     fadeToBlack();
 
     setTimeout(() => {
@@ -66,6 +88,7 @@ newMapSeededBtn2.on("click", function () {
 });
 
 
+
 //suppress ctrl+mousewheel scroll b/c its weird with ZUI zoom is mixed with this
 document.addEventListener("wheel", function(event) {
     if (event.ctrlKey) {
@@ -86,6 +109,7 @@ if (SHOW_DEBUG_OVERLAY) {
 
 // Listen for window resize
 window.addEventListener('resize', updateUIPositions);
+
 
 var zui = null;
 var domElement = null;
@@ -224,7 +248,7 @@ function addZUI() {
         if (elem && elem.noPointerEvents) return;
     
         if (elem) {
-            if (elem.params.type === "poi") {;
+            if (elem.params.eventText !== undefined) {;
                 pushToEventLog(elem.params.eventText[0]);
             }
 

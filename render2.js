@@ -19,11 +19,18 @@ let townNames = [];
 let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
+let opt_showFPS = false;
+let opt_musicVol = 80;
+let opt_sfxVol = 80;
 
 
 //LOAD CONFIG FROM FILE
 loadConfig().then(() => {
     console.log("Config Loaded, intializaing...");
+
+    let opt_showFPS = userConfig.show_fps;
+    let opt_musicVol = userConfig.musicVolume;
+    let opt_sfxVol = userConfig.effectsVolume;
 
     hexPositionDiv.setAttribute('hidden', 'true');
     spriteCountDiv.setAttribute('hidden', 'true');
@@ -491,12 +498,12 @@ function drawSettlements() {
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
                             if (Math.random() < 0.5) {
                                 addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
-                                let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false);
+                                let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false, 99, "hostile", unitParams.mill);
                                 millSprite.scale = .7;
                             }
                             else {
                                 addSpriteToTile(PATH_IMG_HEX_FARM02, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
-                                let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, false);
+                                let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, false, 99, "hostile", unitParams.mill);
                                 // millSprite.scale = .8;
                             }
 
@@ -615,7 +622,7 @@ function drawEnemies() {
                 
             // Place enemy with a % chance
             if (Math.random() < 0.15) {
-                addSpriteToTile(PATH_IMG_NPC_SKELLY, hiq, 'Skeletons', 1, 1, 1, false, 6, false, false, 99, "hostile", unitParams.skelly);
+                addSpriteToTile(PATH_IMG_NPC_SKELLY, hiq, 'Skeletons', 1, 1, 1, false, 2, false, false, 99, "hostile", unitParams.skelly);
                 placedEnemies.push({ i, j }); // Store the placed enemy location
                 numEnemies++;
             }
@@ -671,7 +678,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     }
 
     //if a poi, randomly choose one event text from default array
-    if (params.type === "poi") {
+    if (params.eventText !== undefined) {
         let chosenEventText = params.eventText[Math.floor(Math.random() * params.eventText.length)];        
         sprite.params.eventText = [chosenEventText];
     }

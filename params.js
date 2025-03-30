@@ -1,3 +1,13 @@
+const DEFAULT_GAME_OPTIONS = {
+    "debug": false,
+    "debug_overlay": true,
+    "show_fps": true,
+    "gridSizeX": 60,
+    "gridSizeY": 40,
+    "effectsVolume": 80,
+    "musicVolume": 80
+}
+
 //HEX GRID DISPLAY//  
 const COLOUR_FARM               = "#DAA520";
 const COLOUR_SETTLEMENT         = "#FFA07A";
@@ -46,7 +56,6 @@ const PATH_IMG_WAVE_ANIM        = './img/anim_water.png';
 const PATH_IMG_WAVE_ANIM_2      = './img/anim_water_2.png';
 const PATH_IMG_WATER_DEEP       = './img/water_rock';
 //HEX GRID IMGS - LARGE
-const PATH_IMG_UNKNOWN_LG       = './img/hex_lg_unknown.png';
 const PATH_IMG_GRASS_LG         = './img/hex_lg_grass.png';
 const PATH_IMG_FOREST_LG        = './img/hex_lg_forest.png';
 const PATH_IMG_WATER_LG         = './img/hex_lg_water.png';
@@ -77,7 +86,6 @@ const PATH_IMG_ICON_BOOTS       = './img/boots_sm.png';
 const PATH_IMG_ICON_AID         = './img/firstaid_sm.png';
 const PATH_IMG_ICON_HOURGLASS   = './img/ui_hourglass.png';
 const PATH_IMG_ICON_RNDTABLE    = './img/ui_table.png';
-const PATH_IMG_CASTLE_SELECT    = './img/castle_lg.png';
 const PATH_IMG_PAPER_LABEL      = './img/paper.png';
 const PATH_IMG_PAPER_LABEL_2    = './img/paper2.png'; //TODO: use this?
 const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
@@ -173,6 +181,10 @@ const unitParams = {
         hp_max: 30,
         ap_cur: 0,
         ap_max: 2,
+        eventText: [
+            "Shambling frames of bones and sinew, animated but very much dead.",
+            "A pack of skeletons, roaming the countryside.",
+        ]
     },
     //poi
     cave: {
@@ -197,9 +209,16 @@ const unitParams = {
             "A sealed box, brimming with possibilities.",
         ]
     },
+    mill: {
+        type: "poi",
+        eventText: [
+            "This mill once produced wheat for the kingdom's citizens.",
+            "Pillaged by marauders, this farm could still be liberated from the enemy.",
+        ]
+    },
 };
   
-//units stats
+//dialog text
 const dialogParams = {
     openingDialog: [
         "Arthur has returned from the crusades, bloodied and weary.",

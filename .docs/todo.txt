@@ -9,12 +9,6 @@ main menu
         sfx volume
         show fps
 
-enemy units
-    spawn on map
-    skelly
-    bandits
-    ogblin?
-
 ---------
 BACKLOG
 ---------
@@ -97,3 +91,8 @@ sfx
     
 unit panel
     item (relic?) slots
+
+    
+enemy units
+    bandits
+    ogblin?
