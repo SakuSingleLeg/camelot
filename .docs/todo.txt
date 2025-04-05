@@ -3,8 +3,9 @@ TODDO
 ---------
 VERSION 0.4
 
+remove dupe sprites - ie. grass under forests
+
 arthur movement
-    show unit movement highlight on select
     click on destination moves sprite
         translate (hourglass cursor)
         use ap

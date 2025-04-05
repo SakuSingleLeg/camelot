@@ -8,6 +8,7 @@ const DEFAULT_GAME_OPTIONS = `{
     "musicVolume": 80
 }`;
 
+//#region file paths
 //HEX GRID DISPLAY//  
 const COLOUR_FARM               = "#DAA520";
 const COLOUR_SETTLEMENT         = "#FFA07A";
@@ -91,8 +92,9 @@ const PATH_IMG_PAPER_LABEL_2    = './img/paper2.png'; //TODO: use this?
 const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
 const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
+//#endregion
 
-//STRINGS
+//#region town names
 let possibleTownNames = [
     "Stormhearth", "Ravenshire", "Blaggerfall", "Ironwood", "Drakenshire", "Frosthelm", "Blackrock", "Wintermere", "Greymoor", "Silvermere",
     "Darkhollow", "Goldhaven", "Stonekeep", "Thunderhold", "Everfrost", "Dragonmere", "Redcliff", "Ironspire", "Grimhold",
@@ -127,8 +129,9 @@ function generateTownName(selected = null) {
     const randomIndex = Math.floor(Math.random() * available.length);
     return available[randomIndex];
 }
+//#endregion
 
-//units stats
+//#region units stats
 const unitParams = {
     //default
     default: {
@@ -218,8 +221,9 @@ const unitParams = {
         ]
     },
 };
+//#endregion
   
-//dialog text
+//#region dialog text
 const dialogParams = {
     openingDialog: [
         "Arthur has returned from the crusades, bloodied and weary.",
@@ -228,3 +232,4 @@ const dialogParams = {
         "Recover the Grail to restore the kingdom.",
     ]
 }
+//#endregion
