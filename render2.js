@@ -278,13 +278,17 @@ function sortSprites() {
         if (a.gridX === b.gridX && a.gridY === b.gridY && a.isHex && b.isHex) {
             if (a.depth === 1) {
                 stage.remove(a);
-                //console.log(`Removing depth=1 sprite:`, a.path);
+                console.log(`Removing depth=1 sprite:`, a.path);
                 removedSprites++;
             }
             else if (b.depth === 1) {
                 stage.remove(b);
-                //console.log(`Removing depth=1 sprite:`, b.path);
+                console.log(`Removing depth=1 sprite:`, b.path);
                 removedSprites++;
+            }
+            else {
+                console.log(`sprite a:`, a.path);
+                console.log(`sprite b:`, b.path);
             }
         }
         
@@ -477,9 +481,9 @@ function drawSettlements() {
 
                             miq.setAttribute("fill", COLOUR_FARM);
                             // hiq.setAttribute("fill", COLOUR_FARM);
-                            miq.setAttribute("gridX", randomTile.gridX);
-                            miq.setAttribute("gridY", randomTile.gridY);
-                            HEX_ARR[randomTile.gridX][randomTile.gridY]['colour'] = COLOUR_FARM;
+                            //miq.setAttribute("gridX", randomTile.gridX);
+                            //miq.setAttribute("gridY", randomTile.gridY);
+                            HEX_ARR[randomTile.gridY][randomTile.gridX]['colour'] = COLOUR_FARM;
 
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
                             if (Math.random() < 0.5) {
@@ -491,19 +495,17 @@ function drawSettlements() {
                                 addSpriteToTile(PATH_IMG_HEX_FARM02, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
                                 let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, false, 99, "hostile", unitParams.mill);
                                 // millSprite.scale = .8;
-                            }
-
-                            
+                            }                            
                         }
-                    }    
                     
-                    //add settlement sprite after so it renders on top?
-                    if (Math.random() < 0.5) {
-                        addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);     
-                    }
-                    else {
-                        addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);  
-                    }         
+                        //add settlement sprite after so it renders on top?
+                        if (Math.random() < 0.5) {
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);     
+                        }
+                        else {
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);  
+                        }     
+                    }        
                 }
             }
         }
