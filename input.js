@@ -17,6 +17,7 @@ const optionsMenuDiv = $('#optionsmenu_div');
 const showFPS_btn = $("#optionsmenu_showFPS_btn");
 const musicVolume_input= $("#optionsmenu_volumeMusic_input");
 const effectsVolume_input = $("#optionsmenu_volumeFX_input");
+let movementMarkerSprites = [];
 
 optionsBtn.on("click", function () {
     showFPS_btn.text(userConfig.show_fps);
@@ -265,7 +266,6 @@ function addZUI() {
         if (isMouseOver(bgSpriteTopChevronUp, mouse)) eventLogUp();
         if (isMouseOver(bgSpriteTopChevronDown, mouse)) eventLogDown();
 
-
         window.addEventListener('mousemove', mousemove, false);
         window.addEventListener('mouseup', mouseup, false);
 
@@ -280,7 +280,11 @@ function addZUI() {
             spriteDOM.classList.remove('glowing-selected');
         }
 
-        if (elem) {           
+        if (elem) {                  
+            //clear any existing markers
+            movementMarkerSprites.forEach(marker => { stage.remove(marker); });
+            movementMarkerSprites = [];
+
             let spriteDOM  = document.getElementById(elem._id);
             if (elem.params.eventText !== undefined) {;
                 pushToEventLog(elem.params.eventText[0]);
@@ -294,8 +298,17 @@ function addZUI() {
                 spriteDOM.classList.add('glowing-selected');
                 drawUIRight(elem);
 
-                //TODO: if this is a knight, show movement hexes
-
+                //if this is a knight, show movement hexes
+				if (elem.params.type === "knight") {					
+					//get nearest tiles (distance = knights vision stat)
+					let sprites = getAdjacentHexSprites(elem.gridX, elem.gridY, elem.params.eye, colour = null);
+					sprites.forEach(spr => {
+                        //identify each surrounding tile
+                        let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
+                        stage.add(moveSprite); 
+                        movementMarkerSprites.push(moveSprite);
+					});
+				}
             }
             else {
                 somethingSelected = false;

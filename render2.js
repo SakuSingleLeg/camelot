@@ -297,7 +297,6 @@ function sortSprites() {
         //sort by gridY
         return a.gridY - b.gridY;
     });
-
     
     console.log("Sprites sorted. Duplicates removed: " + removedSprites);
 }
@@ -703,7 +702,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     return sprite;
 }
 
-//check adjacent tiles, within given range, by given colour
+//check adjacent tiles, within given range, by given colour. returns true on first found, false if none adjacent matching range & colour.
 function checkAdjacentHex(x, y, range, colour) {    
     for (let i = Math.max(0, y - range); i <= Math.min(GRID_Y_SIZE - 1, y + range); i++) {
         for (let j = Math.max(0, x - range); j <= Math.min(GRID_X_SIZE - 1, x + range); j++) {
@@ -719,7 +718,7 @@ function checkAdjacentHex(x, y, range, colour) {
   
     return false;
 }
-
+//check adjacent tiles, within given range, by given colour. returns array of all matching tiles, false if none adjacent matching range & colour.
 function checkAllAdjacentHex(x, y, range, colour) {
     let foundArr = [];    
     for (let i=0; i<GRID_Y_SIZE; i++) {
@@ -744,7 +743,40 @@ function checkAllAdjacentHex(x, y, range, colour) {
         return false;
     }
 }
-  
+//returns all sprites within a given range - excludes center tile (returns max 6 tiles)
+function getAdjacentHexSprites(x, y, range, colour = null) {
+	let foundArr = [];
+    const origin = offsetToCube(x, y);
+    for (let row = 0; row < GRID_Y_SIZE; row++) {
+        for (let col = 0; col < GRID_X_SIZE; col++) {
+			//odd-q grid maths
+            const target = offsetToCube(col, row);
+            const dist = cubeDistance(origin, target);
+            if (dist > 0 && dist <= range) {
+                const hex = HEX_ARR[col][row];
+                if (!colour || hex.colour === colour) {
+                    foundArr.push(hex);
+                }
+            }
+        }
+    }
+
+    if (foundArr.length === 0) return false;
+
+    // Match sprites based on gridX/gridY
+    let spriteArr = [];
+    foundArr.forEach(hex => {
+		const sprite = stage.children.find(child =>
+			child.gridX === hex.gridX && child.gridY === hex.gridY
+		);
+		if (sprite && sprite.isHex) {
+			spriteArr.push(sprite);
+		}
+	});
+
+    return spriteArr;
+}
+
 function colourize(grayscale) {
     // Convert the hex color to RGB
     if (grayscale.length < 7) return COLOUR_GRASS; // If invalid, return grass

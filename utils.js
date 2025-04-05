@@ -5,16 +5,16 @@ function seededRandom(seed) {
     return seed / 233280;  // Normalize to [0, 1)
 }
   
+// Convert hex color to RGB format
 function hexToRgb(hex) {
-    // Convert hex color to RGB format
     let r = parseInt(hex.slice(1, 3), 16);
     let g = parseInt(hex.slice(3, 5), 16);
     let b = parseInt(hex.slice(5, 7), 16);
     return { r, g, b };
 }
 
+// calc brightness of color using luminosity formula
 function brightness(rgb) {
-    // calc brightness of color using luminosity formula
     return 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
 }
 
@@ -23,10 +23,12 @@ function hexDistance(q1, r1, q2, r2) {
     return (Math.abs(q1 - q2) + Math.abs(r1 - r2) + Math.abs((-q1 - r1) - (-q2 - r2))) / 2;
 }
 
+//get a random int from zero to max
 function getRandomInt(max) {
     return Math.floor(Math.random() * (max + 1));
 }
 
+//load/save game config params from/to localStorage
 function loadConfig() {
     if (localStorage.getItem("userConfig") !== null) {
         console.log("loading config from localStorage");
@@ -49,6 +51,7 @@ function saveConfig() {
     localStorage.setItem("userConfig", JSON.stringify(userConfig))
 }
 
+//load contents of a .js file
 function loadScript(scriptUrl, callback) {
     let script = document.createElement("script");
     script.src = scriptUrl;
@@ -73,4 +76,19 @@ function wrapText(text, maxChars) {
     if (currentLine) lines.push(currentLine.trim());
   
     return lines;
-  }
+}
+
+//functions used for odd-q hexagonal grid calculations
+function offsetToCube(col, row) {
+    const x = col;
+    const z = row - ((col & 1) ? (col - 1) / 2 : col / 2); // odd-q adjustment
+    const y = -x - z;
+    return { x, y, z };
+}
+function cubeDistance(a, b) {
+    return Math.max(
+        Math.abs(a.x - b.x),
+        Math.abs(a.y - b.y),
+        Math.abs(a.z - b.z)
+    );
+}
