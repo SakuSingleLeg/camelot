@@ -299,10 +299,17 @@ function addZUI() {
                 drawUIRight(elem);
 
                 //if this is a knight, show movement hexes
-				if (elem.params.type === "knight") {					
+				if (elem.params.type === "knight") {		
+                    console.log("🚀 ~ mousedown ~ ap_cur:", elem.params.ap_cur)			
 					//get nearest tiles (distance = knights vision stat)
 					let sprites = getAdjacentHexSprites(elem.gridX, elem.gridY, elem.params.eye, colour = null);
 					sprites.forEach(spr => {
+                        //check movement cost agaisnt elem
+                        if (spr.moveCost > elem.params.ap_cur) {
+                            console.log("🚀 ~ mousedown ~ moveCost:", spr.moveCost)
+                            return;
+                        }
+
                         //identify each surrounding tile
                         let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
                         stage.add(moveSprite); 
