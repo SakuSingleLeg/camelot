@@ -309,7 +309,8 @@ function addZUI() {
                         //identify each surrounding tile
                         let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
                         moveSprite.scale = 0.6;
-                        moveSprite.opacity = 0.6;
+                        moveSprite.opacity = 0.75;
+                        moveSprite.desc = "Move";
                         stage.add(moveSprite); 
                         movementMarkerSprites.push(moveSprite);
 					});

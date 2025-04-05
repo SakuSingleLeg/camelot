@@ -18,6 +18,8 @@ let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
 let selectedTile;
+
+let coordMap = {};
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -191,7 +193,7 @@ function buildGrid(MAP_SEED) {
             else if (hex.fill === COLOUR_WATER_DEEP) {
                 hex.moveCost = 99; 
                 //chance for extra sprite, but different way
-                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, true, 3, false, true, 1);   
+                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, false, 3, false, true, 1);   
                 if (Math.random() < 0.4) {
                     let iconNo = getRandomInt(2)+1;
                     let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
@@ -261,6 +263,7 @@ function buildGrid(MAP_SEED) {
 
         two.add(stage);
 
+
         if (SHOW_DEBUG_OVERLAY) {
             hexPositionDiv.removeAttribute('hidden');
             spriteCountDiv.removeAttribute('hidden');
@@ -272,41 +275,58 @@ function buildGrid(MAP_SEED) {
 }
 
 //sort sprites to prevent z-issues
-function sortSprites() {    
-    let removedSprites = 0;
-    stage.children.sort((a, b) => {
-        if (a.gridX === b.gridX && a.gridY === b.gridY && a.isHex && b.isHex) {
-            if (a.depth === 1) {
-                stage.remove(a);
-                console.log(`Removing depth=1 sprite:`, a.path);
-                removedSprites++;
-            }
-            else if (b.depth === 1) {
-                stage.remove(b);
-                console.log(`Removing depth=1 sprite:`, b.path);
-                removedSprites++;
-            }
-            else {
-                console.log(`sprite a:`, a.path);
-                console.log(`sprite b:`, b.path);
+function sortSprites() {
+    let numSpritesRemoved = 0;
+    //first find all sprites with same grixX & gridY, remove grass underneath
+    for (let i = 0; i < stage.children.length; i++) {
+        let childA = stage.children[i];
+      
+        for (let j = i + 1; j < stage.children.length; j++) {
+            let childB = stage.children[j];
+
+            if (
+                childA.gridX === childB.gridX &&
+                childA.gridY === childB.gridY &&
+                childA.isHex &&
+                childB.isHex 
+            ) {
+                if (childA.depth === 1 && childB.depth === 99) {
+                    // stage.remove(childA);
+                    console.log("removing chid: " + childA.path + " VS " + childB.path);
+                    // console.log("removing chid: " + childA.gridX + ", " + childA.gridY);
+                    numSpritesRemoved++;
+                    stage.children.splice(i, 1);
+                    i--; // step back after removal
+                    break; // exit inner loop since childA is gone
+                } else if (childB.depth === 1 && childA.depth === 99) {
+                    // stage.remove(childB);
+                    console.log("removing chid: " + childB.path + " VS " + childA.path);
+                    // console.log("removing chid: " + childB.gridX + ", " + childB.gridY);
+                    numSpritesRemoved++;
+                    stage.children.splice(j, 1);
+                    j--; // adjust index after removal
+                }
             }
         }
-        
+    }
+    console.log("total sprites removed: " + numSpritesRemoved);
+
+
+    stage.children.sort((a, b) => {        
         //prioritize items with depth === 1
         if ((a.depth || 0) === 1 && (b.depth || 0) !== 1) return -1;
         if ((a.depth || 0) !== 1 && (b.depth || 0) === 1) return 1;
         //move items with isHex === false to the end
-        // if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
+        if (!!a.isHex !== !!b.isHex) return !!b.isHex - !!a.isHex;
 
         //sort by gridY
         return a.gridY - b.gridY;
     });
-    
-    console.log("Sprites sorted. Duplicates removed: " + removedSprites);
 }
 
 var lastTileWasForest = false;
 function drawForests() {
+    console.log("drawForests()");
   for (let i = 0; i < GRID_Y_SIZE; i++) {
     for (let j = 0; j < GRID_X_SIZE; j++) {
         //let randomValue = seededRandom(FOREST_SEED);
@@ -333,10 +353,10 @@ function drawForests() {
                 HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
                 HEX_ARR[i][j]['moveCost'] = 2;
                 if (Math.random() < .5) {
-                    addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
+                    addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);
                 }
                 else {
-                    addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 1);      
+                    addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);
                 }
             }
             else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
@@ -345,58 +365,64 @@ function drawForests() {
                 HEX_ARR[i][j]['moveCost'] = 1;
                 lastTileWasForest = true;
                 if (Math.random() < .5) {
-                    addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);   
+                    addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);
                 }  
                 else {            
-                    addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -2, false, true);   
+                    addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -2, false, true);
                 }
             }
             else  {
                 HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
                 HEX_ARR[i][j]['moveCost'] = 1;
                 lastTileWasForest = true;
-                addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -2, false, true);     
+                addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -2, false, true);
             }
         }
 
         // Check if this tile is a forest, then attempt to spread to neighbors
         if (HEX_ARR[i][j]['colour'] === COLOUR_FOREST) {
-            // Try spreading forest to adjacent tiles (1 tile away in all directions)
-            let directions = [
-            [-1, 0], [1, 0],    // Left and Right
-            [0, -1], [0, 1],    // Down and Up
-            [-1, 1], [1, -1]    // Bottom-left and Top-right
+            // Try spreading forest to adjacent tiles (1 tile away in all directions).
+            const evenQNeighbors = [
+                [+1,  0], [0, -1], [-1, -1],
+                [-1,  0], [-1, +1], [0, +1]
+            ];            
+            const oddQNeighbors = [
+                [+1,  0], [+1, -1], [0, -1],
+                [-1,  0], [0, +1], [+1, +1]
             ];
+            let directions = (j % 2 === 0) ? evenQNeighbors : oddQNeighbors;
+
 
             for (let [dx, dy] of directions) {
-            let nx = j + dx;
-            let ny = i + dy;
+                let nx = j + dx;
+                let ny = i + dy;
 
-            // Ensure the neighbor coordinates are within bounds
-            if (nx >= 0 && nx < GRID_X_SIZE && ny >= 0 && ny < GRID_Y_SIZE) {
-                let neighborColour = HEX_ARR[ny][nx]['colour'];
+                // Ensure the neighbor coordinates are within bounds
+                if (nx >= 0 && nx < GRID_X_SIZE && ny >= 0 && ny < GRID_Y_SIZE) {
+                    let neighborColour = HEX_ARR[ny][nx]['colour'];
 
-                // If the neighbor is grass, give it a chance to become a forest
-                if (neighborColour === COLOUR_GRASS) {
-                    let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
-                    if (neighborHex===null) continue;
-                    neighborHex.setAttribute("gridX", nx);
-                    neighborHex.setAttribute("gridY", ny);
-                    if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
-                        neighborHex.setAttribute("fill", COLOUR_FOREST);
-                        HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
-                        HEX_ARR[ny][nx]['moveCost'] = 1;
-                        addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true); 
+                    // If the neighbor is grass, give it a chance to become a forest
+                    if (neighborColour === COLOUR_GRASS) {
+                        let neighborHex = document.getElementById(HEX_ARR[ny][nx]['id']);
+                        if (neighborHex===null) continue;
+                        neighborHex.setAttribute("gridX", nx);
+                        neighborHex.setAttribute("gridY", ny);
+                        if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
+                            neighborHex.setAttribute("fill", COLOUR_FOREST);
+                            HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
+                            HEX_ARR[ny][nx]['moveCost'] = 1;
+                            addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true);
+                        }
                     }
                 }
-            }
             }
         }
     }
   }
 }
 
-function drawSettlements() {      
+function drawSettlements() {   
+    console.log("drawSettlements()");   
     let centerX = Math.floor(GRID_X_SIZE / 2);
     let centerY = Math.floor(GRID_Y_SIZE / 2);  
     let hexList = [];
@@ -455,7 +481,7 @@ function drawSettlements() {
                         //console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
                         HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
-                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Abbey', 1, 1, 1, false, 1, false, true, 99, "hostile");  
+                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Abbey', 1, 1, 1, false, 1, false, true, 99, "hostile");
                         numSpecialAbbeys++;
                     }
                     else {
@@ -500,10 +526,10 @@ function drawSettlements() {
                     
                         //add settlement sprite after so it renders on top?
                         if (Math.random() < 0.5) {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);     
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);
                         }
                         else {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);  
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);
                         }     
                     }        
                 }
@@ -512,7 +538,8 @@ function drawSettlements() {
     }
 }
 
-function drawTreasure() {      
+function drawTreasure() {
+    console.log("drawTreasure()");   
     let centerX = Math.floor(GRID_X_SIZE / 2);
     let centerY = Math.floor(GRID_Y_SIZE / 2);  
     let hexList = [];
@@ -569,7 +596,8 @@ function drawTreasure() {
     }
 }
 
-function drawEnemies() {      
+function drawEnemies() {
+    console.log("drawEnemies()");
     let centerX = Math.floor(GRID_X_SIZE / 2);
     let centerY = Math.floor(GRID_Y_SIZE / 2);  
     let hexList = [];
