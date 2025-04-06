@@ -203,6 +203,7 @@ const unitParams = {
     cave: {
         type: "poi",
         poi: "cave",
+        explored: false,
         eventText: [
             "A dark entrance appears like a void against the hillside.",
             "A gap in the rocks is wide enough to enter. A dim glow emanates from within.",
@@ -220,6 +221,7 @@ const unitParams = {
     mill: {
         type: "poi",
         poi: "mill",
+        explored: false,
         eventText: [
             "This mill once produced wheat for the kingdom's citizens.",
             "Pillaged by marauders, this farm could still be liberated from the enemy.",

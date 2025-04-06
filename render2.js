@@ -880,12 +880,22 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
                 stage.remove(poi);
                 break;
             case "cave":
-                dialog01([poi.params.dialogText]);
-                stage.remove(poi);
+                if (poi.params.explored) {
+                    dialog01([poi.params.dialogText]);
+                    poi.params.explored = false;
+                }
+                else {                    
+                    dialog01(["This cave has already been cleared out."]);
+                }
                 break;
             case "mill":
-                dialog01([poi.params.dialogText]);
-                stage.remove(poi);
+                if (poi.params.explored) {
+                    dialog01([poi.params.dialogText]);
+                    poi.params.explored = false;
+                }
+                else {                    
+                    dialog01(["This farm has already been reclaimed."]);
+                }
                 break;
             default:
                 dialog01(["*unknown poi*"]);
