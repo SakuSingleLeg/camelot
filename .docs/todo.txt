@@ -3,15 +3,6 @@ TODDO
 ---------
 VERSION 0.4
 
-ui
-    bottom ui long desc
-        add .descLong attribute: flavour, hints
-        add valeus for various hex types
-            castle
-            settlement
-            abbey
-    add food bonus (0) to castle ui
-
 arthur movement
     interact with poi
         treasure

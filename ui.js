@@ -366,7 +366,6 @@ function drawUIRight(elem) {
     rUI_selectSprite = two.makeSprite(elem.path, uiX_r, uiY_r-353, 1, 1, 1, false);
     rUI_selectSprite.scale = elem.isHex ? 5:8;
     rUI_selectSprite.scale = elem.path===PATH_IMG_HEX_CASTLE01 ? 4:rUI_selectSprite.scale;
-    //TODO: add css class for highlight
     rUI_selectSprite.visible = true;
     rUI_txtSelectedName.value = elem.desc;
 
@@ -378,6 +377,8 @@ function drawUIRight(elem) {
     if (elem.params.type === "castle") {
         rUI_SpriteCoin.visible = true;
         rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
+        rUI_SpriteBread.visible = true;
+        rUI_txtFood.value = "+" + elem.params.food_per_turn ?? -1;
     
         rUI_rndTblSprite.visible = true;
         rUI_wideBtn01.visible = true;
@@ -417,6 +418,8 @@ function drawUIRight(elem) {
     
         ui.add(rUI_SpriteCoin);
         ui.add(rUI_txtGold);
+        ui.add(rUI_SpriteBread);
+        ui.add(rUI_txtFood);
     }
     //else if elem is unit
     else if (elem.params.type === "knight") {

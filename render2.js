@@ -73,15 +73,18 @@ loadConfig().then(() => {
 
     // LOAD OTHER SCRIPTS
     console.log("Now Loading Scripts...");
-    loadScript("ui.js", function () {
-        console.log("ui.js Loaded");        
-        loadScript("utils.js", function () {
-            console.log("utils.js Loaded");
-            loadScript("utilstwo.js", function () {
-                console.log("utilstwo.js Loaded");     
-                loadScript("input.js", function () {
-                    console.log("input.js Loaded");            
-                });       
+    loadScript("audio.js", function () {
+        console.log("audio.js Loaded");      
+        loadScript("ui.js", function () {
+            console.log("ui.js Loaded");          
+            loadScript("utils.js", function () {
+                console.log("utils.js Loaded");
+                loadScript("utilstwo.js", function () {
+                    console.log("utilstwo.js Loaded");     
+                    loadScript("input.js", function () {
+                        console.log("input.js Loaded");            
+                    });       
+                });
             });
         });
     });

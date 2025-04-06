@@ -65,7 +65,6 @@ const PATH_IMG_PEAK_LG          = './img/hex_lg_mountain_peak.png';
 //CHARACTERS
 const PATH_IMG_NPC_KNIGHT       = './img/unit_knight.png';
 const PATH_IMG_NPC_SKELLY       = './img/unit_skelly.png';
-
 //UI
 const PATH_IMG_PANEL_TOP        = './img/ui_top.png';
 const PATH_IMG_PANEL_BOTTOM     = './img/ui_bottom2.png';
@@ -92,6 +91,8 @@ const PATH_IMG_PAPER_LABEL_2    = './img/paper2.png'; //TODO: use this?
 const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
 const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
+//SOUND
+const PATH_MUS_SALTARELLO       = './mid/saltarello.mid';
 //#endregion
 
 //#region town names

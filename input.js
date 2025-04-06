@@ -51,7 +51,7 @@ backBtn.on("click", function () {
 
 newMapRandomBtn.on("click", function () {
     const startTime = performance.now();
-    
+
     //save original cursor, set to hourglass
     const originalCursor = $("body").css("cursor");
     $("body").css("cursor", `url('${PATH_IMG_MOUSE_HOURGLASS}'), auto`);
@@ -89,6 +89,7 @@ newMapSeededBtn.on("click", function () {
 });
 newMapSeededBtn2.on("click", function () {    
     const startTime = performance.now();
+
     console.log("Height Seed: " + MAP_SEED);
     loadingDiv.removeAttribute('hidden');
     menuParentDiv.hide();
@@ -453,6 +454,7 @@ function addZUI() {
 //#endregion
 
 function startNewGame() {
+    audioManager.playMIDI(PATH_MUS_SALTARELLO);
     pushToEventLog("Your kingdom is pillaged and your Knights are scattered.");
     dialog01(dialogParams.openingDialog);
     totGold += 5;
