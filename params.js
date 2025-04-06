@@ -237,44 +237,56 @@ const hexParams = {
         mov: 0,
         atk: 0,
         def: 0,
-        descLong: "Generally safe, fields are easy to cross. Increasing reports of wolves roaming the countryside have been heard of late.",
+        descLong: "Fields are easy to cross. Rumours spread of wolves roaming the countryside.",
     },
     forest: {
         mov: 1,
         atk: 0,
         def: 0,
-        descLong: "descLong",
+        descLong: "Trees give extra defense, but take longer to traverse. Sticky webs warn of danger at night.",
     },
     marsh: {
         mov: 2,
         atk: 0,
         def: 0,
-        descLong: "descLong",
+        descLong: "The bog and mud make movement difficult.",
     },
     mountain: {
         mov: 3,
         atk: 0,
         def: 0,
-        descLong: "descLong",
+        descLong: "These hillsides often reveal caves. Passing overland is diificult.",
+    },
+    peak: {
+        mov: 99,
+        atk: 0,
+        def: 0,
+        descLong: "Untraversable terrain.",
+    },
+    water: {
+        mov: 99,
+        atk: 0,
+        def: 0,
+        descLong: "Untraversable terrain.",
     },
 
     settlement: {
         mov: 0,
         atk: 0,
         def: 0,
-        descLong: "descLong",
+        descLong: "This is the descLong",
     },
     abbey: {
         mov: 0,
         atk: 0,
         def: 0,
-        descLong: "descLong",
+        descLong: "This is the descLong",
     },
     farmland: {
         mov: 0,
         atk: 0,
         def: 0,
-        descLong: "descLong",
+        descLong: "This is the descLong",
     },
 }
 //#endregion

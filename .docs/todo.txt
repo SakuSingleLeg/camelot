@@ -7,7 +7,6 @@ ui
     bottom ui long desc
         add .descLong attribute: flavour, hints
         add valeus for various hex types
-        show in bottom ui
     add food bonus (0) to castle ui
 
 arthur movement
@@ -24,6 +23,10 @@ enemy units
         end of turn
             stupid ai
                 move to random valid adjacent
+
+refactoring
+    colour params for text types
+        yellow, gray, white, black, darkgray, brown, red, ??
 
 ---------
 BACKLOG

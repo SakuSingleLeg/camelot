@@ -167,19 +167,19 @@ function buildGrid(MAP_SEED) {
                 let thisSprite = null;
 
                 if (grassSpriteChance < 0.7) {
-                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true, 1);   
+                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS01, hex, '', 1, 1, 1, false, 3, false, true, 1, "unset", hexParams.grass);   
                     thisSprite.depth = 1;  
                 }
                 else if (grassSpriteChance < 0.75) {
-                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true, 1);     
+                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS03, hex, '', 1, 1, 1, false, 3, false, true, 1, "unset", hexParams.grass);     
                     thisSprite.depth = 1;  
                 }
                 else if (grassSpriteChance < 0.8) {
-                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true, 1);     
+                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS05, hex, '', 1, 1, 1, false, 3, false, true, 1, "unset", hexParams.grass);     
                     thisSprite.depth = 1;  
                 }
                 else {
-                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 0, false, 3, false, true, 1);     
+                    thisSprite = addSpriteToTile(PATH_IMG_HEX_GRASS04, hex, '', 1, 1, 0, false, 3, false, true, 1, "unset", hexParams.grass);     
                     thisSprite.depth = 1;  
                 }
 
@@ -187,22 +187,22 @@ function buildGrid(MAP_SEED) {
             else if (hex.fill === COLOUR_WATER) { 
                 var randSpeed = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
                 var randSpawn = Math.random();
-                hex.moveCost = 99; 
+                hex.moveCost = 98; 
                 //chance for extra sprite
                 if (randSpawn <= .2 && randSpawn > .1) {
-                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 3, false, true, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 3, false, true, 1, "unset", hexParams.water);   
                 }
                 else if (randSpawn <= .1) {
-                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 3, false, true, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 3, false, true, 1, "unset", hexParams.water);   
                 }
                 else {
-                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 3, false, true, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 3, false, true, 1, "unset", hexParams.water);   
                 }
             }
             else if (hex.fill === COLOUR_WATER_DEEP) {
-                hex.moveCost = 99; 
+                hex.moveCost = 98; 
                 //chance for extra sprite, but different way
-                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, false, 3, false, true, 1);   
+                addSpriteToTile(PATH_IMG_HEX_WATER_DEEP01, hex, 'Rocky Islets', 1, 1, 1, false, 3, false, true, 1, "unset", hexParams.water);   
                 if (Math.random() < 0.4) {
                     let iconNo = getRandomInt(2)+1;
                     let imagePath = PATH_IMG_WATER_DEEP + iconNo + ".png";
@@ -213,7 +213,7 @@ function buildGrid(MAP_SEED) {
                 hex.moveCost = 3; 
                 let mountainSpriteChance = Math.random();
                 if (mountainSpriteChance < .65) {
-                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true, 1);
+                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN01, hex, 'Mountain', 1, 1, 1, false, 0, false, true, 1, "unset", hexParams.mountain);
                     //chance to spawn a cave on this tile
                     let caveSpriteChance = Math.random();
                     if (caveSpriteChance < .12) {
@@ -221,12 +221,12 @@ function buildGrid(MAP_SEED) {
                     }
                 }
                 else {
-                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true, 1);                
+                    addSpriteToTile(PATH_IMG_HEX_MOUNTAIN02, hex, 'Mountain', 1, 1, 1, false, -7, false, true, 1, "unset", hexParams.mountain);                
                 }
             }
             else if (hex.fill === COLOUR_MOUNTAIN_PEAK) { 
-                hex.moveCost = 99; 
-                addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true, 1);    
+                hex.moveCost = 98; 
+                addSpriteToTile(PATH_IMG_HEX_PEAK01, hex, 'Peaks', 1, 1, 1, false, -10, false, true, 1, "unset", hexParams.peak);    
             }
             else if (hex.fill === COLOUR_COAST) { 
                 //dont do anything b/c all coasts get overridden anyways

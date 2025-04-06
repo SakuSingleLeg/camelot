@@ -57,17 +57,24 @@ function removeUITop() {
 let uiX_b = width/2;
 let uiY_b = height-90;
 let bgSpriteBottom = two.makeSprite(PATH_IMG_PANEL_BOTTOM, uiX_b, uiY_b, 1, 1, 1, false);
-let lgSprite = two.makeSprite(PATH_IMG_HEX_GRASS01, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+let lgSprite = two.makeSprite(PATH_IMG_HEX_GRASS01, uiX_b-305, uiY_b+4, 1, 1, 1, false);
 bgSpriteBottom.visible = false;
 bgSpriteBottom.opacity = .9;
 lgSprite.visible = false;
 let moveCost, atkBonus, defBonus = 0;
 
-let txtName = two.makeText(hoverTileTxt, uiX_b-300, uiY_b + 24, { size: 20, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtMoveCost = two.makeText("Movement Cost: " + moveCost, uiX_b, uiY_b - 24, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtAtkBonus = two.makeText("Attack Bonus: " + atkBonus, uiX_b, uiY_b + 6, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' }); 
-let txtDefBonus = two.makeText("Defence Bonus: " + defBonus, uiX_b, uiY_b + 36, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-function drawUIBottom (gridX, gridY, hexColour, path) {
+let txtName = two.makeText(hoverTileTxt, uiX_b-305, uiY_b + 24, { size: 20, fill: '#FFFFFF', family: 'Press Start 2P', alignment: 'left' });
+let txtMoveCost = two.makeText(" " + moveCost, uiX_b-76, uiY_b - 24, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtAtkBonus = two.makeText("" + atkBonus, uiX_b-76, uiY_b + 6, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' }); 
+let txtDefBonus = two.makeText("" + defBonus, uiX_b-76, uiY_b + 36, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+
+//longDesc
+let txtlongDesc1 = two.makeText("", uiX_b+40, uiY_b-26, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc2 = two.makeText("", uiX_b+40, uiY_b- 4, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc3 = two.makeText("", uiX_b+40, uiY_b+18, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc4 = two.makeText("", uiX_b+40, uiY_b+40, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+
+function drawUIBottom (gridX, gridY, hexColour, elem) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
     // not needed and hides other ui elements so TODO : remove?
     // ui.remove(...ui.children);  
@@ -77,52 +84,54 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     ui.add(bgSpriteBottom);
 
     //lg icon + text based on tile
-    if (hexColour === COLOUR_GRASS) {        
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
-        hoverTileTxt = "Grassy Fields";
+    if (hexColour === COLOUR_GRASS) {
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
+        hoverTileTxt = "Grassland";
     }
     else if (hexColour === COLOUR_FOREST) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Forest";
     }
     else if (hexColour === COLOUR_FARM) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Farmland";
     }
     else if (hexColour === COLOUR_COAST) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Forest";
     }
     else if (hexColour === COLOUR_WATER) {
-        lgSprite = two.makeSprite(PATH_IMG_HEX_WATER01, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        //lgSprite.path = PATH_IMG_HEX_WATER01;
+        lgSprite = two.makeSprite(PATH_IMG_HEX_WATER01, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Water";
     }
     else if (hexColour === COLOUR_WATER_DEEP) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Water (Deep)";
     }
     else if (hexColour === COLOUR_MOUNTAIN) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Mountain";
     }
     else if (hexColour === COLOUR_MOUNTAIN_PEAK) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Peak";
     }
     else if (hexColour === COLOUR_MARSH) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Marsh";
     }
     else if (hexColour === COLOUR_SETTLEMENT) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Settlement";
     }
     else if (hexColour === COLOUR_CURSEDABBEY) {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        lgSprite = two.makeSprite(elem.path, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = "Abbey";
     }
     else {
-        lgSprite = two.makeSprite(path, uiX_b-300, uiY_b+4, 1, 1, 1, false);
+        //lgSprite.path = PATH_IMG_HEX_GRASS01;
+        lgSprite = two.makeSprite(PATH_IMG_HEX_GRASS01, uiX_b-305, uiY_b+4, 1, 1, 1, false);
         hoverTileTxt = hexColour;//"Unknown";
     }
     lgSprite.scale = 2;
@@ -141,7 +150,18 @@ function drawUIBottom (gridX, gridY, hexColour, path) {
     txtAtkBonus.value = "ATK: " + atkBonus;   
     ui.add(txtAtkBonus);    
     txtDefBonus.value = "DEF: " + defBonus;   
-    ui.add(txtDefBonus);     
+    ui.add(txtDefBonus);   
+
+    //longDesc
+    let longDescArr = wrapText(elem.params.descLong, 25);
+    txtlongDesc1.value = longDescArr[0] ?? "";
+    txtlongDesc2.value = longDescArr[1] ?? "";
+    txtlongDesc3.value = longDescArr[2] ?? "";
+    txtlongDesc4.value = longDescArr[3] ?? "";
+    ui.add(txtlongDesc1);
+    ui.add(txtlongDesc2);
+    ui.add(txtlongDesc3);
+    ui.add(txtlongDesc4);
 
     two.add(ui);
 }
@@ -152,40 +172,60 @@ function redrawUIBottom() {
         uiX_b = window.innerWidth/2;
         uiY_b = window.innerHeight-90;
     
-        if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null) {
+        if (typeof bgSpriteBottom !== 'undefined' && bgSpriteBottom !== null) {
                bgSpriteBottom.translation.set(uiX_b, uiY_b);
                ui.add(bgSpriteBottom);
         }
-        if (typeof lgSprite         !== 'undefined' && lgSprite         !== null) {
-            lgSprite.translation.set(uiX_b-300, uiY_b+4);
+        if (typeof lgSprite       !== 'undefined' && lgSprite       !== null) {
+            lgSprite.translation.set(uiX_b-305, uiY_b+4);
             ui.add(lgSprite);
         }
-        if (typeof txtName          !== 'undefined' && txtName          !== null) {
-            txtName.translation.set(uiX_b-300, uiY_b+24);
+        if (typeof txtName        !== 'undefined' && txtName        !== null) {
+            txtName.translation.set(uiX_b-305, uiY_b+24);
             ui.add(txtName);
         }
-        if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null) {
-            txtMoveCost.translation.set(uiX_b, uiY_b-24);
+        if (typeof txtMoveCost    !== 'undefined' && txtMoveCost    !== null) {
+            txtMoveCost.translation.set(uiX_b-76, uiY_b-24);
             ui.add(txtMoveCost);
         }
-        if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null) {
-            txtAtkBonus.translation.set(uiX_b, uiY_b+6);
+        if (typeof txtAtkBonus    !== 'undefined' && txtAtkBonus    !== null) {
+            txtAtkBonus.translation.set(uiX_b-76, uiY_b+6);
             ui.add(txtAtkBonus);
         }
-        if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null) {
-            txtDefBonus.translation.set(uiX_b, uiY_b+36);
+        if (typeof txtDefBonus    !== 'undefined' && txtDefBonus    !== null) {
+            txtDefBonus.translation.set(uiX_b-76, uiY_b+36);
             ui.add(txtDefBonus);
         }    
 
+        if (typeof txtlongDesc1    !== 'undefined' && txtlongDesc1    !== null) {
+            txtlongDesc1.translation.set(uiX_b+40, uiY_b-26);
+            ui.add(txtlongDesc1);
+        }    
+        if (typeof txtlongDesc2    !== 'undefined' && txtlongDesc2    !== null) {
+            txtlongDesc2.translation.set(uiX_b+40, uiY_b- 4);
+            ui.add(txtlongDesc2);
+        }    
+        if (typeof txtlongDesc3    !== 'undefined' && txtlongDesc3    !== null) {
+            txtlongDesc3.translation.set(uiX_b+40, uiY_b+18);
+            ui.add(txtlongDesc3);
+        }
+        if (typeof txtlongDesc4    !== 'undefined' && txtlongDesc4    !== null) {
+            txtlongDesc4.translation.set(uiX_b+40, uiY_b+40);
+            ui.add(txtlongDesc4);
+        }
     }
 }
 function removeUIBottom() {
-    if (typeof bgSpriteBottom   !== 'undefined' && bgSpriteBottom   !== null)   ui.remove(bgSpriteBottom);
-    if (typeof lgSprite         !== 'undefined' && lgSprite         !== null)   ui.remove(lgSprite);
-    if (typeof txtName          !== 'undefined' && txtName          !== null)   ui.remove(txtName);
-    if (typeof txtMoveCost      !== 'undefined' && txtMoveCost      !== null)   ui.remove(txtMoveCost);
-    if (typeof txtAtkBonus      !== 'undefined' && txtAtkBonus      !== null)   ui.remove(txtAtkBonus);
-    if (typeof txtDefBonus      !== 'undefined' && txtDefBonus      !== null)   ui.remove(txtDefBonus);
+    if (typeof bgSpriteBottom !== 'undefined' && bgSpriteBottom !== null) ui.remove(bgSpriteBottom);
+    if (typeof lgSprite       !== 'undefined' && lgSprite       !== null) ui.remove(lgSprite);
+    if (typeof txtName        !== 'undefined' && txtName        !== null) ui.remove(txtName);
+    if (typeof txtMoveCost    !== 'undefined' && txtMoveCost    !== null) ui.remove(txtMoveCost);
+    if (typeof txtAtkBonus    !== 'undefined' && txtAtkBonus    !== null) ui.remove(txtAtkBonus);
+    if (typeof txtDefBonus    !== 'undefined' && txtDefBonus    !== null) ui.remove(txtDefBonus);    
+    if (typeof txtlongDesc1   !== 'undefined' && txtlongDesc1   !== null) ui.remove(txtlongDesc1);
+    if (typeof txtlongDesc2   !== 'undefined' && txtlongDesc2   !== null) ui.remove(txtlongDesc2);
+    if (typeof txtlongDesc3   !== 'undefined' && txtlongDesc3   !== null) ui.remove(txtlongDesc3);
+    if (typeof txtlongDesc4   !== 'undefined' && txtlongDesc4   !== null) ui.remove(txtlongDesc4);
 }
 //#endregion 
 

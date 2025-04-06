@@ -61,6 +61,7 @@ function loadScript(scriptUrl, callback) {
 
 //takes a (presumably) long string and returns an array of strings of given max length
 function wrapText(text, maxChars) {
+    text = text ?? "wrap text empty";
     const words = text.split(' ');
     let lines = [];
     let currentLine = '';

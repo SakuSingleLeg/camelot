@@ -226,7 +226,7 @@ function addZUI() {
     
                     //update ui to reflect what has been moused over       
                     if (elem.isHex) {
-                        drawUIBottom(gridX, gridY, fillColor, elem.path);
+                        drawUIBottom(gridX, gridY, fillColor, elem);
                     }
                     else {
                         removeUIBottom();
