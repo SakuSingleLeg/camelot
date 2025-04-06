@@ -18,6 +18,9 @@ let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
 let selectedTile;
+let turnNum = 1;
+let friendlyUnitSprites = [];
+let enemyUnitSprites = [];
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -465,7 +468,8 @@ function drawSettlements() {
 
                 let kid = randomTile['id'];
                 let kiq = document.getElementById(kid);
-                addSpriteToTile(PATH_IMG_NPC_KNIGHT, kiq, 'King Arthur', 1, 1, 1, false, 0, true, false, 99, "friendly", unitParams.knight_arthur);   
+                let arthurSpr = addSpriteToTile(PATH_IMG_NPC_KNIGHT, kiq, 'King Arthur', 1, 1, 1, false, 0, true, false, 99, "friendly", unitParams.knight_arthur);   
+                friendlyUnitSprites.push(arthurSpr);
             }
             else {
                 // If not % chance pass, and not within x tiles of another settlement

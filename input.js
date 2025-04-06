@@ -460,15 +460,23 @@ function startNewGame() {
 }
 
 function endTurn() {
-    console.log("endTurn()");
     fadeToDark();
-
-    //fade to night
-    //show 'enemy moves at night' dialog
-    //log move enemies
-    //fade to day
-    //restore ap, log add resources
-    
+    pushToEventLog("Day " + turnNum + " ends. The enemy moves under the darkness of night.");
+    //TODO: move enemy pieces
+    setTimeout(() => { 
+        fadeToNormal(); 
+        turnNum++;
+        dialog01(["Day " + turnNum + " begins.", "Your kingdom collects resources."]);
+        //restore ap
+        friendlyUnitSprites.forEach(fSpr => {
+            fSpr.params.ap_cur = fSpr.params.ap_max;
+        });
+        //TODO add enemey sprites to arr
+        enemyUnitSprites.forEach(eSpr => {
+            eSpr.params.ap_cur = eSpr.params.ap_max;
+        });
+        //TODO: add resources
+    }, 2000); 
 }
 
 function quitToMenu(fast = false) {

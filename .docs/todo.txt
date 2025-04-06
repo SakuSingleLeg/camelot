@@ -5,8 +5,9 @@ VERSION 0.4
 
 ui
     hourglass btn
-        show enemy move/end turn dialog
         restore ap on units
+            add friendly and enemy units to arrs so quick checks
+        dont allow end turn while isDialog
 
 arthur movement
     interact with poi
