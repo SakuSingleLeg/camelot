@@ -688,6 +688,8 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     sprite.isHex = isHex;
     sprite.depth = depth;
     sprite.params = structuredClone(params);
+    //% chance that sprite will be flipped horizontally (for variety)
+    if (Math.random()<0.5) sprite.scale = new Two.Vector(-1, 1);
     stage.add(sprite);
 
     if (friendly !== "unset") two.update();

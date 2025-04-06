@@ -31,13 +31,12 @@ BACKLOG
 intro slides
     nfi logo
     config option (incl menu)
+music
+    main menu (trigger after slides click)
 
 settlements
     banner beside name to show friendly/hostile
 
-music
-    main menu
-    map
 sfx
     btn click
 
