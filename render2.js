@@ -192,15 +192,15 @@ function buildGrid(MAP_SEED) {
                 hex.moveCost = 99; 
                 //chance for extra sprite
                 if (randSpawn <= .2 && randSpawn > .1) {
-                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 2, false, true, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 3, false, true, 1);   
                 }
                 else if (randSpawn <= .1) {
                     // addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true, 1);   
                     // addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false, 1);   
-                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 2, false, true, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 3, false, true, 1);   
                 }
                 else {
-                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true, 1);   
+                    addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 3, false, true, 1);   
                 }
             }
             else if (hex.fill === COLOUR_WATER_DEEP) {
@@ -340,6 +340,7 @@ function drawForests() {
             // Convert coastal tiles not beside water into forests, else %chance for coastal
             if (hexColour === COLOUR_COAST && !checkAdjacentHex(j, i, 1, COLOUR_WATER)) {
                 hiq.setAttribute("fill", COLOUR_FOREST);
+                hiq.setAttribute("moveCost", 1);
                 HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
                 HEX_ARR[i][j]['moveCost'] = 1;
                 lastTileWasForest = true;
@@ -675,16 +676,11 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     if (typeof tile.getAttribute === "function") {
       sprite.gridX = parseInt(tile.getAttribute("gridX"), 10);
       sprite.gridY = parseInt(tile.getAttribute("gridY"), 10);
+      sprite.moveCost = parseInt(tile.getAttribute("moveCost"), 10);
     }
     else if (tile.gridX !== undefined) {
       sprite.gridX = tile.gridX;
       sprite.gridY = tile.gridY;
-    }
-
-    if (typeof tile.moveCost === "function") {
-      sprite.moveCost = parseInt(tile.getAttribute("moveCost"), 10);
-    }
-    else if (tile.moveCost !== undefined) {
       sprite.moveCost = tile.moveCost;
     }
 
@@ -872,6 +868,12 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
     };
 
     //TODO: update sprite position data
+    if (typeof destinationElem.getAttribute === "function") {
+        movingElem.params.ap_cur -= parseInt(destinationElem.getAttribute("moveCost"), 10) +1;
+    }
+    else if (destinationElem.moveCost !== undefined) {
+        movingElem.params.ap_cur -= destinationElem.moveCost +1;
+    }
     movingElem.gridX = destinationElem.gridX;
     movingElem.gridY = destinationElem.gridY;
 }
