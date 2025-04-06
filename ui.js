@@ -212,9 +212,11 @@ let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, { size: 14, fill: '
 function drawUILeft() {
     //create ui panel sprite(s)
     ui.add(bgSpriteLeft1);
+    document.getElementById(bgSpriteLeft1._id).classList.add('hover-hl');
     ui.add(bgSpriteLeft2);
     ui.add(bgSpriteLeft3);
     ui.add(bgSpriteLeft4);
+    document.getElementById(bgSpriteLeft4._id).classList.add('hover-hl');
     ui.add(fgSpriteCoin);
     ui.add(fgSpriteFood);
     ui.add(fgSpriteHourglass);
@@ -582,12 +584,18 @@ function updateUIPositions() {
     redrawUDialogs();
 }
 
-function fadeToBlack() {
-  let overlay = document.getElementById("fadeOverlay");
-  overlay.style.opacity = "1";
-  // prevents clicks while blacked out
-  overlay.style.pointerEvents = "auto";
-}
+function fadeToDark() {
+    let overlay = document.getElementById("fadeOverlay");
+    overlay.style.opacity = "0.6";
+    // prevents clicks while blacked out
+    overlay.style.pointerEvents = "auto";
+  }
+  function fadeToBlack() {
+    let overlay = document.getElementById("fadeOverlay");
+    overlay.style.opacity = "1";
+    // prevents clicks while blacked out
+    overlay.style.pointerEvents = "auto";
+  }
 function fadeToNormal() {
     let overlay = document.getElementById("fadeOverlay");
     overlay.style.opacity = "0";

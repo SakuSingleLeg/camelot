@@ -1,3 +1,7 @@
+function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+
 // Function to get a shape by ID
 function getShapeById(id) {
     return stage.children.find(shape => shape._id === id);

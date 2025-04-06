@@ -95,15 +95,12 @@ function buildGrid(MAP_SEED) {
             const { startX, startY, endX, endY, startTime, duration } = selectedTile.animation;
             const elapsed = now - startTime;
             const t = Math.min(elapsed / duration, 1);
+            const easedT = easeInOutQuad(t);
+            selectedTile.translation.x = startX + (endX - startX) * easedT;
+            selectedTile.translation.y = startY + (endY - startY) * easedT;
 
-            // Optional: add easing here if you like (easeInOutQuad etc.)
-
-            selectedTile.translation.x = startX + (endX - startX) * t;
-            selectedTile.translation.y = startY + (endY - startY) * t;
-
-            if (t >= 1) {
-                delete selectedTile.animation; // Animation done
-            }
+            //animation done
+            if (t >= 1) { delete selectedTile.animation; }
         }
     });
 
@@ -116,12 +113,8 @@ function buildGrid(MAP_SEED) {
       
         for (let j=0; j<GRID_X_SIZE; j++) {    
             //odd col, shift down
-            if (j%2!==0) { 
-                curr_y += 0.86*HEX_SIZE; 
-            }       
-            else {
-                curr_y -= 0.86*HEX_SIZE; 
-            }
+            if (j%2!==0) curr_y += 0.86*HEX_SIZE;       
+            else         curr_y -= 0.86*HEX_SIZE;
 
             //for each grid index, draw hex then increment by separation val
             let hex = two.makePolygon(curr_x, curr_y, HEX_SIZE, 6);
@@ -195,8 +188,6 @@ function buildGrid(MAP_SEED) {
                     addSpriteToTile(PATH_IMG_HEX_WATER02, hex, '', 6, 1, randSpeed, true, 3, false, true, 1);   
                 }
                 else if (randSpawn <= .1) {
-                    // addSpriteToTile(PATH_IMG_HEX_WATER01, hex, '', 1, 1, 1, true, 2, false, true, 1);   
-                    // addSpriteToTile(PATH_IMG_WAVE_ANIM_2, hex, '', 4, 2, randSpeed*2, true, 0, false, false, 1);   
                     addSpriteToTile(PATH_IMG_HEX_WATER03, hex, '', 4, 2, randSpeed*2, true, 3, false, true, 1);   
                 }
                 else {
@@ -241,10 +232,7 @@ function buildGrid(MAP_SEED) {
             // find mountain_peak tile farthest from center, make it final_tower tile
             // if no peak, use farthest mountain - if no mountain, use farthest forest
             
-            // TODO: spawn enemies
-
             if (SHOW_DEBUG) stage.add(hex);
-            //   two.update();  
             
             //all done - populate data array
             HEX_ARR[i][j] = {
@@ -367,7 +355,7 @@ function drawForests() {
                     HEX_ARR[i][j]['moveCost'] = 1;
                     lastTileWasForest = true;
                     if (Math.random() < .5) {
-                        addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 0, false, true);
+                        addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
                     }  
                     else {            
                         addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -2, false, true);
@@ -416,7 +404,7 @@ function drawForests() {
                                 neighborHex.setAttribute("moveCost", 1);
                                 HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
                                 HEX_ARR[ny][nx]['moveCost'] = 1;
-                                addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true);
+                                addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 1, false, true);
                             }
                         }
                     }

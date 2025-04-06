@@ -265,6 +265,8 @@ function addZUI() {
         //click log up/down
         if (isMouseOver(bgSpriteTopChevronUp, mouse)) eventLogUp();
         if (isMouseOver(bgSpriteTopChevronDown, mouse)) eventLogDown();
+        //click end turn btn
+        if (isMouseOver(bgSpriteLeft4, mouse)) endTurn();
 
         window.addEventListener('mousemove', mousemove, false);
         window.addEventListener('mouseup', mouseup, false);
@@ -455,6 +457,18 @@ function startNewGame() {
     dialog01(dialogParams.openingDialog);
 
     //TODO: assign gold, food, other start params
+}
+
+function endTurn() {
+    console.log("endTurn()");
+    fadeToDark();
+
+    //fade to night
+    //show 'enemy moves at night' dialog
+    //log move enemies
+    //fade to day
+    //restore ap, log add resources
+    
 }
 
 function quitToMenu(fast = false) {

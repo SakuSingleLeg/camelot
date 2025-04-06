@@ -68,6 +68,12 @@ svg {
     filter: drop-shadow(2px 2px 0 yellow) 
             drop-shadow(-2px -2px 0 yellow);
 }
+.hover-hl:hover {
+    -webkit-filter: drop-shadow(2px 2px 0 yellow)
+                    drop-shadow(-2px -2px 0 yellow);
+    filter: drop-shadow(2px 2px 0 yellow) 
+            drop-shadow(-2px -2px 0 yellow);
+}
 
 
 /* cursor */

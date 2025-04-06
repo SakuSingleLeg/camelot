@@ -3,13 +3,12 @@ TODDO
 ---------
 VERSION 0.4
 
-remove dupe sprites - ie. grass under forests
+ui
+    hourglass btn
+        show enemy move/end turn dialog
+        restore ap on units
 
 arthur movement
-    click on destination moves sprite
-        translate (hourglass cursor)
-        use ap
-    --
     interact with poi
         treasure
         cave
@@ -19,11 +18,6 @@ dialogs
         text para
         yes/no btns
     treasure pickup dialog
-
-ui
-    hourglass btn
-        show enemy move/end turn dialog
-        restore ap on units
 
 
 ---------
