@@ -21,7 +21,8 @@ let selectedTile;
 let turnNum = 1;
 let friendlyUnitSprites = [];
 let enemyUnitSprites = [];
-let totGold, totFood = 0;
+let totGold = 0, totFood = 0;
+let turnGold = 0, turnFood = 0;
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -684,7 +685,6 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     sprite.isHex = isHex;
     sprite.depth = depth;
     sprite.params = structuredClone(params);
-    // colour_hex_group.add(sprite);
     stage.add(sprite);
 
     if (friendly !== "unset") two.update();
@@ -880,18 +880,18 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
                 stage.remove(poi);
                 break;
             case "cave":
-                if (poi.params.explored) {
+                if (!poi.params.explored) {
                     dialog01([poi.params.dialogText]);
-                    poi.params.explored = false;
+                    poi.params.explored = true;
                 }
                 else {                    
                     dialog01(["This cave has already been cleared out."]);
                 }
                 break;
             case "mill":
-                if (poi.params.explored) {
+                if (!poi.params.explored) {
                     dialog01([poi.params.dialogText]);
-                    poi.params.explored = false;
+                    poi.params.explored = true;
                 }
                 else {                    
                     dialog01(["This farm has already been reclaimed."]);

@@ -56,11 +56,6 @@ body:active {
     cursor: url('../img/cursor_down.png'), pointer;
 }
 
-/* put the zui stage at z-index 0 */
-svg {
-    z-index: 0;
-}
-
 /* mouseover elements */
 #two-2 path:hover {
     -webkit-filter: drop-shadow(2px 2px 0 yellow)
@@ -74,7 +69,6 @@ svg {
     filter: drop-shadow(2px 2px 0 yellow) 
             drop-shadow(-2px -2px 0 yellow);
 }
-
 
 /* cursor */
 #cursor-position {

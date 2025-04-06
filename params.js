@@ -140,7 +140,7 @@ const unitParams = {
     //castle
     camelot: {
         type: "castle",
-        gold_per_turn: 1,
+        gold_per_turn: 0,
         food_per_turn: 0,        
     },
     //settlement
@@ -171,8 +171,8 @@ const unitParams = {
         eye: 1,
         hp_cur: 25,
         hp_max: 50,
-        ap_cur: 3,
-        ap_max: 3,
+        ap_cur: 99,
+        ap_max: 99,
     },
     //monster
     skelly: {
@@ -230,7 +230,55 @@ const unitParams = {
     },
 };
 //#endregion
-  
+
+//#region map hex tile stats
+const hexParams = {
+    grass: {
+        mov: 0,
+        atk: 0,
+        def: 0,
+        descLong: "Generally safe, fields are easy to cross. Increasing reports of wolves roaming the countryside have been heard of late.",
+    },
+    forest: {
+        mov: 1,
+        atk: 0,
+        def: 0,
+        descLong: "descLong",
+    },
+    marsh: {
+        mov: 2,
+        atk: 0,
+        def: 0,
+        descLong: "descLong",
+    },
+    mountain: {
+        mov: 3,
+        atk: 0,
+        def: 0,
+        descLong: "descLong",
+    },
+
+    settlement: {
+        mov: 0,
+        atk: 0,
+        def: 0,
+        descLong: "descLong",
+    },
+    abbey: {
+        mov: 0,
+        atk: 0,
+        def: 0,
+        descLong: "descLong",
+    },
+    farmland: {
+        mov: 0,
+        atk: 0,
+        def: 0,
+        descLong: "descLong",
+    },
+}
+//#endregion
+
 //#region dialog text
 const dialogParams = {
     openingDialog: [

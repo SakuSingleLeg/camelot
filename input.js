@@ -453,11 +453,10 @@ function addZUI() {
 //#endregion
 
 function startNewGame() {
-    //show opening game log & dialog
     pushToEventLog("Your kingdom is pillaged and your Knights are scattered.");
     dialog01(dialogParams.openingDialog);
-
-    //TODO: assign gold, food, other start params
+    totGold += 5;
+    totFood += 1;
 }
 
 function endTurn() {
@@ -469,7 +468,6 @@ function endTurn() {
     //start new turn
     setTimeout(() => { 
         fadeToNormal(); 
-        turnNum++;
         dialog01(["Day " + turnNum + " begins.", "Your kingdom collects resources."]);
 
         //restore ap
@@ -480,8 +478,9 @@ function endTurn() {
             eSpr.params.ap_cur = eSpr.params.ap_max;
         });
 
-        //TODO: add resources
-
+        turnNum++;
+        totGold += turnGold;
+        totFood += turnFood;
     }, 2000); 
 }
 

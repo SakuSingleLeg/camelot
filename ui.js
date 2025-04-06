@@ -205,8 +205,8 @@ let bgSpriteLeft4 = two.makeSprite(PATH_IMG_PANEL_SQUARE, uiX_l, uiY_l-264, 1, 1
 let fgSpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_l-64, uiY_l-160, 4, 1, 4, true); 
 let fgSpriteFood = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_l+18, uiY_l-160, 1, 1, 1, false);
 let fgSpriteHourglass = two.makeSprite(PATH_IMG_ICON_HOURGLASS, uiX_l, uiY_l-264, 1, 1, 1, false);
-let txtGold = two.makeText("000", uiX_l-48, uiY_l-156, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtFood = two.makeText("000", uiX_l+36, uiY_l-156, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtGold = two.makeText(totGold.toString().padStart(2, '0'), uiX_l-48, uiY_l-156, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtFood = two.makeText(totFood.toString().padStart(2, '0'), uiX_l+36, uiY_l-156, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 let txtSave = two.makeText("Save Quest", uiX_l-69, uiY_l-77, { size: 14, fill: '#808080', family: 'Press Start 2P', stroke: '', decoration: 'line-through', alignment: 'left' });
 let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
 function drawUILeft() {
@@ -222,7 +222,10 @@ function drawUILeft() {
     ui.add(fgSpriteHourglass);
     ui.add(txtFood);
     ui.add(txtGold);
+    txtFood.value = totFood.toString().padStart(2, '0');
+    txtGold.value = totGold.toString().padStart(2, '0');
     ui.add(txtSave);
+    ui.add(txtFood);
     ui.add(txtQuit);
 
     two.add(ui);
@@ -584,18 +587,19 @@ function updateUIPositions() {
     redrawUDialogs();
 }
 
+//#region FADE EFFECTS
 function fadeToDark() {
     let overlay = document.getElementById("fadeOverlay");
     overlay.style.opacity = "0.8";
     // prevents clicks while dark
     overlay.style.pointerEvents = "auto";
-  }
-  function fadeToBlack() {
+}
+function fadeToBlack() {
     let overlay = document.getElementById("fadeOverlay");
     overlay.style.opacity = "1";
     // prevents clicks while dark
     overlay.style.pointerEvents = "auto";
-  }
+}
 function fadeToNormal() {
     let overlay = document.getElementById("fadeOverlay");
     overlay.style.opacity = "0";
@@ -605,6 +609,7 @@ function fadeToNormal() {
         overlay.style.setProperty("pointer-events", "none", "important");
     }, 2000); 
 }
+//#endregion
 
 //#region EVENT LOGGER
 function pushToEventLog(msg) {

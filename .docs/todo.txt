@@ -3,32 +3,49 @@ TODDO
 ---------
 VERSION 0.4
 
-chest poi on forest not wprking
-
-arthur movement
-    interact with poi
-        treasure
-        cave
-        farms
-
 ui
-    add gold, food on new turn, start of game
-        show in ui
     bottom ui long desc
         add .descLong attribute: flavour, hints
         add valeus for various hex types
         show in bottom ui
+    add food bonus (0) to castle ui
+
+arthur movement
+    interact with poi
+        treasure
+            find nothing or rewards 5g
+        cave
+            find nothing or rewards 5g
+        farms
+            reward 5f
+
+enemy units
+   movement
+        end of turn
+            stupid ai
+                move to random valid adjacent
+
+---------
+BACKLOG
+---------
+
+intro slides
+    nfi logo
+    config option (incl menu)
+
+settlements
+    banner beside name to show friendly/hostile
+
+music
+    main menu
+    map
+sfx
+    btn click
 
 dialogs
     dialog02
         text para
         yes/no btns
-    treasure pickup dialog
-
-
----------
-BACKLOG
----------
 
 center tooltips under sprite/cursor?
 
@@ -38,12 +55,6 @@ knights
 
 fog of war
     using css styling to add grayscale + lower brightness on tiles that have not been explored
-
-enemy units
-   movement
-        end of turn
-            stupid ai
-                move to random valid adjacent
 
 abilities
     first aid
@@ -63,19 +74,6 @@ new tiles:
     main enemy base
         lcoation of grail
         spawns enemies when player close?
-
-intro slides
-    nfi logo
-
-settlements
-    banner beside name to show friendly/hostile
-
-music
-    main menu
-    map
-
-sfx
-    btn click
     
 unit panel
     item (relic?) slots
@@ -104,3 +102,12 @@ save game
         sprite list
         game params
     load game
+
+random events (movement, overnight)
+    forest
+        spider attack
+    grass                
+    mountain
+        rockslide
+    marsh
+        sucked into the mud
