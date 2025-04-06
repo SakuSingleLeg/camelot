@@ -137,31 +137,6 @@ const unitParams = {
     default: {
         type: "unset",
     },
-    //castle
-    camelot: {
-        type: "castle",
-        gold_per_turn: 0,
-        food_per_turn: 0,        
-    },
-    //settlement
-    town: {
-        type: "settlement",
-        subtype: "town",
-        gold_per_turn: 2,
-        food_per_turn: 0,
-    },
-    village: {
-        type: "settlement",
-        subtype: "village",
-        gold_per_turn: 1,
-        food_per_turn: 0,
-    },
-    farm: {
-        type: "settlement",
-        subtype: "farm",
-        gold_per_turn: 0,
-        food_per_turn: 2,
-    },
     //knight
     knight_arthur: {
         type: "knight",
@@ -233,6 +208,7 @@ const unitParams = {
 
 //#region map hex tile stats
 const hexParams = {
+    //terrain
     grass: {
         mov: 0,
         atk: 0,
@@ -269,24 +245,49 @@ const hexParams = {
         def: 0,
         descLong: "Untraversable terrain.",
     },
-
-    settlement: {
+    //castle
+    camelot: {
+        type: "castle",
+        gold_per_turn: 0,
+        food_per_turn: 0,        
+    },
+    //settlement
+    town: {
+        type: "settlement",
+        subtype: "town",
+        gold_per_turn: 2,
+        food_per_turn: 0,
         mov: 0,
         atk: 0,
         def: 0,
-        descLong: "This is the descLong",
+        descLong: "This settlement was once a vassal of Camelot. It is currently controlled by evil forces.",
     },
+    village: {
+        type: "settlement",
+        subtype: "village",
+        gold_per_turn: 1,
+        food_per_turn: 0,
+        mov: 0,
+        atk: 0,
+        def: 0,
+        descLong: "This settlement was once a vassal of Camelot. It is currently controlled by evil forces.",
+    },
+    farm: {
+        type: "settlement",
+        subtype: "farm",
+        gold_per_turn: 0,
+        food_per_turn: 2,
+        mov: 0,
+        atk: 0,
+        def: 0,
+        descLong: "This farm could be seized to once again provide grain to the kingdom.",
+    },
+    //other
     abbey: {
         mov: 0,
         atk: 0,
         def: 0,
-        descLong: "This is the descLong",
-    },
-    farmland: {
-        mov: 0,
-        atk: 0,
-        def: 0,
-        descLong: "This is the descLong",
+        descLong: "This once holy place has been desecrated.",
     },
 }
 //#endregion

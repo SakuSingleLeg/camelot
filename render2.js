@@ -338,7 +338,7 @@ function drawForests() {
                 HEX_ARR[i][j]['moveCost'] = 1;
                 lastTileWasForest = true;
 
-                addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
+                addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true, 99, "unset", hexParams.forest);
             } 
             else if (hexColour === COLOUR_COAST) {
                 let randomValue = Math.random();
@@ -347,10 +347,10 @@ function drawForests() {
                     HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
                     HEX_ARR[i][j]['moveCost'] = 2;
                     if (Math.random() < .5) {
-                        addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);
+                        addSpriteToTile(PATH_IMG_HEX_MARSH01, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 99, "unset", hexParams.marsh);
                     }
                     else {
-                        addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true);
+                        addSpriteToTile(PATH_IMG_HEX_MARSH02, hiq, 'Marsh', 1, 1, 0, false, 1, false, true, 99, "unset", hexParams.marsh);
                     }
                 }
                 else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
@@ -360,10 +360,10 @@ function drawForests() {
                     HEX_ARR[i][j]['moveCost'] = 1;
                     lastTileWasForest = true;
                     if (Math.random() < .5) {
-                        addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
+                        addSpriteToTile(PATH_IMG_HEX_FOREST02, hiq, 'Forest', 1, 1, 1, false, 1, false, true, 99, "unset", hexParams.forest);
                     }  
                     else {            
-                        addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -2, false, true);
+                        addSpriteToTile(PATH_IMG_HEX_FOREST04, hiq, 'Forest', 1, 1, 1, false, -2, false, true, 99, "unset", hexParams.forest);
                     }
                 }
                 else  {
@@ -372,7 +372,7 @@ function drawForests() {
                     HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
                     HEX_ARR[i][j]['moveCost'] = 1;
                     lastTileWasForest = true;
-                    addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -2, false, true);
+                    addSpriteToTile(PATH_IMG_HEX_FOREST03, hiq, 'Forest', 1, 1, 1, false, -2, false, true, 99, "unset", hexParams.forest);
                 }
             }
 
@@ -409,7 +409,7 @@ function drawForests() {
                                 neighborHex.setAttribute("moveCost", 1);
                                 HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
                                 HEX_ARR[ny][nx]['moveCost'] = 1;
-                                addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 1, false, true);
+                                addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 1, false, true, 99, "unset", hexParams.forest);
                             }
                         }
                     }
@@ -461,7 +461,7 @@ function drawSettlements() {
                 hiq.setAttribute("gridX", j);
                 hiq.setAttribute("gridY", i);
                 HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, false, 99, "friendly", unitParams.camelot);
+                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, false, 99, "friendly", hexParams.camelot);
                 isFirst = false;
 
                 // spawn starting unit on valid tile - checks grass first, then forest
@@ -481,7 +481,7 @@ function drawSettlements() {
                         //console.log("SPECIAL ABBEY MARKED: " + i + ", " + j);
                         hiq.setAttribute("fill", COLOUR_CURSEDABBEY);
                         HEX_ARR[i][j]['colour'] = COLOUR_CURSEDABBEY;
-                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Abbey', 1, 1, 1, false, 1, false, true, 99, "hostile");
+                        addSpriteToTile(PATH_IMG_HEX_CURSEDABBEY, hiq, 'Abbey', 1, 1, 1, false, 1, false, true, 99, "hostile", hexParams.abbey);
                         numSpecialAbbeys++;
                     }
                     else {
@@ -513,23 +513,23 @@ function drawSettlements() {
 
                             let randSpeed = Math.floor(Math.random() * (8 - 1 + 2)) + 2;
                             if (Math.random() < 0.5) {
-                                addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
+                                addSpriteToTile(PATH_IMG_HEX_FARM01, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", hexParams.farm);
                                 let millSprite = addSpriteToTile(PATH_IMG_MILL_ANIM, miq, 'Mill', 4, 1, randSpeed, true, 0, false, false, 99, "hostile", unitParams.mill);
                                 millSprite.scale = .7;
                             }
                             else {
                                 addSpriteToTile(PATH_IMG_HEX_FARM02, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
-                                let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, false, 99, "hostile", unitParams.mill);
+                                let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, hexParams, 99, "hostile", unitParams.mill);
                                 // millSprite.scale = .8;
                             }                            
                         }
                     
                         //add settlement sprite after so it renders on top?
                         if (Math.random() < 0.5) {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", unitParams.town);
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT01, hiq, 'Town', 1, 1, 1, true, -2, true, true, 99, "hostile", hexParams.town);
                         }
                         else {
-                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", unitParams.village);
+                            addSpriteToTile(PATH_IMG_HEX_SETTLEMENT02, hiq, 'Village', 1, 1, 1, true, -1, true, true, 99, "hostile", hexParams.village);
                         }     
                     }        
                 }
