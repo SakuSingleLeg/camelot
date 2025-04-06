@@ -586,7 +586,7 @@ function updateUIPositions() {
 
 function fadeToDark() {
     let overlay = document.getElementById("fadeOverlay");
-    overlay.style.opacity = "0.6";
+    overlay.style.opacity = "0.75";
     // prevents clicks while blacked out
     overlay.style.pointerEvents = "auto";
   }

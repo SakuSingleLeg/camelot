@@ -257,87 +257,91 @@ function addZUI() {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
-        //dialog OK btn
-        if (isMouseOver(dialogOKText, mouse)) removeDialog();
-
         //click quit btn
-        if (isMouseOver(bgSpriteLeft1, mouse)) quitToMenu();
+        if (isMouseOver(bgSpriteLeft1, mouse)) quitToMenu();        
         //click log up/down
         if (isMouseOver(bgSpriteTopChevronUp, mouse)) eventLogUp();
         if (isMouseOver(bgSpriteTopChevronDown, mouse)) eventLogDown();
-        //click end turn btn
-        if (isMouseOver(bgSpriteLeft4, mouse)) endTurn();
 
-        window.addEventListener('mousemove', mousemove, false);
-        window.addEventListener('mouseup', mouseup, false);
+        if (!isDialogOpen) {
+            //click end turn btn
+            if (isMouseOver(bgSpriteLeft4, mouse)) endTurn();
 
-        let elem = stage.children.find(shape => shape._id === e.target.id);
-    
-        // ignore elements that should not capture events
-        if (elem && elem.noPointerEvents) return;
-    
-        //clear last selected tile (if exists)
-        if (selectedTile) {
-            spriteDOM = document.getElementById(selectedTile._id);
-            spriteDOM.classList.remove('glowing-selected');
-        }
+            window.addEventListener('mousemove', mousemove, false);
+            window.addEventListener('mouseup', mouseup, false);
 
-        if (elem) {         
-            //click unit movement icons
-            movementMarkerSprites.forEach(markerSprite => {
-                if (elem === markerSprite) {
-                    moveUnitToSpriteLocation(selectedTile, markerSprite);
-                }
-            });
-
-            // clear any existing markers
-            movementMarkerSprites.forEach(marker => { stage.remove(marker); });
-            movementMarkerSprites = [];
-
-            let spriteDOM  = document.getElementById(elem._id);
-            if (elem.params !== undefined && elem.params.eventText !== undefined) {;
-                pushToEventLog(elem.params.eventText[0]);
+            let elem = stage.children.find(shape => shape._id === e.target.id);
+        
+            // ignore elements that should not capture events
+            if (elem && elem.noPointerEvents) return;
+        
+            //clear last selected tile (if exists)
+            if (selectedTile) {
+                spriteDOM = document.getElementById(selectedTile._id);
+                spriteDOM.classList.remove('glowing-selected');
             }
 
-            if (elem.clickable) {
-                console.log("🚀 ~ mousedown ~ elem:", elem)
-                selectedTile = elem; 
-                somethingSelected = true;  
-                selectedTileTxt = elem.desc;
-                spriteDOM.classList.add('glowing-selected');
-                drawUIRight(elem);
+            if (elem) {         
+                //click unit movement icons
+                movementMarkerSprites.forEach(markerSprite => {
+                    if (elem === markerSprite) {
+                        moveUnitToSpriteLocation(selectedTile, markerSprite);
+                    }
+                });
 
-                //if this is a knight, show movement hexes
-				if (elem.params.type === "knight") {
-					//get nearest tiles (distance = knights vision stat)
-					let sprites = getAdjacentHexSprites(elem.gridX, elem.gridY, elem.params.eye, colour = null);
-                    if (sprites.length) isUnitMoving = true;
+                // clear any existing markers
+                movementMarkerSprites.forEach(marker => { stage.remove(marker); });
+                movementMarkerSprites = [];
 
-					sprites.forEach(spr => {
-                        console.log("🚀 ~ mousedown ~ spr.moveCost:", spr.moveCost)
-                        //check movement cost agaisnt elem. break (dont draw) if cost more than unit curr_ap
-                        if (spr.moveCost+1 > elem.params.ap_cur) return;
+                let spriteDOM  = document.getElementById(elem._id);
+                if (elem.params !== undefined && elem.params.eventText !== undefined) {;
+                    pushToEventLog(elem.params.eventText[0]);
+                }
 
-                        //identify each surrounding tile
-                        let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
-                        moveSprite.gridX = spr.gridX;
-                        moveSprite.gridY = spr.gridY;
-                        moveSprite.moveCost = spr.moveCost;
-                        moveSprite.scale = 0.6;
-                        moveSprite.desc = "Move";
-                        stage.add(moveSprite); 
-                        movementMarkerSprites.push(moveSprite);
-					});
-				}
+                if (elem.clickable) {
+                    console.log("🚀 ~ mousedown ~ elem:", elem)
+                    selectedTile = elem; 
+                    somethingSelected = true;  
+                    selectedTileTxt = elem.desc;
+                    spriteDOM.classList.add('glowing-selected');
+                    drawUIRight(elem);
+
+                    //if this is a knight, show movement hexes
+                    if (elem.params.type === "knight") {
+                        //get nearest tiles (distance = knights vision stat)
+                        let sprites = getAdjacentHexSprites(elem.gridX, elem.gridY, elem.params.eye, colour = null);
+                        if (sprites.length) isUnitMoving = true;
+
+                        sprites.forEach(spr => {
+                            console.log("🚀 ~ mousedown ~ spr.moveCost:", spr.moveCost)
+                            //check movement cost agaisnt elem. break (dont draw) if cost more than unit curr_ap
+                            if (spr.moveCost+1 > elem.params.ap_cur) return;
+
+                            //identify each surrounding tile
+                            let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
+                            moveSprite.gridX = spr.gridX;
+                            moveSprite.gridY = spr.gridY;
+                            moveSprite.moveCost = spr.moveCost;
+                            moveSprite.scale = 0.6;
+                            moveSprite.desc = "Move";
+                            stage.add(moveSprite); 
+                            movementMarkerSprites.push(moveSprite);
+                        });
+                    }
+                    else {
+                        isUnitMoving = false;
+                    }
+                }
                 else {
-                    isUnitMoving = false;
+                    somethingSelected = false;
+                    //selectedTile = null or somethign?
+                    removeUIRight();
                 }
             }
-            else {
-                somethingSelected = false;
-                //selectedTile = null or somethign?
-                removeUIRight();
-            }
+        }
+        else {            
+            //dialog OK btn
+            if (isMouseOver(dialogOKText, mouse)) removeDialog();
         }
     }
 

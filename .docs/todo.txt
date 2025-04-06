@@ -5,9 +5,9 @@ VERSION 0.4
 
 ui
     hourglass btn
-        restore ap on units
-            add friendly and enemy units to arrs so quick checks
         dont allow end turn while isDialog
+    add gold, food on new turn, start of game
+        show in ui
 
 arthur movement
     interact with poi
@@ -42,6 +42,9 @@ fog of war
 
 enemy units
    movement
+        end of turn
+            stupid ai
+                move to random valid adjacent
 
 abilities
     first aid
@@ -53,6 +56,8 @@ new tiles:
         limit 1
         rare spawn
         'rumours' btn
+    bandit camp
+        spawns bandits
     mines on mountain tiles?
     docks on marsh tiles?
     merlin's tower?
@@ -73,7 +78,10 @@ unit panel
     
 enemy units
     bandits
-    ogblin?
+        can spawn in hostile settlements
+        move to nearest friendly settlement
+    ogblins
+        pathfind to camelot?
 
 ui
     help btn (disabled) - book icon

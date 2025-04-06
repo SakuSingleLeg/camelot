@@ -21,6 +21,7 @@ let selectedTile;
 let turnNum = 1;
 let friendlyUnitSprites = [];
 let enemyUnitSprites = [];
+let totGold, totFood = 0;
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -601,7 +602,7 @@ function drawEnemies() {
     let centerX = Math.floor(GRID_X_SIZE / 2);
     let centerY = Math.floor(GRID_Y_SIZE / 2);  
     let hexList = [];
-    let placedEnemies = []; // Store placed chest coordinates
+    let placedEnemies = []; // track placed enmy coords
     let numEnemies = 0;
 
     // Collect all hexes with their distances
@@ -646,8 +647,9 @@ function drawEnemies() {
                 
             // Place enemy with a % chance
             if (Math.random() < 0.15) {
-                addSpriteToTile(PATH_IMG_NPC_SKELLY, hiq, 'Skeletons', 1, 1, 1, false, 2, false, false, 99, "hostile", unitParams.skelly);
-                placedEnemies.push({ i, j }); // Store the placed enemy location
+                skellySpr = addSpriteToTile(PATH_IMG_NPC_SKELLY, hiq, 'Skeletons', 1, 1, 1, false, 2, false, false, 99, "hostile", unitParams.skelly);
+                placedEnemies.push({ i, j }); // Store the placed enemy location                
+                enemyUnitSprites.push(skellySpr);
                 numEnemies++;
             }
         }
