@@ -312,14 +312,14 @@ function addZUI() {
                     if (sprites.length) isUnitMoving = true;
 
 					sprites.forEach(spr => {
-
                         //check movement cost agaisnt elem. break (dont draw) if cost more than unit curr_ap
                         if (spr.moveCost > elem.params.ap_cur) return;
 
                         //identify each surrounding tile
                         let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
+                        moveSprite.gridX = spr.gridX;
+                        moveSprite.gridY = spr.gridY;
                         moveSprite.scale = 0.6;
-                        moveSprite.opacity = 0.75;
                         moveSprite.desc = "Move";
                         stage.add(moveSprite); 
                         movementMarkerSprites.push(moveSprite);

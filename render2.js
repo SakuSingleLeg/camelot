@@ -87,9 +87,25 @@ function buildGrid(MAP_SEED) {
   return new Promise((resolve, reject) => {  
     two.appendTo(document.body);      
 
-    // two.bind('update', function(frameCount) {
-        //do stuff every frame
-    // });
+    //do stuff every frame
+    two.bind('update', function(frameCount) {
+        const now = performance.now();
+        //animate unit moving to another tile
+        if (selectedTile!==undefined && selectedTile.animation) {
+            const { startX, startY, endX, endY, startTime, duration } = selectedTile.animation;
+            const elapsed = now - startTime;
+            const t = Math.min(elapsed / duration, 1);
+
+            // Optional: add easing here if you like (easeInOutQuad etc.)
+
+            selectedTile.translation.x = startX + (endX - startX) * t;
+            selectedTile.translation.y = startY + (endY - startY) * t;
+
+            if (t >= 1) {
+                delete selectedTile.animation; // Animation done
+            }
+        }
+    });
 
     //apply noise
     noise.seed(MAP_SEED);
@@ -664,7 +680,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
       sprite.gridX = tile.gridX;
       sprite.gridY = tile.gridY;
     }
-    
+
     if (typeof tile.moveCost === "function") {
       sprite.moveCost = parseInt(tile.getAttribute("moveCost"), 10);
     }
@@ -840,7 +856,24 @@ function colourize(grayscale) {
 
 //move a psrite from one location to another. takes two sprites: moving spr and dest spr
 function moveUnitToSpriteLocation(movingElem, destinationElem) {
-    console.log("MOVING LOGIC HAPPENS");
+    console.log("moveUnitToSpriteLocation()");
+    console.log("🚀 ~ moveUnitToSpriteLocation ~ destinationElem:", destinationElem)
+
+    let toX = destinationElem._position._x
+    let toY = destinationElem._position._y
+
+    movingElem.animation = {
+        startX: movingElem.translation.x,
+        startY: movingElem.translation.y,
+        endX: toX,
+        endY: toY,
+        startTime: performance.now(),
+        duration: 600
+    };
+
+    //TODO: update sprite position data
+    movingElem.gridX = destinationElem.gridX;
+    movingElem.gridY = destinationElem.gridY;
 }
 
 //do some stuff when page loads
