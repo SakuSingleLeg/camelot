@@ -280,13 +280,20 @@ function addZUI() {
             spriteDOM.classList.remove('glowing-selected');
         }
 
-        if (elem) {                  
-            //clear any existing markers
+        if (elem) {         
+            //click unit movement icons
+            movementMarkerSprites.forEach(markerSprite => {
+                if (elem === markerSprite) {
+                    moveUnitToSpriteLocation(selectedTile, markerSprite);
+                }
+            });
+
+            // clear any existing markers
             movementMarkerSprites.forEach(marker => { stage.remove(marker); });
             movementMarkerSprites = [];
 
             let spriteDOM  = document.getElementById(elem._id);
-            if (elem.params.eventText !== undefined) {;
+            if (elem.params !== undefined && elem.params.eventText !== undefined) {;
                 pushToEventLog(elem.params.eventText[0]);
             }
 
@@ -299,11 +306,14 @@ function addZUI() {
                 drawUIRight(elem);
 
                 //if this is a knight, show movement hexes
-				if (elem.params.type === "knight") {				
+				if (elem.params.type === "knight") {
 					//get nearest tiles (distance = knights vision stat)
 					let sprites = getAdjacentHexSprites(elem.gridX, elem.gridY, elem.params.eye, colour = null);
+                    if (sprites.length) isUnitMoving = true;
+
 					sprites.forEach(spr => {
-                        //check movement cost agaisnt elem
+
+                        //check movement cost agaisnt elem. break (dont draw) if cost more than unit curr_ap
                         if (spr.moveCost > elem.params.ap_cur) return;
 
                         //identify each surrounding tile
@@ -315,9 +325,13 @@ function addZUI() {
                         movementMarkerSprites.push(moveSprite);
 					});
 				}
+                else {
+                    isUnitMoving = false;
+                }
             }
             else {
                 somethingSelected = false;
+                //selectedTile = null or somethign?
                 removeUIRight();
             }
         }

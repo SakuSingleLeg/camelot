@@ -5,6 +5,7 @@ let hoverTileTxt = "Unknown Tile";
 let selectedTileTxt = "";
 let somethingSelected = false;
 let isDialogOpen = false;
+let isUnitMoving = false;
 
 //#region TOP UI
 let uiX_t = width/2;

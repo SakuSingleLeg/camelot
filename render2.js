@@ -18,8 +18,6 @@ let eventLog = [];
 let shownLog = [];
 let logIndex = -1;
 let selectedTile;
-
-let coordMap = {};
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -273,25 +271,21 @@ function buildGrid(MAP_SEED) {
     });
 }
 
-//sort sprites to prevent z-issues
+//sort sprites to prevent z-issues. removes hexes w/dupe coords first.
 function sortSprites() {
     let numSpritesRemoved = 0;
     //first find all sprites with same grixX & gridY, remove grass underneath
     for (let i = 0; i < stage.children.length; i++) {
-        let childA = stage.children[i];
-      
+        let childA = stage.children[i];      
         for (let j = i + 1; j < stage.children.length; j++) {
             let childB = stage.children[j];
-
             if (childA.gridX === childB.gridX && childA.gridY === childB.gridY && childA.isHex && childB.isHex) {
                 if (childA.depth === 1 && childB.depth === 99) {
-                    console.log("removing chid: " + childA.path + " VS " + childB.path);
                     numSpritesRemoved++;
                     stage.children.splice(i, 1);
                     i--; // step back after removal
                     break; // exit inner loop since childA is gone
                 } else if (childB.depth === 1 && childA.depth === 99) {
-                    console.log("removing chid: " + childB.path + " VS " + childA.path);
                     numSpritesRemoved++;
                     stage.children.splice(j, 1);
                     j--; // adjust index after removal
@@ -320,7 +314,6 @@ function drawForests() {
     for (let i = 0; i < GRID_Y_SIZE; i++) {
         for (let j = 0; j < GRID_X_SIZE; j++) {
             //let randomValue = seededRandom(FOREST_SEED);
-            let randomValue = Math.random();
             let hid = HEX_ARR[i][j]['id'];
             let hiq = document.getElementById(hid);
             if (hiq===null) continue;
@@ -338,6 +331,7 @@ function drawForests() {
                 addSpriteToTile(PATH_IMG_HEX_FOREST01, hiq, 'Forest', 1, 1, 1, false, 1, false, true);
             } 
             else if (hexColour === COLOUR_COAST) {
+                let randomValue = Math.random();
                 if (randomValue < .16) {
                     hiq.setAttribute("fill", COLOUR_MARSH);
                     HEX_ARR[i][j]['colour'] = COLOUR_MARSH;
@@ -351,6 +345,7 @@ function drawForests() {
                 }
                 else if (randomValue < 1/2) { // Adjust this threshold for more/less aggressive spread
                     hiq.setAttribute("fill", COLOUR_FOREST);
+                    hiq.setAttribute("moveCost", 1);
                     HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
                     HEX_ARR[i][j]['moveCost'] = 1;
                     lastTileWasForest = true;
@@ -362,6 +357,8 @@ function drawForests() {
                     }
                 }
                 else  {
+                    hiq.setAttribute("fill", COLOUR_FOREST);
+                    hiq.setAttribute("moveCost", 1);
                     HEX_ARR[i][j]['colour'] = COLOUR_FOREST;
                     HEX_ARR[i][j]['moveCost'] = 1;
                     lastTileWasForest = true;
@@ -397,8 +394,9 @@ function drawForests() {
                             if (neighborHex===null) continue;
                             neighborHex.setAttribute("gridX", nx);
                             neighborHex.setAttribute("gridY", ny);
-                            if (randomValue < 0.4) { // Adjust this threshold for more/less aggressive spread
+                            if (Math.random() < 0.35) { // Adjust this threshold for more/less aggressive spread
                                 neighborHex.setAttribute("fill", COLOUR_FOREST);
+                                neighborHex.setAttribute("moveCost", 1);
                                 HEX_ARR[ny][nx]['colour'] = COLOUR_FOREST;
                                 HEX_ARR[ny][nx]['moveCost'] = 1;
                                 addSpriteToTile(PATH_IMG_HEX_FOREST02, neighborHex, 'Forest', 1, 1, 1, false, 0, false, true);
@@ -666,13 +664,19 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
       sprite.gridX = tile.gridX;
       sprite.gridY = tile.gridY;
     }
+    
+    if (typeof tile.moveCost === "function") {
+      sprite.moveCost = parseInt(tile.getAttribute("moveCost"), 10);
+    }
+    else if (tile.moveCost !== undefined) {
+      sprite.moveCost = tile.moveCost;
+    }
 
     sprite.path = path;
     sprite.desc = desc ?? '';
     sprite.clickable = clickable;
     sprite.isHex = isHex;
     sprite.depth = depth;
-    sprite.moveCost = tile.moveCost ?? 50;
     sprite.params = structuredClone(params);
     // colour_hex_group.add(sprite);
     stage.add(sprite);
@@ -781,7 +785,6 @@ function getAdjacentHexSprites(x, y, range, colour = null) {
             const dist = cubeDistance(origin, target);
             if (dist > 0 && dist <= range) {
                 const hex = HEX_ARR[row][col];
-                console.log("🚀 ~ getAdjacentHexSprites ~ hex:", hex)
                 if (!colour || hex.colour === colour) {
                     foundArr.push(hex);
                 }
@@ -833,6 +836,11 @@ function colourize(grayscale) {
     else {  // Default for middle-range brightness -> Grass
         return COLOUR_GRASS;
     }
+}
+
+//move a psrite from one location to another. takes two sprites: moving spr and dest spr
+function moveUnitToSpriteLocation(movingElem, destinationElem) {
+    console.log("MOVING LOGIC HAPPENS");
 }
 
 //do some stuff when page loads
