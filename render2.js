@@ -844,24 +844,18 @@ function colourize(grayscale) {
     }
 }
 
-//move a psrite from one location to another. takes two sprites: moving spr and dest spr
+//move a sprite from one location to another. takes two sprites: moving spr and dest spr
 function moveUnitToSpriteLocation(movingElem, destinationElem) {
-    console.log("moveUnitToSpriteLocation()");
-    console.log("🚀 ~ moveUnitToSpriteLocation ~ destinationElem:", destinationElem)
-
-    let toX = destinationElem._position._x
-    let toY = destinationElem._position._y
-
     movingElem.animation = {
         startX: movingElem.translation.x,
         startY: movingElem.translation.y,
-        endX: toX,
-        endY: toY,
+        endX: destinationElem._position._x,
+        endY: destinationElem._position._y,
         startTime: performance.now(),
         duration: 600
     };
 
-    //TODO: update sprite position data
+    //update sprite position data
     if (typeof destinationElem.getAttribute === "function") {
         movingElem.params.ap_cur -= parseInt(destinationElem.getAttribute("moveCost"), 10) +1;
     }
@@ -870,6 +864,35 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
     }
     movingElem.gridX = destinationElem.gridX;
     movingElem.gridY = destinationElem.gridY;
+
+    //search stage.children for marching gridX, gridY. 
+    let poi = stage.children.find(shape =>
+        shape._id   !== movingElem._id        &&
+        shape.gridX === destinationElem.gridX &&
+        shape.gridY === destinationElem.gridY &&
+        shape.isHex === false
+    );
+    if (poi!==undefined && poi.params.type==="poi") {
+        //get type and open dialog
+        switch (poi.params.poi) {
+            case "chest":
+                dialog01([poi.params.dialogText]);
+                stage.remove(poi);
+                break;
+            case "cave":
+                dialog01([poi.params.dialogText]);
+                stage.remove(poi);
+                break;
+            case "mill":
+                dialog01([poi.params.dialogText]);
+                stage.remove(poi);
+                break;
+            default:
+                dialog01(["*unknown poi*"]);
+                break;
+        }
+    }
+
 }
 
 //do some stuff when page loads

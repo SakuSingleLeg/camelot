@@ -191,8 +191,18 @@ const unitParams = {
         ]
     },
     //poi
+    chest: {
+        type: "poi",
+        poi: "chest",
+        eventText: [
+            "There may be items of great value within.",
+            "A sealed box, brimming with possibilities.",
+        ],
+        dialogText: "You find items of value, yours for the taking!",
+    },
     cave: {
         type: "poi",
+        poi: "cave",
         eventText: [
             "A dark entrance appears like a void against the hillside.",
             "A gap in the rocks is wide enough to enter. A dim glow emanates from within.",
@@ -204,21 +214,17 @@ const unitParams = {
             "An ominous hole with no discernable depth. What's the worst that could happen?",
             "Probably just bats. And maybe ancient doom. But mostly bats.",
             "A totally normal cave. Not suspicious at all.",
-        ]
-    },
-    chest: {
-        type: "poi",
-        eventText: [
-            "There may be items of great value within.",
-            "A sealed box, brimming with possibilities.",
-        ]
+        ],
+        dialogText: "The interior slowly reveals itself as your hero adjust his eyes to the lack of light.",
     },
     mill: {
         type: "poi",
+        poi: "mill",
         eventText: [
             "This mill once produced wheat for the kingdom's citizens.",
             "Pillaged by marauders, this farm could still be liberated from the enemy.",
-        ]
+        ],
+        dialogText: "This fertile land can once again be used to feed the people of this kingdom!",
     },
 };
 //#endregion

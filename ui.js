@@ -586,14 +586,14 @@ function updateUIPositions() {
 
 function fadeToDark() {
     let overlay = document.getElementById("fadeOverlay");
-    overlay.style.opacity = "0.75";
-    // prevents clicks while blacked out
+    overlay.style.opacity = "0.8";
+    // prevents clicks while dark
     overlay.style.pointerEvents = "auto";
   }
   function fadeToBlack() {
     let overlay = document.getElementById("fadeOverlay");
     overlay.style.opacity = "1";
-    // prevents clicks while blacked out
+    // prevents clicks while dark
     overlay.style.pointerEvents = "auto";
   }
 function fadeToNormal() {

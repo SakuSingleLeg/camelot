@@ -31,7 +31,6 @@ optionsBtn.on("click", function () {
     optionsMenuDiv.show();
 });
 showFPS_btn.on("click", function () {
-    console.log("showFPS_btn clicked");
     if (showFPS_btn.val() === true) {
         showFPS_btn.text("false");
         showFPS_btn.val(false);
@@ -299,7 +298,6 @@ function addZUI() {
                 }
 
                 if (elem.clickable) {
-                    console.log("🚀 ~ mousedown ~ elem:", elem)
                     selectedTile = elem; 
                     somethingSelected = true;  
                     selectedTileTxt = elem.desc;
@@ -313,7 +311,6 @@ function addZUI() {
                         if (sprites.length) isUnitMoving = true;
 
                         sprites.forEach(spr => {
-                            console.log("🚀 ~ mousedown ~ spr.moveCost:", spr.moveCost)
                             //check movement cost agaisnt elem. break (dont draw) if cost more than unit curr_ap
                             if (spr.moveCost+1 > elem.params.ap_cur) return;
 
@@ -466,20 +463,25 @@ function startNewGame() {
 function endTurn() {
     fadeToDark();
     pushToEventLog("Day " + turnNum + " ends. The enemy moves under the darkness of night.");
+
     //TODO: move enemy pieces
+
+    //start new turn
     setTimeout(() => { 
         fadeToNormal(); 
         turnNum++;
         dialog01(["Day " + turnNum + " begins.", "Your kingdom collects resources."]);
+
         //restore ap
         friendlyUnitSprites.forEach(fSpr => {
             fSpr.params.ap_cur = fSpr.params.ap_max;
         });
-        //TODO add enemey sprites to arr
         enemyUnitSprites.forEach(eSpr => {
             eSpr.params.ap_cur = eSpr.params.ap_max;
         });
+
         //TODO: add resources
+
     }, 2000); 
 }
 
