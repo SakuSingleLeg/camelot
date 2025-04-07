@@ -22,9 +22,6 @@ refactoring
     colour params for text types
         yellow, gray, white, black, darkgray, brown, red, ??
 
-sfx
-    btn click
-
 ---------
 BACKLOG
 ---------
@@ -109,5 +106,10 @@ random events (movement, overnight)
 
 music
     playlists not shuffling?
-spund effects
-    more sfx
+    end turn
+sfx
+    end turn
+    poi interact
+    poi result
+        good
+        bad

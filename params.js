@@ -93,18 +93,16 @@ const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
 //SOUND
 const PATH_SFX_UI_CLICK01       = './ogg/ui_click_01.ogg';
-const PATH_MUS_MENU_ADAGIO      = './mid/Mvt1_Adagio.mid';              //menu  //a.dvorak
+const PATH_SFX_UI_CLICK02       = './ogg/ui_click_02.ogg';
+const PATH_SFX_UI_PAPER01       = './ogg/ui_paper_01.ogg';
 const PATH_MUS_MENU_LARGO       = './mid/Mvt2_Largo.mid';               //menu  //a.dvorak
 const PATH_MUS_MENU_SCHERZO     = './mid/Mvt3_Scherzo.mid';             //menu  //a.dvorak
-const PATH_MUS_MENU_CONFUOCO    = './mid/Mvt4_conFuoco.mid';            //menu  //a.dvorak
 const PATH_MUS_SALTARELLO       = './mid/saltarello.mid';               //map   //v.galilei
 const PATH_MUS_NOCTURNEBFLAT    = './mid/nocturne_in_b-flat_minor.mid'; //map   //f.chopin
 const PATH_MUS_ETUDECMOLL       = './mid/op-10-12-wfi.mid';             //fight //f.chopin
 const menuPlayList = [
-    PATH_MUS_MENU_ADAGIO,
     PATH_MUS_MENU_LARGO,
     PATH_MUS_MENU_SCHERZO,
-    PATH_MUS_MENU_CONFUOCO,
 ];
 const mapPlayList = [
     PATH_MUS_SALTARELLO,

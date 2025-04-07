@@ -284,10 +284,19 @@ function addZUI() {
         mouse.y = e.clientY;
 
         //click quit btn
-        if (isMouseOver(bgSpriteLeft1, mouse)) quitToMenu();        
+        if (isMouseOver(bgSpriteLeft1, mouse)) {
+            playSFX(PATH_SFX_UI_CLICK01);
+            quitToMenu();        
+        }
         //click log up/down
-        if (isMouseOver(bgSpriteTopChevronUp, mouse)) eventLogUp();
-        if (isMouseOver(bgSpriteTopChevronDown, mouse)) eventLogDown();
+        if (isMouseOver(bgSpriteTopChevronUp, mouse))  {
+            playSFX(PATH_SFX_UI_CLICK02);
+            eventLogUp();
+        }
+        if (isMouseOver(bgSpriteTopChevronDown, mouse)){
+            playSFX(PATH_SFX_UI_CLICK02);
+            eventLogDown();
+        }
 
         if (!isDialogOpen) {
             //click end turn btn
@@ -307,10 +316,11 @@ function addZUI() {
                 spriteDOM.classList.remove('glowing-selected');
             }
 
-            if (elem) {         
+            if (elem) {
                 //click unit movement icons
                 movementMarkerSprites.forEach(markerSprite => {
                     if (elem === markerSprite) {
+                        playSFX(PATH_SFX_UI_CLICK02);
                         moveUnitToSpriteLocation(selectedTile, markerSprite);
                     }
                 });
@@ -366,7 +376,10 @@ function addZUI() {
         }
         else {            
             //dialog OK btn
-            if (isMouseOver(dialogOKText, mouse)) removeDialog();
+            if (isMouseOver(dialogOKText, mouse)) {
+                playSFX(PATH_SFX_UI_PAPER01);
+                removeDialog();
+            }
         }
     }
 
