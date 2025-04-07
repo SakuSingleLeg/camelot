@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- lets go -->
+    <title>Heroes Often Fail</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/fog.css">
+    <link rel="stylesheet" href="./css/clouds.css">
+    <link rel="icon" href="./img/unit_knight.png" type="image/x-icon">
+  </head>
+
+  <!-- bg effects -->
+  <div class="fog-container top">
+    <div class="fog-map top"></div>
+  </div>
+  <div id="menuClouds" class="cloud-container top">
+      <div class="x1">
+          <div class="cloud top"></div>
+      </div>
+      <div class="x2">
+          <div class="cloud top"></div>
+      </div>
+      <div class="x3">
+          <div class="cloud top"></div>
+      </div>
+      <div class="x4">
+          <div class="cloud top"></div>
+      </div>
+      <div class="x5">
+          <div class="cloud top"></div>
+      </div>
+  </div>
+
+  <body>
+    <!-- cursor info -->
+    <div id="cursor-position"></div>
+    <div id="hex-position"></div>
+    <div id="sprite-count"></div>
+    <div id="fadeOverlay"></div>
+    <div id="tooltip-position"></div>
+    <div id="fps-counter"></div>
+
+    <!-- main menu -->
+    <main>
+        <!--PRESS START-->
+        <div id="pressStartDiv">
+            <div id="mainmenu_pressStart" class="menu-btn">START THE GAME</div> <br>
+        </div>
+
+        <div id="menuParentDiv" class="text-center" style="display: none">
+
+            <img id="titleCrest_img" src="./img/title_crest.png"/>
+            <br><br><br>
+            <div id="mainmenu_title" class="menu-title">CAMELOT</div>
+            <br><br><br><br>   
+            <br><br><br><br>   
+
+            <!--HOME MENU-->
+            <div id="mainmenu_div">
+                <div id="mainmenu_newMapRandom" class="menu-btn">New Map (Random)</div> <br>        
+                <div id="mainmenu_newMapSeeded" class="menu-btn">New Map (Seeded)</div> <br>
+                <div style="text-align:center">
+                    <input id="mainmenu_mapSeed" class="menu-input" style="display: none">
+                </div> <br>                        
+                <div id="mainmenu_newMapSeeded2" class="menu-btn" style="display: none">Seed Map</div>
+                <div id="mainmenu_loadGame" class="menu-btn btn-disabled">Load Quest</div>
+            </div>
+            <!--OPTIONS MENU-->
+            <div id="optionsmenu_div" class="row" style="display: none">
+                <div class="column">
+                    <div id="optionsmenu_showFPS" class="menu-txt">Show FPS</div> <br>
+                    <div id="optionsmenu_volumeMusic" class="menu-txt">Music Volume</div> <br>
+                    <div id="optionsmenu_volumeFX" class="menu-txt">SFX Volume</div> <br>
+                </div>
+                <div class="column">
+                    <div id="optionsmenu_showFPS_btn" class="menu-btn" value="balls">balls</div> <br>
+                    <input type="number" min="0" max="100" id="optionsmenu_volumeMusic_input" class="menu-input"> <br>
+                    <input type="number" min="0" max="100" id="optionsmenu_volumeFX_input" class="menu-input"> <br></div>
+                </div>
+            </div>
+
+            <br><br><br><br>
+            <div id="mainmenu_options" class="menu-btn" style="display: none">Options</div>
+            <div id="mainmenu_back" class="menu-btn" style="display: none">Save & Return</div>
+
+            <!--VERSION NO / FOOTER--> 
+            <br><br>  
+            <div id="version_number" class="">0.3.250406</div>
+
+        </div>
+        <div id="loadingDiv" class="menu-title" hidden>
+            <span>Loading ...</span>
+        </div>
+    </main>    
+  </body>
+
+  <!-- not my libs -->
+  <script src="./lib/jquery-3.7.1.min.js"></script>
+  <script src="./lib/two.min.js"></script>
+  <script src="./lib/zui.js"></script>
+  <script src="./lib/noise/perlin.js"></script>
+  <script src="./lib/webaudio-tinysynth.min.js"></script>
+  <!-- my libs -->
+  <script src="./utils.js"></script>
+  <script src="./params.js"></script>
+  <script src="./render2.js" defer></script>
+</html>
