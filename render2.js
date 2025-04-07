@@ -881,6 +881,7 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
         //get type and open dialog
         switch (poi.params.poi) {
             case "chest":
+                playCoinSFX();
                 dialog01([poi.params.dialogText]);
                 stage.remove(poi);
                 break;

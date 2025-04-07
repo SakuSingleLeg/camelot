@@ -1,3 +1,4 @@
+//#region audio manager
 const audioManager = {
     synth: null,
     playlist: [],
@@ -6,10 +7,19 @@ const audioManager = {
 
     async initSynth() {
         if (!this.synth) {
-            this.synth = new WebAudioTinySynth({ quality: 0 });
+            this.synth = new WebAudioTinySynth({ quality: 1 });
             await this.synth.audioContext.resume();
-            this.synth.setMasterVol(0.5 * (userConfig.musicVolume / 100));
-            this.synth.setLoop(0); // No loop for individual tracks
+
+            this.synth.setMasterVol(userConfig.musicVolume / 100); // 0.0 to 1.0
+            // this.synth.setMasterVol(0.9); // 0.0 to 1.0
+            setTimeout(() => {
+                for (let ch = 0; ch < 15; ch++) {
+                    ch!==9 ?? this.synth.send([0xB0 + ch, 0x07, userConfig.musicVolume]); // e.g., 20–80
+                }
+            }, 50);
+    
+
+            this.synth.setLoop(1);
         }
     },
 
@@ -32,6 +42,14 @@ const audioManager = {
         this.synth.loadMIDI(data);
         this.synth.playMIDI();
         this.isPlaying = true;
+
+        this.synth.setMasterVol(userConfig.musicVolume / 100); // 0.0 to 1.0
+        // this.synth.setMasterVol(0.9); // 0.0 to 1.0
+        setTimeout(() => {
+            for (let ch = 0; ch < 15; ch++) {
+                ch!==9 ?? this.synth.send([0xB0 + ch, 0x07, userConfig.musicVolume]); // e.g., 20–80
+            }
+        }, 50);
 
         // Check periodically if the track is still playing
         const checkIfEnded = () => {
@@ -91,3 +109,62 @@ const audioManager = {
     }
     
 };
+//#endregion
+
+//#region sound effect functions
+function playUIClickSFX() {
+    const synth = audioManager.synth;
+    if (!synth) return;
+
+    const channel = 9;
+    const instrument = 115; // Woodblock or Synth Drum (nice clean percussive click)
+    const note = 60;        // Middle C
+    const velocity = 100;
+    const duration = 0.05;
+
+    synth.send([0xB0 + channel, 0x07, userConfig.effectsVolume+10]); // max vol is 127
+    synth.send([0xC0 + channel, instrument]); // Set instrument
+    synth.send([0x90 + channel, note, velocity]); // Note on
+
+    setTimeout(() => {
+        synth.send([0x80 + channel, note, 0]); // Note off
+    }, duration * 1000);
+}
+function playUIClickSFX2() {
+    const synth = audioManager.synth;
+    if (!synth) return;
+
+    const channel = 9;
+    const instrument = 115; // Woodblock or Synth Drum (nice clean percussive click)
+    const note = 60;        // Middle C
+    const velocity = 100;
+    const duration = 0.05;
+
+    synth.send([0xB0 + channel, 0x07, userConfig.effectsVolume+10]); // max vol is 127
+    synth.send([0xC0 + channel, instrument]); // Set instrument
+    synth.send([0x90 + channel, note, velocity]); // Note on
+
+    setTimeout(() => {
+        synth.send([0x80 + channel, note, 0]); // Note off
+    }, duration * 1000);
+}
+
+function playCoinSFX() {
+    const synth = audioManager.synth;
+    if (!synth) return;
+
+    const channel = 15;
+    const instrument = 11; // Vibraphone or something plucky
+    const note = 76; // E5
+    const velocity = 100;
+    const duration = 0.3;
+
+    synth.send([0xB0 + channel, 0x07, userConfig.effectsVolume + 10]); // Set channel volume to 100
+    synth.send([0xC0 + channel, instrument]); // Set instrument
+    synth.send([0x90 + channel, note, velocity]); // Note on
+
+    setTimeout(() => {
+        synth.send([0x80 + channel, note, 0]); // Note off
+    }, duration * 1000);
+}
+//#endregion

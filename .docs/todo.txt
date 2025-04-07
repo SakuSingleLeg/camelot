@@ -11,8 +11,6 @@ arthur movement
             find nothing or rewards 5g
         farms
             reward 5f
-next turn
-    add turn res to tot res
 
 enemy units
    movement
@@ -31,8 +29,6 @@ BACKLOG
 intro slides
     nfi logo
     config option (incl menu)
-music
-    main menu (trigger after slides click)
 
 settlements
     banner beside name to show friendly/hostile
