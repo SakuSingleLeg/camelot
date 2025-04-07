@@ -2,6 +2,8 @@
 const menuParentDiv = $('#menuParentDiv');
 const loadingDiv = document.getElementById('loadingDiv');
 const menuClouds = document.getElementById('menuClouds');
+const startBtn = $('#mainmenu_pressStart');
+const pressStartDiv =  $('#pressStartDiv');
 const newMapRandomBtn = $('#mainmenu_newMapRandom');
 const newMapSeededBtn = $('#mainmenu_newMapSeeded');
 const newMapSeededInput = $('#mainmenu_mapSeed');
@@ -18,6 +20,15 @@ const showFPS_btn = $("#optionsmenu_showFPS_btn");
 const musicVolume_input= $("#optionsmenu_volumeMusic_input");
 const effectsVolume_input = $("#optionsmenu_volumeFX_input");
 let movementMarkerSprites = [];
+
+startBtn.on("click", function () {
+    audioManager.initSynth();
+    audioManager.loadPlaylist(menuPlayList);  
+    audioManager.startPlaylist(true);
+    pressStartDiv.hide();
+    menuParentDiv.show();
+    optionsBtn.show();
+});
 
 optionsBtn.on("click", function () {
     showFPS_btn.text(userConfig.show_fps);
@@ -46,7 +57,12 @@ backBtn.on("click", function () {
     userConfig.musicVolume = musicVolume_input.val();
     userConfig.effectsVolume = effectsVolume_input.val();
     saveConfig(userConfig);
-    quitToMenu(true);
+
+    optionsBtn.show();
+    backBtn.hide();
+    mainMenuDiv.show();
+    optionsMenuDiv.hide();
+    //quitToMenu(true);
 });
 
 newMapRandomBtn.on("click", function () {
@@ -61,19 +77,22 @@ newMapRandomBtn.on("click", function () {
     optionsBtn.hide(); //whyyyyy
     loadingDiv.removeAttribute('hidden');
     fadeToBlack();
+    audioManager.fadeVolume(0, 1000);
 
     setTimeout(() => {
         menuClouds.setAttribute('hidden', 'true')
         buildGrid(MAP_SEED).then(function () {
             //wait for UI to update, then run buildGrid (so that 'loading...' shows)
-            setTimeout(() => {
-                setTimeout(() => { 
+            setTimeout(() => {                    
+                audioManager.stop();
+                audioManager.fadeVolume(.5*(userConfig.musicVolume/100), 1000);
+                audioManager.loadPlaylist(mapPlayList);                
+                setTimeout(() => {
                     const endTime = performance.now();
                     startNewGame();
                     addZUI();
                     fadeToNormal();
                     $("#loadingDiv").attr("hidden", "true");
-                    //restore original cursor
                     $("body").css("cursor", originalCursor);
                     console.log(`buildGrid+friends execution time (with delays): ${(endTime - startTime).toFixed(2)} ms`);
                 }, 1000);   
@@ -94,6 +113,7 @@ newMapSeededBtn2.on("click", function () {
     loadingDiv.removeAttribute('hidden');
     menuParentDiv.hide();
     fadeToBlack();
+    audioManager.fadeVolume(0, 1000);
 
     setTimeout(() => {
         let seedValue = parseInt(newMapSeededInput.val(), 10);
@@ -101,6 +121,9 @@ newMapSeededBtn2.on("click", function () {
         buildGrid(seedValue).then(function (){     
             //wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {
+                audioManager.stop();
+                audioManager.fadeVolume(.5*(userConfig.musicVolume/100), 1000);
+                audioManager.loadPlaylist(mapPlayList);
                 setTimeout(() => {
                     const endTime = performance.now();
                     startNewGame();
@@ -454,7 +477,8 @@ function addZUI() {
 //#endregion
 
 function startNewGame() {
-    audioManager.playMIDI(PATH_MUS_SALTARELLO);
+    audioManager.startPlaylist(true, true);
+
     pushToEventLog("Your kingdom is pillaged and your Knights are scattered.");
     dialog01(dialogParams.openingDialog);
     totGold += 5;

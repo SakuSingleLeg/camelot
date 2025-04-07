@@ -74,7 +74,7 @@ loadConfig().then(() => {
     // LOAD OTHER SCRIPTS
     console.log("Now Loading Scripts...");
     loadScript("audio.js", function () {
-        console.log("audio.js Loaded");      
+        console.log("audio.js Loaded");
         loadScript("ui.js", function () {
             console.log("ui.js Loaded");          
             loadScript("utils.js", function () {
