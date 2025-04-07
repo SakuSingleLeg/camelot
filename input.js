@@ -22,8 +22,8 @@ const effectsVolume_input = $("#optionsmenu_volumeFX_input");
 let movementMarkerSprites = [];
 
 startBtn.on("click", function () {
+    playSFX(PATH_SFX_UI_CLICK01);
     audioManager.initSynth();
-    playUIClickSFX2();
     audioManager.loadPlaylist(menuPlayList);  
     audioManager.startPlaylist(true);
     pressStartDiv.hide();
@@ -32,7 +32,7 @@ startBtn.on("click", function () {
 });
 
 optionsBtn.on("click", function () {
-    playUIClickSFX2();
+    playSFX(PATH_SFX_UI_CLICK01);
     showFPS_btn.text(userConfig.show_fps);
     showFPS_btn.val(userConfig.show_fps);
     musicVolume_input.val(userConfig.musicVolume);
@@ -44,7 +44,7 @@ optionsBtn.on("click", function () {
     optionsMenuDiv.show();
 });
 showFPS_btn.on("click", function () {
-    playUIClickSFX2();
+    playSFX(PATH_SFX_UI_CLICK01);
     if (showFPS_btn.val() === true) {
         showFPS_btn.text("false");
         showFPS_btn.val(false);
@@ -56,7 +56,7 @@ showFPS_btn.on("click", function () {
 });
 
 backBtn.on("click", function () {
-    playUIClickSFX2();
+    playSFX(PATH_SFX_UI_CLICK01);
     userConfig.show_fps = showFPS_btn.val();
     userConfig.musicVolume = musicVolume_input.val();
     userConfig.effectsVolume = effectsVolume_input.val();
@@ -70,7 +70,7 @@ backBtn.on("click", function () {
 });
 
 newMapRandomBtn.on("click", function () {
-    playUIClickSFX2();
+    playSFX(PATH_SFX_UI_CLICK01);
     const startTime = performance.now();
 
     //save original cursor, set to hourglass
@@ -105,13 +105,13 @@ newMapRandomBtn.on("click", function () {
 });
 
 newMapSeededBtn.on("click", function () {
-    playUIClickSFX2();
+    playSFX(PATH_SFX_UI_CLICK01);
     console.log("New Map (Seeded) clicked");
     newMapSeededInput.show();
     newMapSeededBtn2.show();
 });
 newMapSeededBtn2.on("click", function () {
-    playUIClickSFX2();
+    playSFX(PATH_SFX_UI_CLICK01);
     const startTime = performance.now();
 
     console.log("Height Seed: " + MAP_SEED);
@@ -325,7 +325,7 @@ function addZUI() {
                 }
 
                 if (elem.clickable) {
-                    playUIClickSFX();
+                    playSFX(PATH_SFX_UI_CLICK01);
                     selectedTile = elem; 
                     somethingSelected = true;  
                     selectedTileTxt = elem.desc;

@@ -92,6 +92,7 @@ const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
 const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
 //SOUND
+const PATH_SFX_UI_CLICK01       = './ogg/ui_click_01.ogg';
 const PATH_MUS_MENU_ADAGIO      = './mid/Mvt1_Adagio.mid';              //menu  //a.dvorak
 const PATH_MUS_MENU_LARGO       = './mid/Mvt2_Largo.mid';               //menu  //a.dvorak
 const PATH_MUS_MENU_SCHERZO     = './mid/Mvt3_Scherzo.mid';             //menu  //a.dvorak
