@@ -19,7 +19,6 @@ refactoring
 
 misc
     music & sound volumes are not increasing correctly?
-    movement anim ischoppy
 
 
 ---------
@@ -115,6 +114,7 @@ music
     playlists not shuffling?
     end turn
 sfx
+    get sound pack
     end turn
     poi interact
     poi result
@@ -122,6 +122,5 @@ sfx
         bad
 
 performance
-	optimize ui drawing (major fps loss)
-	stage.find should search smaller arrays ie unit, hex, ui, etc.
+	optimize ui drawing?
 	use maps instead of arrs for searching?

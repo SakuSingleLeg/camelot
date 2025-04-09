@@ -73,7 +73,7 @@ const PATH_IMG_PANEL_SMALL      = './img/ui_smol.png';
 const PATH_IMG_PANEL_SMALLER    = './img/ui_smoller.png';
 const PATH_IMG_PANEL_SMALLWIDE  = './img/ui_smol_wide.png';
 const PATH_IMG_PANEL_SQUARE     = './img/ui_square.png';
-const PATH_IMG_DIALOG_BG_01    = './img/paper_dialog_01.png';
+const PATH_IMG_DIALOG_BG_01    = './img/paper_dialog_01.webp';
 const PATH_IMG_ANIM_COIN        = './img/anim_coin.png';
 const PATH_IMG_ANIM_MILL_SM     = './img/anim_mill_icon.png';
 const PATH_IMG_ICON_FOOD        = './img/ui_icon_food.png';
@@ -95,14 +95,10 @@ const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
 const PATH_SFX_UI_CLICK01       = './ogg/ui_click_01.ogg';
 const PATH_SFX_UI_CLICK02       = './ogg/ui_click_02.ogg';
 const PATH_SFX_UI_PAPER01       = './ogg/ui_paper_01.ogg';
-const PATH_MUS_MENU_LARGO       = './mid/Mvt2_Largo.mid';               //menu  //a.dvorak
-const PATH_MUS_MENU_SCHERZO     = './mid/Mvt3_Scherzo.mid';             //menu  //a.dvorak
 const PATH_MUS_SALTARELLO       = './mid/saltarello.mid';               //map   //v.galilei
 const PATH_MUS_NOCTURNEBFLAT    = './mid/nocturne_in_b-flat_minor.mid'; //map   //f.chopin
 const PATH_MUS_ETUDECMOLL       = './mid/op-10-12-wfi.mid';             //fight //f.chopin
 const menuPlayList = [
-    // PATH_MUS_MENU_SCHERZO,
-    // PATH_MUS_MENU_LARGO,
     PATH_MUS_NOCTURNEBFLAT,
 ];
 const mapPlayList = [
