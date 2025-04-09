@@ -507,15 +507,15 @@ function startNewGame() {
 function endTurn() {
     fadeToDark();
     pushToEventLog("Day " + turnNum + " ends. The enemy moves under the darkness of night.");
+    moveEnemiesEoT();
 
-    //TODO: move enemy pieces
-
-    //start new turn
+    //start new turn after a short pause for fade & process
     setTimeout(() => { 
+        turnNum++;
         fadeToNormal(); 
         dialog01(["Day " + turnNum + " begins.", "Your kingdom collects resources."]);
 
-        //restore ap
+        //restore ap for all units
         friendlyUnitSprites.forEach(fSpr => {
             fSpr.params.ap_cur = fSpr.params.ap_max;
         });
@@ -523,7 +523,6 @@ function endTurn() {
             eSpr.params.ap_cur = eSpr.params.ap_max;
         });
 
-        turnNum++;
         totGold += turnGold;
         totFood += turnFood;
     }, 2000); 

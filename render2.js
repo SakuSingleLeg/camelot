@@ -23,6 +23,7 @@ let friendlyUnitSprites = [];
 let enemyUnitSprites = [];
 let totGold = 0, totFood = 0;
 let turnGold = 0, turnFood = 0;
+let animatingEnemyMovement = false;
 //#endregion
 
 //LOAD CONFIG FROM FILE
@@ -98,7 +99,7 @@ function buildGrid(MAP_SEED) {
     //do stuff every frame
     two.bind('update', function(frameCount) {
         const now = performance.now();
-        //animate unit moving to another tile
+        //animate selected unit sprite
         if (selectedTile!==undefined && selectedTile.animation) {
             const { startX, startY, endX, endY, startTime, duration } = selectedTile.animation;
             const elapsed = now - startTime;
@@ -109,6 +110,30 @@ function buildGrid(MAP_SEED) {
 
             //animation done
             if (t >= 1) { delete selectedTile.animation; }
+        }
+
+        //animate enemy sprites
+        let enemyAnimsRemaining = false;
+        if (animatingEnemyMovement === true) {
+            enemyUnitSprites.forEach(eSpr => {
+                if (eSpr!==undefined && eSpr.animation) {
+                    const { startX, startY, endX, endY, startTime, duration } = eSpr.animation;
+                    const elapsed = now - startTime;
+                    const t = Math.min(elapsed / duration, 1);
+                    const easedT = easeInOutQuad(t);
+                    eSpr.translation.x = startX + (endX - startX) * easedT;
+                    eSpr.translation.y = startY + (endY - startY) * easedT;
+        
+                    //animation done - track
+                    if (t >= 1) { 
+                        delete eSpr.animation; 
+                        enemyAnimsRemaining = true;
+                    }
+                }
+            });
+            if (enemyAnimsRemaining = false) {
+                animatingEnemyMovement = false;
+            }
         }
     });
 
@@ -785,7 +810,7 @@ function checkAllAdjacentHex(x, y, range, colour) {
         return false;
     }
 }
-//returns all sprites within a given range - excludes center tile (returns max 6 tiles)
+//returns all sprites within a given range - excludes center tile. matches colour or returns all if colour is null.
 function getAdjacentHexSprites(x, y, range, colour = null) {
 	let foundArr = [];
     const origin = offsetToCube(x, y);
@@ -870,44 +895,65 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
     movingElem.gridX = destinationElem.gridX;
     movingElem.gridY = destinationElem.gridY;
 
-    //search stage.children for marching gridX, gridY. 
-    let poi = stage.children.find(shape =>
-        shape._id   !== movingElem._id        &&
-        shape.gridX === destinationElem.gridX &&
-        shape.gridY === destinationElem.gridY &&
-        shape.isHex === false
-    );
-    if (poi!==undefined && poi.params.type==="poi") {
-        //get type and open dialog
-        switch (poi.params.poi) {
-            case "chest":
-                dialog01([poi.params.dialogText]);
-                stage.remove(poi);
-                break;
-            case "cave":
-                if (!poi.params.explored) {
+    //collide with poi
+    if (movingElem.params.type === "knight") {
+        //search stage.children for marching gridX, gridY. 
+        let poi = stage.children.find(shape =>
+            shape._id   !== movingElem._id        &&
+            shape.gridX === destinationElem.gridX &&
+            shape.gridY === destinationElem.gridY &&
+            shape.isHex === false
+        );
+        if (poi!==undefined && poi.params.type==="poi") {
+            //get type and open dialog
+            switch (poi.params.poi) {
+                case "chest":
                     dialog01([poi.params.dialogText]);
-                    poi.params.explored = true;
-                }
-                else {                    
-                    dialog01(["This cave has already been cleared out."]);
-                }
-                break;
-            case "mill":
-                if (!poi.params.explored) {
-                    dialog01([poi.params.dialogText]);
-                    poi.params.explored = true;
-                }
-                else {                    
-                    dialog01(["This farm has already been reclaimed."]);
-                }
-                break;
-            default:
-                dialog01(["*unknown poi*"]);
-                break;
+                    stage.remove(poi);
+                    break;
+                case "cave":
+                    if (!poi.params.explored) {
+                        dialog01([poi.params.dialogText]);
+                        poi.params.explored = true;
+                    }
+                    else {                    
+                        dialog01(["This cave has already been cleared out."]);
+                    }
+                    break;
+                case "mill":
+                    if (!poi.params.explored) {
+                        dialog01([poi.params.dialogText]);
+                        poi.params.explored = true;
+                    }
+                    else {                    
+                        dialog01(["This farm has already been reclaimed."]);
+                    }
+                    break;
+                default:
+                    dialog01(["*unknown poi*"]);
+                    break;
+            }
         }
     }
 
+}
+
+//TODO: move enemy pieces
+function moveEnemiesEoT() {    
+    console.log("moving enemy sprites");
+    animatingEnemyMovement = true;
+    enemyUnitSprites.forEach(eSpr => {
+        //apply pathfinding rules for each enemy on map
+        if (eSpr.params.ai === "stupid") {
+            //stupid ai - moves to a random adjacent tile
+            let adjHexSprites = getAdjacentHexSprites(eSpr.gridX, eSpr.gridY, 1);
+            const adjHexSprite = adjHexSprites[Math.floor(Math.random() * adjHexSprites.length)];
+            moveUnitToSpriteLocation(eSpr, adjHexSprite);
+        }
+        else {
+            console.log("Enemy has no brain: ", eSpr);
+        }
+    });
 }
 
 //do some stuff when page loads

@@ -175,11 +175,12 @@ const unitParams = {
         hp_cur: 30,
         hp_max: 30,
         ap_cur: 0,
-        ap_max: 2,
+        ap_max: 1,
         eventText: [
             "Shambling frames of bones and sinew, animated but very much dead.",
             "A pack of skeletons, roaming the countryside.",
-        ]
+        ],
+        ai: "stupid",
     },
     //poi
     chest: {

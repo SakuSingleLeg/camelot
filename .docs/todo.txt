@@ -3,8 +3,11 @@ TODDO
 ---------
 VERSION 0.4
 
-gradient bg
-     lo res (color banding)
+enemy units
+   movement
+        end of turn
+            stupid ai
+                move to random valid adjacent
 
 arthur movement
     interact with poi
@@ -16,19 +19,12 @@ arthur movement
             increase turnFood
             chance to reward 1-5f
 
-enemy units
-   movement
-        end of turn
-            stupid ai
-                move to random valid adjacent
-
 refactoring
     colour params for text types
         yellow, gray, white, black, darkgray, brown, red, ??
 
 misc
-    music & sound volumes are not scaling correctly?
-
+    music & sound volumes are not increasing correctly?
     movement anim ischoppy
 
 
