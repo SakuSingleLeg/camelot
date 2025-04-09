@@ -7,7 +7,7 @@ const audioManager = {
 
     async initSynth() {
         if (!this.synth) {
-            this.synth = new WebAudioTinySynth({ quality: 1 });
+            this.synth = new WebAudioTinySynth({ quality: 0 });
             await this.synth.audioContext.resume();
 
             this.synth.setMasterVol(userConfig.musicVolume / 100); // 0.0 to 1.0

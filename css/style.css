@@ -340,9 +340,9 @@ input {
 }
 .glowing-selected{
     color: #fff;
-    text-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.8);
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
-    animation: glowWhite 1.5s steps(8) infinite alternate;
+    text-shadow: 0px 0px 8px #ffffff, 0px 0px 20px rgba(255, 255, 255, 1);
+    filter: drop-shadow(0px 0px 12px rgba(255, 255, 255, 1));
+    /* animation: glowWhite 1.5s steps(8) infinite alternate; */
     transition: all 0.3s steps(3);
 }
 .glowing-hostile {

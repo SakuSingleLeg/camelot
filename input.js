@@ -226,14 +226,15 @@ function addZUI() {
     function mouseover(e) {
         if (!isDialogOpen) {
             let elem = stage.children.find(shape => shape._id === e.target.id);
-    
-            if (lastElement === elem) return;  // Prevent redundant updates
-            lastElement = elem;
-    
-            // Ignore elements that should not capture events
-            if (elem && elem.noPointerEvents) return;
-        
+            // let elem = elementMap.get(e.target.id);
             if (elem) {
+    
+                if (lastElement === elem) return;  // Prevent redundant updates
+                lastElement = elem;
+        
+                // Ignore elements that should not capture events
+                if (elem.noPointerEvents) return;
+        
                 tooltip.show();
                 let gridX = elem.gridX !== undefined ? elem.gridX : -1;
                 let gridY = elem.gridY !== undefined ? elem.gridY : -1;
@@ -314,7 +315,7 @@ function addZUI() {
         
             //clear last selected tile (if exists)
             if (selectedTile) {
-                spriteDOM = document.getElementById(selectedTile._id);
+                let spriteDOM = document.getElementById(selectedTile._id);
                 spriteDOM.classList.remove('glowing-selected');
             }
 

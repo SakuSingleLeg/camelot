@@ -682,3 +682,10 @@ function eventLogDown() {
     }
 }
 //#endregion 
+
+//when done we want to add all these elements to element map so they are included in mouse checks, etc.
+setTimeout(() => {
+    ui.children.forEach(shape => {
+        elementMap.set(shape._id, shape);
+    });
+}, 0);

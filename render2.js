@@ -4,6 +4,7 @@ const cursorPositionDiv = document.getElementById('cursor-position');
 const hexPositionDiv = document.getElementById('hex-position');
 const spriteCountDiv = document.getElementById('sprite-count');
 const tooltipPosition = document.getElementById('tooltip-position');
+const elementMap = new Map();
 let userConfig;
 let two, ui, stage;  
 let MAP_SEED, FOREST_SEED, SETTLEMENT_SEED;
@@ -104,7 +105,8 @@ function buildGrid(MAP_SEED) {
             const { startX, startY, endX, endY, startTime, duration } = selectedTile.animation;
             const elapsed = now - startTime;
             const t = Math.min(elapsed / duration, 1);
-            const easedT = easeInOutQuad(t);
+            // const easedT = easeInOutQuad(t);
+            const easedT = t;
             selectedTile.translation.x = startX + (endX - startX) * easedT;
             selectedTile.translation.y = startY + (endY - startY) * easedT;
 
@@ -120,7 +122,8 @@ function buildGrid(MAP_SEED) {
                     const { startX, startY, endX, endY, startTime, duration } = eSpr.animation;
                     const elapsed = now - startTime;
                     const t = Math.min(elapsed / duration, 1);
-                    const easedT = easeInOutQuad(t);
+                    // const easedT = easeInOutQuad(t);
+                    const easedT = t;
                     eSpr.translation.x = startX + (endX - startX) * easedT;
                     eSpr.translation.y = startY + (endY - startY) * easedT;
         
@@ -297,12 +300,18 @@ function buildGrid(MAP_SEED) {
 
         two.add(stage);
 
-
         if (SHOW_DEBUG_OVERLAY) {
             hexPositionDiv.removeAttribute('hidden');
             spriteCountDiv.removeAttribute('hidden');
             tooltipPosition.removeAttribute('hidden');
         }
+
+        //set up map of all sprites so search go brrrrr
+        setTimeout(() => {
+            stage.children.forEach(shape => {
+                elementMap.set(shape._id, shape);
+            });
+        }, 0);
 
         resolve();
     });
