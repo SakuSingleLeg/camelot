@@ -15,17 +15,17 @@
   image-rendering: pixelated;
   width: 250%;
   height: 250%;
-  background: url("../img/fog2.png") repeat-x;
+  background: url("../img/fog1.png") repeat-x;
   background-size: cover;
-  opacity: 0.666;
+  opacity: 1;
   animation: fog-animation-l 30s linear infinite;
 }
 .fog-map {
   position: absolute;
   image-rendering: pixelated;
-  width: 250%;
-  height: 250%;
-  background: url("../img/fog2.png") repeat-x;
+  width: 200%;
+  height: 200%;
+  background: url("../img/fog1.png") repeat-x;
   background-size: cover;
   opacity: 1;
   animation: fog-animation-r 30s linear infinite;

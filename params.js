@@ -4,8 +4,8 @@ const DEFAULT_GAME_OPTIONS = `{
     "show_fps": true,
     "gridSizeX": 60,
     "gridSizeY": 40,
-    "effectsVolume": 80,
-    "musicVolume": 80
+    "effectsVolume": 30,
+    "musicVolume": 2
 }`;
 
 //#region file paths

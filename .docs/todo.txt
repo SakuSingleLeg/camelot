@@ -3,6 +3,9 @@ TODDO
 ---------
 VERSION 0.4
 
+gradient bg
+     lo res (color banding)
+
 arthur movement
     interact with poi
         treasure
@@ -10,7 +13,8 @@ arthur movement
         cave
             find nothing or rewards 5g
         farms
-            reward 5f
+            increase turnFood
+            chance to reward 1-5f
 
 enemy units
    movement
@@ -21,6 +25,12 @@ enemy units
 refactoring
     colour params for text types
         yellow, gray, white, black, darkgray, brown, red, ??
+
+misc
+    music & sound volumes are not scaling correctly?
+
+    movement anim ischoppy
+
 
 ---------
 BACKLOG
@@ -33,6 +43,8 @@ intro slides
 settlements
     banner beside name to show friendly/hostile
 
+knight interact with skelly
+	battle dialog
 
 dialogs
     dialog02
@@ -50,6 +62,8 @@ fog of war
 
 abilities
     first aid
+	btn active only ifcan afford
+	click: -5f +10hp
     scouts
     squires
 
@@ -113,3 +127,8 @@ sfx
     poi result
         good
         bad
+
+performance
+	optimize ui drawing (major fps loss)
+	stage.find should search smaller arrays ie unit, hex, ui, etc.
+	use maps instead of arrs for searching?
