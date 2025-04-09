@@ -1,7 +1,8 @@
 //#region MAIN MENU CONTROL
 const menuParentDiv = $('#menuParentDiv');
 const loadingDiv = document.getElementById('loadingDiv');
-const menuClouds = document.getElementById('menuClouds');
+// const menuClouds = document.getElementById('menuClouds');
+const menuFog = document.getElementById('menuFog');
 const startBtn = $('#mainmenu_pressStart');
 const pressStartDiv =  $('#pressStartDiv');
 const newMapRandomBtn = $('#mainmenu_newMapRandom');
@@ -85,7 +86,8 @@ newMapRandomBtn.on("click", function () {
     audioManager.fadeVolume(0, 1000);
 
     setTimeout(() => {
-        menuClouds.setAttribute('hidden', 'true')
+        // menuClouds.setAttribute('hidden', 'true')
+        menuFog.setAttribute('hidden', 'true')
         buildGrid(MAP_SEED).then(function () {
             //wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {                    

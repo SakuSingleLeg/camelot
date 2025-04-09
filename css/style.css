@@ -192,7 +192,7 @@ body:active {
     
 }
 .menu-btn:hover {
-    background-color: gray !important;
+    background-color: black !important;
 }
 .menu-btn:active {
     cursor: url('../img/cursor_down.png'), pointer !important;
@@ -246,6 +246,18 @@ body:active {
 }
 #mainmenu_newMapSeeded2 {
     display: none;
+}
+
+.main-fade-overlay {
+    position: fixed;
+    inset: 0;
+    background: black;
+    z-index: 9999;
+    animation: fadeOut 1.5s ease-out forwards;
+}
+@keyframes fadeOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
 }
 
 #version_number {
@@ -306,7 +318,7 @@ input {
 }
 
 #loadingDiv {
-    transform: translateX(-5vw);
+    /* transform: translateX(-5vw); */
     text-align: center;
     z-index: 9993 !important;
 }
