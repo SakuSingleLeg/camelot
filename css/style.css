@@ -161,7 +161,6 @@ body:active {
 
 /* MENUS */
 .menu-title {
-    text-align: center;
     font-size: xx-large;
 }
 
@@ -307,6 +306,7 @@ input {
 }
 
 #loadingDiv {
+    transform: translateX(-5vw);
     text-align: center;
     z-index: 9993 !important;
 }

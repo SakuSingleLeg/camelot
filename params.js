@@ -101,12 +101,12 @@ const PATH_MUS_SALTARELLO       = './mid/saltarello.mid';               //map   
 const PATH_MUS_NOCTURNEBFLAT    = './mid/nocturne_in_b-flat_minor.mid'; //map   //f.chopin
 const PATH_MUS_ETUDECMOLL       = './mid/op-10-12-wfi.mid';             //fight //f.chopin
 const menuPlayList = [
-    PATH_MUS_MENU_LARGO,
-    PATH_MUS_MENU_SCHERZO,
+    // PATH_MUS_MENU_SCHERZO,
+    // PATH_MUS_MENU_LARGO,
+    PATH_MUS_NOCTURNEBFLAT,
 ];
 const mapPlayList = [
     PATH_MUS_SALTARELLO,
-    PATH_MUS_NOCTURNEBFLAT,
 ];
 //#endregion
 
