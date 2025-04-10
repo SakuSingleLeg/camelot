@@ -124,7 +124,7 @@ newMapSeededBtn2.on("click", function () {
 
     setTimeout(() => {
         let seedValue = parseInt(newMapSeededInput.val(), 10);
-        menuClouds.setAttribute('hidden', 'true')
+        //menuClouds.setAttribute('hidden', 'true')
         buildGrid(seedValue).then(function (){     
             //wait for UI to update, then run buildGrid (so that 'loading...' shows)
             setTimeout(() => {

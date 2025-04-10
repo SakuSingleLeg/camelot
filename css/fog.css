@@ -1,73 +1,46 @@
-
-/* Fog Container */
-.fog-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none; /* Allows interaction with elements below */
-  z-index: -99;
-}
-
-/* Fog Layers */
-.fog {
-    transform: scaleY(-1);
-    position: absolute;
+.fog-overlay-bottom {
+    will-change: transform;
     image-rendering: pixelated;
-    width: 220%;
-    height: 200%;
-    background: url("../img/fog2.webp") repeat-x;
-    background-size: cover;
-    opacity: 1;
-    animation: fog-animation-l 40s linear infinite;
-}
-.fog-map {
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/fog.webp');
+    background-repeat: repeat;
+    background-size: cover; /* or try `contain` or a specific size for tuning */
+    pointer-events: none; 
+    z-index: -99;
+    animation: fogScroll-r 60s linear infinite;
+}
+.fog-overlay-top {
+    will-change: transform;
     image-rendering: pixelated;
-    width: 230%;
-    height: 180%;
-    background: url("../img/fog2.webp") repeat-x;
-    background-size: cover;
-    opacity: .8;
-    animation: fog-animation-r 60s linear infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/fog.webp');
+    background-repeat: repeat;
+    background-size: cover; /* or try `contain` or a specific size for tuning */
+    pointer-events: none;
+    z-index: 9989;
+    animation: fogScroll-l 60s linear infinite;
 }
-
-/* Adjust Multiple Fog Layers for Depth */
-.fog:nth-child(1) {
-  top: -20%;
-  left: -20%;
-  opacity: 0.444;
-  animation-duration: 25s;
+@keyframes fogScroll-r {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 1000px 500px;
+    }
 }
-
-.fog:nth-child(2) {
-  top: -10%;
-  left: -10%;
-  opacity: 0.333;
-  animation-duration: 35s;
+@keyframes fogScroll-l {
+    0% {
+      background-position: 1000px 500px;
+    }
+    100% {
+      background-position: 0 0;
+    }
 }
-
-.fog:nth-child(3) {
-  top: -10%;
-  left: -10%;
-  opacity: 0.222;
-  animation-duration: 50s;
-}
-
-/* Fog Animation */
-@keyframes fog-animation-l {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-30%);
-    }
-  }
-  @keyframes fog-animation-r {
-    from {
-        transform: translateX(-30%);
-    }
-    to {
-        transform: translateX(0);
-    }
-  }

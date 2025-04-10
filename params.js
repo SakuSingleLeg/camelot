@@ -5,7 +5,9 @@ const DEFAULT_GAME_OPTIONS = `{
     "gridSizeX": 60,
     "gridSizeY": 40,
     "effectsVolume": 30,
-    "musicVolume": 2
+    "musicVolume": 2,
+    "showFog": true,
+    "showScanlines": true,
 }`;
 
 //#region file paths

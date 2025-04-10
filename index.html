@@ -6,18 +6,15 @@
     <!-- lets go -->
     <title>Heroes Often Fail</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/crt.css">
     <link rel="stylesheet" href="./css/fog.css">
     <link rel="stylesheet" href="./css/clouds.css">
     <link rel="icon" href="./img/unit_knight.png" type="image/x-icon">
   </head>
 
   <!-- bg effects -->
-  <div class="fog-container top">
-    <div class="fog-map top"></div>
-  </div>
-  <div id="menuFog" class="fog-container top">
-    <div class="fog top"></div>
-  </div>
+  <div class="fog-overlay-bottom" id="menuFog"></div>
+  <div class="fog-overlay-top"    id="mapFog"></div>
   <!-- <div id="menuClouds" class="cloud-container top">
       <div class="x1">
           <div class="cloud top"></div>
@@ -39,6 +36,7 @@
   <body>
     <!-- overlays -->
     <div class="main-fade-overlay"></div>
+    <!-- <div class="crt"></div> -->
     <div class="scanlines-overlay"></div>
 
     <!-- cursor info -->
@@ -77,13 +75,17 @@
             <div id="optionsmenu_div" class="row" style="display: none">
                 <div class="column">
                     <div id="optionsmenu_showFPS" class="menu-txt">Show FPS</div> <br>
+                    <div id="optionsmenu_showFog" class="menu-txt">Show Fog Effect</div> <br>
+                    <div id="optionsmenu_showScn" class="menu-txt">Show Scanlines</div> <br>
                     <div id="optionsmenu_volumeMusic" class="menu-txt">Music Volume</div> <br>
                     <div id="optionsmenu_volumeFX" class="menu-txt">SFX Volume</div> <br>
                 </div>
                 <div class="column">
                     <div id="optionsmenu_showFPS_btn" class="menu-btn" value="balls">balls</div> <br>
-                    <input type="number" min="0" max="100" id="optionsmenu_volumeMusic_input" class="menu-input"> <br>
-                    <input type="number" min="0" max="100" id="optionsmenu_volumeFX_input" class="menu-input"> <br></div>
+                    <div id="optionsmenu_showFog_btn" class="menu-btn" value="balls">balls</div> <br>
+                    <div id="optionsmenu_showScn_btn" class="menu-btn" value="balls">balls</div> <br>
+                    <input type="number" min="0" max="99" id="optionsmenu_volumeMusic_input" class="menu-input"> <br>
+                    <input type="number" min="0" max="99" id="optionsmenu_volumeFX_input" class="menu-input"> <br></div>
                 </div>
             </div>
 
