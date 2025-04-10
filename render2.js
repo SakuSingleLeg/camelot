@@ -923,7 +923,23 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
             //get type and open dialog
             switch (poi.params.poi) {
                 case "chest":
-                    dialog01([poi.params.dialogText]);
+
+                    //roll dice and give a reward
+                    const roll = Math.floor(Math.random() * 12) + 1; // D12 = 1 to 12
+                    if (roll <= 9) {
+                        console.log("you got gold");
+                        //you get gold
+                        dialog01([poi.params.dialogText[2]]);
+                    } else if (roll === 12) {
+                        console.log("you got bembas");
+                        //you get bembas bread
+                        dialog01([poi.params.dialogText[1]]);
+                    } else {
+                        console.log("you got nothing");
+                        //you get nothing!
+                        dialog01([poi.params.dialogText[0]]);
+                    }
+
                     stage.remove(poi);
                     break;
                 case "cave":

@@ -3,11 +3,6 @@ TODDO
 ---------
 VERSION 0.4
 
-toggle fog menu option
-    add param in config (off, low, high - default on)
-    check param on game start, options close
-toggle scanline option
-
 arthur movement
     interact with poi
         treasure
@@ -17,6 +12,8 @@ arthur movement
         farms
             increase turnFood
             chance to reward 1-5f
+dice roll indicator
+    whenever a decision is made that invldes rand(), show dice anim or icon
 
 refactoring
     colour params for text types
@@ -30,8 +27,6 @@ misc
 BACKLOG
 ---------
 
-dice roll indicator
-    whenever a decision is made that invldes rand(), show dice anim or icon
 
 selected unit badge
     sprite placed over whatever unit/buidling is selected

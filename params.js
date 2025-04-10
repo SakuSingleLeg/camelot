@@ -186,9 +186,13 @@ const unitParams = {
         poi: "chest",
         eventText: [
             "There may be items of great value within.",
-            "A sealed box, brimming with possibilities.",
+            "A sealed box ... brimming with possibilities?",
         ],
-        dialogText: "You find items of value, yours for the taking!",
+        dialogText: [
+            "The treasure has already been looted ... you get nothing.",
+            "You find a stash of bembas bread. Ancient, but still fresh!",
+            "You find items of value, yours for the taking!",
+        ]
     },
     cave: {
         type: "poi",
