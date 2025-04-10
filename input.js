@@ -10,7 +10,6 @@ const newMapSeededBtn = $('#mainmenu_newMapSeeded');
 const newMapSeededInput = $('#mainmenu_mapSeed');
 const newMapSeededBtn2 = $('#mainmenu_newMapSeeded2');
 const loadQuestBtn = $('#mainmenu_loadGame');
-const showFPSTxt = $('#optionsmenu_showFPS');
 const musicVolumeTxt = $('#optionsmenu_volumeMusic');
 const effectsVolumeTxt = $('#optionsmenu_volumeFX');
 const optionsBtn = $('#mainmenu_options');
@@ -18,6 +17,8 @@ const backBtn = $('#mainmenu_back');
 const mainMenuDiv = $('#mainmenu_div');
 const optionsMenuDiv = $('#optionsmenu_div');
 const showFPS_btn = $("#optionsmenu_showFPS_btn");
+const showFog_btn = $("#optionsmenu_showFog_btn");
+const showScn_btn = $("#optionsmenu_showScn_btn");
 const musicVolume_input= $("#optionsmenu_volumeMusic_input");
 const effectsVolume_input = $("#optionsmenu_volumeFX_input");
 let movementMarkerSprites = [];
@@ -36,6 +37,10 @@ optionsBtn.on("click", function () {
     playSFX(PATH_SFX_UI_CLICK01);
     showFPS_btn.text(userConfig.show_fps);
     showFPS_btn.val(userConfig.show_fps);
+    showFog_btn.text(userConfig.showFog ?? true);
+    showFog_btn.val(userConfig.showFog ?? true);
+    showScn_btn.text(userConfig.showScanlines ?? true);
+    showScn_btn.val(userConfig.showScanlines ?? true);
     musicVolume_input.val(userConfig.musicVolume);
     effectsVolume_input.val(userConfig.effectsVolume);
 
@@ -55,11 +60,35 @@ showFPS_btn.on("click", function () {
         showFPS_btn.val(true);
     }
 });
+showFog_btn.on("click", function () {
+    playSFX(PATH_SFX_UI_CLICK01);
+    if (showFog_btn.val() === true) {
+        showFPSshowFog_btnbtn.text("false");
+        showFog_btn.val(false);
+    }
+    else {
+        showFog_btn.text("true");
+        showFog_btn.val(true);
+    }
+});
+showScn_btn.on("click", function () {
+    playSFX(PATH_SFX_UI_CLICK01);
+    if (showScn_btn.val() === true) {
+        showScn_btn.text("false");
+        showScn_btn.val(false);
+    }
+    else {
+        showScn_btn.text("true");
+        showScn_btn.val(true);
+    }
+});
 
 backBtn.on("click", function () {
     playSFX(PATH_SFX_UI_CLICK01);
-    userConfig.show_fps = showFPS_btn.val();
-    userConfig.musicVolume = musicVolume_input.val();
+    userConfig.show_fps      = showFPS_btn.val();
+    userConfig.showFog       = showFog_btn.val();
+    userConfig.showScanlines = showScn_btn.val();
+    userConfig.musicVolume   = musicVolume_input.val();
     userConfig.effectsVolume = effectsVolume_input.val();
     saveConfig(userConfig);
 

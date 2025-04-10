@@ -29,7 +29,7 @@ let animatingEnemyMovement = false;
 
 //LOAD CONFIG FROM FILE
 loadConfig().then(() => {
-    console.log("Config Loaded, intializaing...");
+    console.log("Config Loaded, intializing...");
 
     hexPositionDiv.setAttribute('hidden', 'true');
     spriteCountDiv.setAttribute('hidden', 'true');
@@ -298,6 +298,7 @@ function buildGrid(MAP_SEED) {
         setTimeout(drawEnemies, 0);
         setTimeout(sortSprites, 1000);
 
+        console.log("reticulating splines...");
         two.add(stage);
 
         if (SHOW_DEBUG_OVERLAY) {
