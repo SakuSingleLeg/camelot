@@ -923,8 +923,6 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
             //get type and open dialog
             switch (poi.params.poi) {
                 case "chest":
-
-                    //roll dice and give a reward
                     const roll = Math.floor(Math.random() * 12) + 1; // D12 = 1 to 12
                     if (roll <= 9) {
                         console.log("you got gold");
@@ -944,7 +942,7 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
                     break;
                 case "cave":
                     if (!poi.params.explored) {
-                        dialog01([poi.params.dialogText]);
+                        dialog01([poi.params.dialogText[0]]);
                         poi.params.explored = true;
                     }
                     else {                    
@@ -953,7 +951,7 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
                     break;
                 case "mill":
                     if (!poi.params.explored) {
-                        dialog01([poi.params.dialogText]);
+                        dialog01([poi.params.dialogText[0]]);
                         poi.params.explored = true;
                     }
                     else {                    
@@ -969,7 +967,7 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
 
 }
 
-//TODO: move enemy pieces
+//move enemy pieces
 function moveEnemiesEoT() {    
     console.log("moving enemy sprites");
     animatingEnemyMovement = true;

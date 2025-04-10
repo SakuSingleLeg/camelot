@@ -210,7 +210,11 @@ const unitParams = {
             "Probably just bats. And maybe ancient doom. But mostly bats.",
             "A totally normal cave. Not suspicious at all.",
         ],
-        dialogText: "The interior slowly reveals itself as your hero adjust his eyes to the lack of light.",
+        dialogText: [
+            "The interior reveals itself as your hero adjusts his eyes to the darkness.",
+            "You find a hidden stash of gold!",
+            "The cave is empty.",
+        ]
     },
     mill: {
         type: "poi",
@@ -220,7 +224,10 @@ const unitParams = {
             "This mill once produced wheat for the kingdom's citizens.",
             "Pillaged by marauders, this farm could still be liberated from the enemy.",
         ],
-        dialogText: "This fertile land can once again be used to feed the people of this kingdom!",
+        dialogText: [
+            "This fertile land can once again feed the people of this kingdom!",
+            "A stockpile of grain has been left untouched!",
+        ]
     },
 };
 //#endregion

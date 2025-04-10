@@ -12,8 +12,6 @@ arthur movement
         farms
             increase turnFood
             chance to reward 1-5f
-dice roll indicator
-    whenever a decision is made that invldes rand(), show dice anim or icon
 
 refactoring
     colour params for text types

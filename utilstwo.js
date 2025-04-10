@@ -52,7 +52,7 @@ if (SHOW_FPS) {
 
         let lastLoop = performance.now();
         let frameTimes = [];
-        const smoothingWindow = 30; // Number of frames to average
+        const smoothingWindow = 30; //number of frames to average
 
         function updateFPS() {
             let now = performance.now();
@@ -63,7 +63,7 @@ if (SHOW_FPS) {
             frameTimes.push(currentFPS);
 
             if (frameTimes.length > smoothingWindow) {
-                frameTimes.shift(); // Remove oldest entry to maintain window size
+                frameTimes.shift(); //remove oldest entry to maintain size
             }
 
             let smoothedFPS = Math.round(
