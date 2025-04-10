@@ -63,7 +63,7 @@ showFPS_btn.on("click", function () {
 showFog_btn.on("click", function () {
     playSFX(PATH_SFX_UI_CLICK01);
     if (showFog_btn.val() === true) {
-        showFPSshowFog_btnbtn.text("false");
+        showFog_btn.text("false");
         showFog_btn.val(false);
     }
     else {
@@ -92,11 +92,13 @@ backBtn.on("click", function () {
     userConfig.effectsVolume = effectsVolume_input.val();
     saveConfig(userConfig);
 
-    optionsBtn.show();
-    backBtn.hide();
-    mainMenuDiv.show();
-    optionsMenuDiv.hide();
-    //quitToMenu(true);
+    // optionsBtn.show();
+    // backBtn.hide();
+    // mainMenuDiv.show();
+    // optionsMenuDiv.hide();
+    setTimeout(() => {
+        quitToMenu(true);
+    }, 500);
 });
 
 newMapRandomBtn.on("click", function () {

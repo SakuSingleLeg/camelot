@@ -23,14 +23,11 @@ body {
 
 	overflow: hidden;
 	background: #020847;
-	/* background: black; */
-
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
     position: static !important;
 
-    /* dont smooth pixels */
     image-rendering: pixelated;
     image-rendering: crisp-edges; /* For some browsers */
     image-rendering: -moz-crisp-edges;

@@ -31,6 +31,11 @@ let animatingEnemyMovement = false;
 loadConfig().then(() => {
     console.log("Config Loaded, intializing...");
 
+    //toggle fx based on config
+    $("#menuFog")[0].hidden   = (userConfig.showFog === false);
+    $("#mapFog")[0].hidden    = (userConfig.showFog === false);
+    $("#scanlines")[0].hidden = (userConfig.showScn === false);
+
     hexPositionDiv.setAttribute('hidden', 'true');
     spriteCountDiv.setAttribute('hidden', 'true');
     tooltipPosition.setAttribute('hidden', 'true');
