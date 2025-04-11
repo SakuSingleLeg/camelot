@@ -31,12 +31,12 @@ function getRandomInt(max) {
 //load/save game config params from/to localStorage
 function loadConfig() {
     if (localStorage.getItem("userConfig") !== null) {
-        console.log("loading config from localStorage");
+        console.log("Loading config from localStorage...");
         userConfig = JSON.parse(localStorage.getItem("userConfig"));
         return Promise.resolve(userConfig);
     } else {
         console.log("loading config from default");
-        return Promise.resolve(JSON.parse(DEFAULT_GAME_OPTIONS)).then(config => {
+        return Promise.resolve(DEFAULT_GAME_OPTIONS).then(config => {
             console.log("Config loaded:", config);
             userConfig = config;
             localStorage.setItem("userConfig", JSON.stringify(config));
@@ -48,7 +48,7 @@ function loadConfig() {
 }
 function saveConfig() {
     console.log("saving config to localStorage");
-    localStorage.setItem("userConfig", JSON.stringify(userConfig))
+    localStorage.setItem("userConfig", userConfig);
 }
 
 //load contents of a .js file

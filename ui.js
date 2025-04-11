@@ -260,15 +260,17 @@ function drawUILeft() {
     ui.add(fgSpriteCoin);
     ui.add(fgSpriteFood);
     ui.add(fgSpriteHourglass);
-    ui.add(txtFood);
-    ui.add(txtGold);
     txtFood.value = totFood.toString().padStart(2, '0');
     txtGold.value = totGold.toString().padStart(2, '0');
+    ui.add(txtFood);
+    ui.add(txtGold);
     ui.add(txtSave);
     ui.add(txtFood);
     ui.add(txtQuit);
 
     two.add(ui);
+    console.log("🚀 ~ drawUILeft ~ totFood:", totFood)
+    console.log("🚀 ~ drawUILeft ~ totGold:", totGold)
 }
 function redrawUILeft() {    
     uiX_l = 150;

@@ -4,7 +4,7 @@ TODDO
 VERSION 0.4
 
 arthur movement
-    interact with poi
+    poi collision
         treasure
             find nothing or rewards 5g
         cave
@@ -12,6 +12,7 @@ arthur movement
         farms
             increase turnFood
             chance to reward 1-5f
+    skelly collision
 
 refactoring
     colour params for text types
@@ -20,11 +21,16 @@ refactoring
 misc
     music & sound volumes are not increasing correctly?
 
+debug mode
+    add chests & skellys all over
 
 ---------
 BACKLOG
 ---------
 
+
+change mouse cursor on actions in map view
+    hover, click, drag
 
 selected unit badge
     sprite placed over whatever unit/buidling is selected

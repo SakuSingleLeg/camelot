@@ -29,12 +29,12 @@ let animatingEnemyMovement = false;
 
 //LOAD CONFIG FROM FILE
 loadConfig().then(() => {
-    console.log("Config Loaded, intializing...");
+    console.log("Config Loaded. Initializing...");
 
     //toggle fx based on config
     $("#menuFog")[0].hidden   = (userConfig.showFog === false);
     $("#mapFog")[0].hidden    = (userConfig.showFog === false);
-    $("#scanlines")[0].hidden = (userConfig.showScn === false);
+    $("#scanlines")[0].hidden = (userConfig.showScanlines === false);
 
     hexPositionDiv.setAttribute('hidden', 'true');
     spriteCountDiv.setAttribute('hidden', 'true');
@@ -81,15 +81,15 @@ loadConfig().then(() => {
     // LOAD OTHER SCRIPTS
     console.log("Now Loading Scripts...");
     loadScript("audio.js", function () {
-        console.log("audio.js Loaded");
+        console.log("audio.js Loaded.");
         loadScript("ui.js", function () {
-            console.log("ui.js Loaded");          
+            console.log("ui.js Loaded.");          
             loadScript("utils.js", function () {
-                console.log("utils.js Loaded");
+                console.log("utils.js Loaded.");
                 loadScript("utilstwo.js", function () {
-                    console.log("utilstwo.js Loaded");     
+                    console.log("utilstwo.js Loaded.");     
                     loadScript("input.js", function () {
-                        console.log("input.js Loaded");            
+                        console.log("input.js Loaded.");            
                     });       
                 });
             });
@@ -185,15 +185,9 @@ function buildGrid(MAP_SEED) {
                 debugHex.fill = gray;
                 debug_hex_group.add(debugHex);               
                 //add hex info text overlay to debug text group, show hex greyscale value
-                let hexTxt = two.makeText(gray, curr_x, curr_y+10, {                 
-                    size: 8,
-                    fill: '#FFFF00'
-                });
+                let hexTxt = two.makeText(gray, curr_x, curr_y+10, {size: 4, family: 'Press Start 2P', fill: '#FFFF00'});
                 //show grid coord
-                let hexTxt2 = two.makeText(i+","+j, curr_x, curr_y-3, {               
-                    size: 15,
-                    fill: '#FFFF00'
-                });      
+                let hexTxt2 = two.makeText(i+","+j, curr_x, curr_y-3, {size: 6, family: 'Press Start 2P', fill: '#FFFF00'});      
                 debug_hex_group.add(hexTxt, hexTxt2);     
             }
 
@@ -590,6 +584,9 @@ function drawTreasure() {
     let placedTreasures = []; // Store placed chest coordinates
     let numTreasure = 0;
 
+    let distanceLimit = SHOW_DEBUG ? 4:12;
+    let treasureLimit = SHOW_DEBUG ? 60:10;
+
     // Collect all hexes with their distances
     for (let i = 0; i < GRID_Y_SIZE; i++) {    
         for (let j = 0; j < GRID_X_SIZE; j++) {    
@@ -604,15 +601,16 @@ function drawTreasure() {
     function isFarEnough(x, y) {
         for (let { i, j } of placedTreasures) {
             let trDistance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
-            if (trDistance < 12) return false;
+            if (trDistance < distanceLimit) return false;
         }
         return true;
     }
 
     // Now iterate over hexes in distance order
     for (let { i, j, centerDistance } of hexList) {
-        if (numTreasure >= 9) break; // Stop when 9 treasures are placed
-        if (centerDistance < 6) continue; // Skip hexes too close to center
+         //skip if hit limit, hexes too close to center
+        if (numTreasure >= treasureLimit) break;
+        if (centerDistance < 6) continue;
 
         let hid = HEX_ARR[i][j]['id'];
         let hiq = document.getElementById(hid);
@@ -923,21 +921,26 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
             //get type and open dialog
             switch (poi.params.poi) {
                 case "chest":
-                    const roll = Math.floor(Math.random() * 12) + 1; // D12 = 1 to 12
+                    const roll = Math.floor(Math.random() * 12) + 1; // D12
                     if (roll <= 9) {
-                        console.log("you got gold");
                         //you get gold
                         dialog01([poi.params.dialogText[2]]);
+                        let goldAmt = Math.floor(Math.random() * 6) + 1; // D6
+                        totGold += goldAmt;
+                        pushToEventLog("You gained " + goldAmt + " gold!")
+                        drawUILeft();
                     } else if (roll === 12) {
-                        console.log("you got bembas");
                         //you get bembas bread
                         dialog01([poi.params.dialogText[1]]);
+                        let foodAmt = Math.floor(Math.random() * 4) + 1; // D2-5
+                        totFood += foodAmt;
+                        pushToEventLog("You gained " + foodAmt + " food!")
+                        drawUILeft();
                     } else {
-                        console.log("you got nothing");
                         //you get nothing!
                         dialog01([poi.params.dialogText[0]]);
+                        pushToEventLog("The chest was empty.")
                     }
-
                     stage.remove(poi);
                     break;
                 case "cave":
@@ -964,7 +967,6 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
             }
         }
     }
-
 }
 
 //move enemy pieces

@@ -48,7 +48,7 @@ function isMouseOver(obj, mouse) {
 let SHOW_FPS = userConfig.show_fps ?? false;
 if (SHOW_FPS) {
     $(document).ready(function () {
-        console.log("counting all of the frames ...");
+        console.log("Counting all of the frames...");
 
         let lastLoop = performance.now();
         let frameTimes = [];
