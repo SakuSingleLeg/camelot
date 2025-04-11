@@ -234,6 +234,9 @@ body:active {
 #mainmenu_title {
     font-weight: bold;
     color: #fff;
+}
+
+.menu-text-glow {
     text-shadow: 0 0 50px #00f, 0 0 100px #00f, 0 0 150px #00f, 0 0 200px #00f;
     filter: drop-shadow(0 0 40px #00f);
     animation: glowBlue 1.0s infinite alternate;
@@ -328,9 +331,12 @@ input {
 }
 
 #loadingDiv {
-    /* transform: translateX(-5vw); */
-    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 9999 !important;
+    text-align: center;
 }
 
 .glowing-friendly {

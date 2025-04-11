@@ -35,8 +35,11 @@
   </div> -->
 
   <body>
-    <!-- overlays -->
-    <div class="main-fade-overlay"></div>
+
+    <div id="loadingDiv" class="menu-title menu-text-glow text-center" hidden>
+        Loading ...
+    </div>
+
 
     <!-- cursor info -->
     <div id="cursor-position"></div>
@@ -45,18 +48,21 @@
     <div id="fadeOverlay"></div>
     <div id="tooltip-position"></div>
     <div id="fps-counter"></div>
-
+    
     <!-- main menu -->
     <main>
+        <!-- overlays -->
+        <div class="main-fade-overlay"></div>
+
         <div id="pressStartDiv">
-            <div id="mainmenu_pressStart" class="menu-btn">START THE GAME</div> <br>
+            <div id="mainmenu_pressStart" class="menu-btn menu-text-glow">START THE GAME</div> <br>
         </div>
 
         <div id="menuParentDiv" class="text-center" style="display: none">
             <!--TITLE IMAGE-->
             <img id="titleCrest_img" src="./img/title_crest.png"/>
             <br><br><br>
-            <div id="mainmenu_title" class="menu-title">CAMELOT</div>
+            <div id="mainmenu_title" class="menu-title menu-text-glow">CAMELOT</div>
             <br><br><br><br>   
             <br><br><br><br>   
 
@@ -96,9 +102,6 @@
             <br><br>  
             <div id="version_number" class="">0.3.250409</div>
 
-        </div>
-        <div id="loadingDiv" class="menu-title" hidden>
-            <span>Loading ...</span>
         </div>
     </main>    
   </body>

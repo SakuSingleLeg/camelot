@@ -10,24 +10,34 @@ convert hex on move
     farms provide turnFood
     towns provide turnGold
 
+sprite face left/right based on move dir
+
 refactor: remove firendly param from movespritetotile() - use parmas.status instead
 
 skelly collision
-
-misc
-    music & sound volumes are not increasing correctly?
 
 
 ---------
 BACKLOG
 ---------
 
+audio
+    music & sound volumes are not increasing correctly?
+    music
+        chiptune instrument?
+        more songs
+        playlists not shuffling?
+        end turn change instrument
+    sfx
+        get sound pack
+        end turn
+        poi interact
+        poi result
+            good
+            bad
+
 change mouse cursor on actions in map view
     hover, click, drag
-
-selected unit badge
-    sprite placed over whatever unit/buidling is selected
-
 intro slides
     nfi logo
     config option (incl menu)
@@ -102,16 +112,9 @@ random events (movement, overnight)
     marsh
         sucked into the mud
 
-music
-    playlists not shuffling?
-    end turn
-sfx
-    get sound pack
-    end turn
-    poi interact
-    poi result
-        good
-        bad
+
+selected unit badge
+    sprite placed over whatever unit/buidling is selected
 
 glow effects
     menu items (start game, crest?)
