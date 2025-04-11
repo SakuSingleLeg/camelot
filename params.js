@@ -10,8 +10,16 @@ const DEFAULT_GAME_OPTIONS = `{
     "showScanlines": true
 }`;
 
-//#region file paths
-//HEX GRID DISPLAY//  
+//#region colour codes
+//FONTS
+const COLOUR_FONT_OFFWHITE      = "#f2f2f2"; //neutral soft gray-white
+const COLOUR_FONT_YELLOW        = "#ffd700"; //classic golden yellow
+const COLOUR_FONT_RED           = "#cc3333"; //deep primary red
+const COLOUR_FONT_BLUE          = "#3366cc"; //strong primary blue
+const COLOUR_FONT_BLUE_LIGHT    = "#5ba7e6"; //bright blue
+const COLOUR_FONT_GREY          = "#808080"; //dark grey
+const COLOUR_FONT_BROWN         = "#5B4636"; //dark grey
+//HEXES
 const COLOUR_FARM               = "#DAA520";
 const COLOUR_SETTLEMENT         = "#FFA07A";
 const COLOUR_MOUNTAIN_PEAK      = "#F0F0F0";
@@ -23,7 +31,9 @@ const COLOUR_COAST              = "#269828";
 const COLOUR_WATER              = "#0000FF";
 const COLOUR_WATER_DEEP         = "#0818A8";
 const COLOUR_CURSEDABBEY        = "#1929B9";
+//#endregion
 
+//#region file paths
 //MISC IMAGES
 const PATH_IMG_TITLE_CREST      = './img/title_crest.png';
 //HEX GRID IMGS
@@ -93,6 +103,8 @@ const PATH_IMG_PAPER_LABEL_2    = './img/paper2.png'; //TODO: use this?
 const PATH_IMG_CHEVRON_UP       = './img/chevron_up_sm.png';
 const PATH_IMG_CHEVRON_DOWN     = './img/chevron_down_sm.png';
 const PATH_IMG_MOUSE_HOURGLASS  = './img/cursor_hourglass.png';
+const PATH_IMG_BANNER_RED       = './img/banner_red_sm.png';
+const PATH_IMG_BANNER_BLUE      = './img/banner_blue_sm.png';
 //SOUND
 const PATH_SFX_UI_CLICK01       = './ogg/ui_click_01.ogg';
 const PATH_SFX_UI_CLICK02       = './ogg/ui_click_02.ogg';
@@ -125,7 +137,7 @@ let possibleTownNames = [
     "Glenroth", "Eileanholm", "Macduir", "Ardglass", "Torvalen", "Breagha", "Fionnaval", "Kildoran", "Dunhaven", "Lismore",
     "Montclair", "Riversford", "Maplewood", "Halberton", "Newhaven", "Stonemere", "Ashcroft", "Greenhaven", "Fort Aberdeen", "Kingsbury",
     "Silverpeak", "Northbay", "Elkford", "Lumberton", "Brookhaven", "Willowdale", "Foxhollow", "Redwater", "Whitestone", "Thunder Bay",
-    "Lunenburg", "Stratford", "Cornerbrook", "Kingston", "Cornwall", "Belleville", "Westport"
+    "Lunenburg", "Stratford", "Cornerbrook", "Kingston", "Cornwall", "Belleville", "Westport", "Portsmouth", "Hobbleton", "Bobbleton"
 ];
 //gets a random town names that is not already in passed list
 function generateTownName(selected = null) {

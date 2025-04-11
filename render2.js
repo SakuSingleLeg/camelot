@@ -185,9 +185,9 @@ function buildGrid(MAP_SEED) {
                 debugHex.fill = gray;
                 debug_hex_group.add(debugHex);               
                 //add hex info text overlay to debug text group, show hex greyscale value
-                let hexTxt = two.makeText(gray, curr_x, curr_y+10, {size: 4, family: 'Press Start 2P', fill: '#FFFF00'});
+                let hexTxt = two.makeText(gray, curr_x, curr_y+10, {size: 4, family: 'Press Start 2P', fill: COLOUR_FONT_YELLOW});
                 //show grid coord
-                let hexTxt2 = two.makeText(i+","+j, curr_x, curr_y-3, {size: 6, family: 'Press Start 2P', fill: '#FFFF00'});      
+                let hexTxt2 = two.makeText(i+","+j, curr_x, curr_y-3, {size: 6, family: 'Press Start 2P', fill: COLOUR_FONT_YELLOW});      
                 debug_hex_group.add(hexTxt, hexTxt2);     
             }
 
@@ -498,7 +498,7 @@ function drawSettlements() {
                 hiq.setAttribute("gridX", j);
                 hiq.setAttribute("gridY", i);
                 HEX_ARR[i][j]['colour'] = COLOUR_SETTLEMENT;
-                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, false, 99, "friendly", hexParams.camelot);
+                addSpriteToTile(PATH_IMG_HEX_CASTLE01, hiq, 'Castle Camelot', 1, 1, 1, false, -4, true, true, 99, "friendly", hexParams.camelot);
                 isFirst = false;
 
                 // spawn starting unit on valid tile - checks grass first, then forest
@@ -766,7 +766,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     //draw paper labels for certain sprites (ie settlements)
     if (params.type === "castle") {
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
-        let paperText = two.makeText("Camelot", center_x, center_y + 21, { size: 7, fill: '#000000', family: 'Press Start 2P', alignment: 'center' });
+        let paperText = two.makeText("Camelot", center_x, center_y + 21, { size: 7, fill: COLOUR_FONT_BLUE, family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
         paperSprite.depth = 99;
         paperText.linewidth = 1;
@@ -778,7 +778,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     else if (params.subtype === "town" || params.subtype === "village") {
         let randomTownName = generateTownName(townNames);
         let paperSprite = two.makeSprite(PATH_IMG_PAPER_LABEL, center_x, center_y + 20, 1, 1, 1, false);
-        let paperText = two.makeText(randomTownName, center_x, center_y + 21, { size: 6, fill: '#4f4f4f', family: 'Press Start 2P', alignment: 'center' });
+        let paperText = two.makeText(randomTownName, center_x, center_y + 21, { size: 6, fill: COLOUR_FONT_RED, family: 'Press Start 2P', alignment: 'center' });
         paperSprite.scale = 0.5;
         paperSprite.depth = 99;
         paperSprite.noPointerEvents = true;

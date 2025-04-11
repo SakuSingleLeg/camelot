@@ -3,31 +3,23 @@ TODDO
 ---------
 VERSION 0.4
 
-arthur movement
-    poi collision
-        treasure
-            find nothing or rewards 5g
-        cave
-            find nothing or rewards 5g
-        farms
-            increase turnFood
-            chance to reward 1-5f
-    skelly collision
+friendly/hostile id for towns
+    right ui: firnedly badge, text colour change
+    right ui: desc text, change to refelct status
 
-refactoring
-    colour params for text types
-        yellow, gray, white, black, darkgray, brown, red, ??
+game option: glow effects
+
+convert hex on move
+
+skelly collision
 
 misc
     music & sound volumes are not increasing correctly?
 
-debug mode
-    add chests & skellys all over
 
 ---------
 BACKLOG
 ---------
-
 
 change mouse cursor on actions in map view
     hover, click, drag
@@ -39,18 +31,10 @@ intro slides
     nfi logo
     config option (incl menu)
 
-settlements
-    banner beside name to show friendly/hostile
-
 knight interact with skelly
 	battle dialog
 
-dialogs
-    dialog02
-        text para
-        yes/no btns
-
-center tooltips under sprite/cursor?
+quest: save gwynevere
 
 knights
     additional units
@@ -130,4 +114,10 @@ sfx
 
 performance
 	optimize ui drawing?
-	use maps instead of arrs for searching?
+    
+dialogs
+    dialog02
+        text para
+        yes/no btns
+
+center tooltips under sprite/cursor?

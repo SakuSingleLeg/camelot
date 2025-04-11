@@ -18,7 +18,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     margin: 0;
 
 	overflow: hidden;
@@ -29,7 +29,7 @@ body {
     position: static !important;
 
     image-rendering: pixelated;
-    image-rendering: crisp-edges; /* For some browsers */
+    image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
@@ -39,10 +39,10 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 255, 0, 0.3);
 
     /* dont allow users to select text */
-    user-select: none; /* Standard */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* standard */
+    -webkit-user-select: none; /* safari */
+    -moz-user-select: none; /* firefox */
+    -ms-user-select: none; /* ms */
 
     /* hide chevrons for number inputs: Chrome, Safari, Edge, Opera */
     input[type=number]::-webkit-outer-spin-button,

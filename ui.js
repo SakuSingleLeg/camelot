@@ -1,4 +1,5 @@
-// initial UI params
+//#region INIT PARAMS
+//initial UI params
 let width = window.innerWidth;
 let height = window.innerHeight;
 let hoverTileTxt = "Unknown Tile";
@@ -6,6 +7,7 @@ let selectedTileTxt = "";
 let somethingSelected = false;
 let isDialogOpen = false;
 let isUnitMoving = false;
+//#endregion
 
 //#region TOP UI
 let uiX_t = width/2;
@@ -16,9 +18,9 @@ let bgSpriteTopChevronUp = two.makeSprite(PATH_IMG_CHEVRON_UP, uiX_t+540, uiY_t-
 let bgSpriteTopChevronDown = two.makeSprite(PATH_IMG_CHEVRON_DOWN, uiX_t+540, uiY_t+20, 1, 1, 1, false);
 bgSpriteTopChevronUp.opacity = .9;
 bgSpriteTopChevronDown.opacity = .9;
-let txtLog01 = two.makeText(shownLog[0] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog02 = two.makeText(shownLog[1] ?? "", uiX_t-580, uiY_t, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtLog03 = two.makeText(shownLog[2] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtLog01 = two.makeText(shownLog[0] ?? "", uiX_t-580, uiY_t-30, { size: 14, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
+let txtLog02 = two.makeText(shownLog[1] ?? "", uiX_t-580, uiY_t, { size: 14, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
+let txtLog03 = two.makeText(shownLog[2] ?? "", uiX_t-580, uiY_t+30, { size: 14, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
 function drawUITop() {
     ui.add(bgSpriteTop);
     ui.add(bgSpriteTopChevronUp);
@@ -63,16 +65,16 @@ bgSpriteBottom.opacity = .9;
 lgSprite.visible = false;
 let moveCost, atkBonus, defBonus = 0;
 
-let txtName = two.makeText(hoverTileTxt, uiX_b-305, uiY_b + 24, { size: 20, fill: '#FFFFFF', family: 'Press Start 2P', alignment: 'left' });
-let txtMoveCost = two.makeText(" " + moveCost, uiX_b-76, uiY_b - 24, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtAtkBonus = two.makeText("" + atkBonus, uiX_b-76, uiY_b + 6, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' }); 
-let txtDefBonus = two.makeText("" + defBonus, uiX_b-76, uiY_b + 36, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtName = two.makeText(hoverTileTxt, uiX_b-305, uiY_b + 24, { size: 20, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
+let txtMoveCost = two.makeText(" " + moveCost, uiX_b-76, uiY_b - 24, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let txtAtkBonus = two.makeText("" + atkBonus, uiX_b-76, uiY_b + 6, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' }); 
+let txtDefBonus = two.makeText("" + defBonus, uiX_b-76, uiY_b + 36, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
 
 //longDesc
-let txtlongDesc1 = two.makeText("", uiX_b+40, uiY_b-26, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtlongDesc2 = two.makeText("", uiX_b+40, uiY_b- 4, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtlongDesc3 = two.makeText("", uiX_b+40, uiY_b+18, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
-let txtlongDesc4 = two.makeText("", uiX_b+40, uiY_b+40, { size: 13, fill: '#D3D3D3', family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc1 = two.makeText("", uiX_b+40, uiY_b-26, { size: 13, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc2 = two.makeText("", uiX_b+40, uiY_b- 4, { size: 13, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc3 = two.makeText("", uiX_b+40, uiY_b+18, { size: 13, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
+let txtlongDesc4 = two.makeText("", uiX_b+40, uiY_b+40, { size: 13, fill: COLOUR_FONT_OFFWHITE, family: 'Press Start 2P', alignment: 'left' });
 
 function drawUIBottom (gridX, gridY, hexColour, elem) {
     // clear existing ui elements before drawing new ones (will have ghosting otherwise)
@@ -245,10 +247,10 @@ let bgSpriteLeft4 = two.makeSprite(PATH_IMG_PANEL_SQUARE, uiX_l, uiY_l-264, 1, 1
 let fgSpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_l-64, uiY_l-160, 4, 1, 4, true); 
 let fgSpriteFood = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_l+18, uiY_l-160, 1, 1, 1, false);
 let fgSpriteHourglass = two.makeSprite(PATH_IMG_ICON_HOURGLASS, uiX_l, uiY_l-264, 1, 1, 1, false);
-let txtGold = two.makeText(totGold.toString().padStart(2, '0'), uiX_l-48, uiY_l-156, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtFood = two.makeText(totFood.toString().padStart(2, '0'), uiX_l+36, uiY_l-156, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let txtSave = two.makeText("Save Quest", uiX_l-69, uiY_l-77, { size: 14, fill: '#808080', family: 'Press Start 2P', stroke: '', decoration: 'line-through', alignment: 'left' });
-let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let txtGold = two.makeText(totGold.toString().padStart(2, '0'), uiX_l-48, uiY_l-156, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let txtFood = two.makeText(totFood.toString().padStart(2, '0'), uiX_l+36, uiY_l-156, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let txtSave = two.makeText("Save Quest", uiX_l-69, uiY_l-77, { size: 14, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', stroke: '', decoration: 'line-through', alignment: 'left' });
+let txtQuit = two.makeText("Leave Quest", uiX_l-76, uiY_l+3, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
 function drawUILeft() {
     //create ui panel sprite(s)
     ui.add(bgSpriteLeft1);
@@ -298,12 +300,12 @@ rUI_bgSpriteRight.visible = false;
 let rUI_selectSprite = two.makeSprite(PATH_IMG_HEX_CASTLE01, uiX_r, uiY_r-353, 1, 1, 1, false);
 rUI_selectSprite.visible = false;
 rUI_selectSprite.scale = 4;
-let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, { size: 22, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'center' });
+let rUI_txtSelectedName = two.makeText(selectedTileTxt, uiX_r, uiY_r-210, { size: 22, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'center' });
 //coin/bread
 let rUI_SpriteCoin = two.makeSprite(PATH_IMG_ANIM_COIN, uiX_r-123, uiY_r-160, 4, 1, 4, true);
 let rUI_SpriteBread = two.makeSprite(PATH_IMG_ICON_FOOD, uiX_r-20, uiY_r-160, 1, 1, 1, true);
-let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_txtFood = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtGold = two.makeText("", uiX_r-99, uiY_r-154, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtFood = two.makeText("", uiX_r+1, uiY_r-154, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
 rUI_SpriteCoin.visible = false;
 rUI_SpriteBread.visible = false;
 //sword/shield/medal/eye
@@ -311,10 +313,10 @@ let rUI_SpriteSword = two.makeSprite(PATH_IMG_ICON_SWORD, uiX_r-125, uiY_r-167, 
 let rUI_SpriteShield = two.makeSprite(PATH_IMG_ICON_SHIELD, uiX_r-55, uiY_r-167, 1, 1, 1, false);
 let rUI_SpriteMedal = two.makeSprite(PATH_IMG_ICON_MEDAL, uiX_r+15, uiY_r-167, 1, 1, 1, false);
 let rUI_SpriteEye = two.makeSprite(PATH_IMG_ICON_EYE, uiX_r+85, uiY_r-167, 1, 1, 1, false);
-let rUI_txtAtk = two.makeText("", uiX_r-104, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_txtDef = two.makeText("", uiX_r-31, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_txtVrt = two.makeText("", uiX_r+36, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_txtEye = two.makeText("", uiX_r+106, uiY_r-162, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtAtk = two.makeText("", uiX_r-104, uiY_r-162, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtDef = two.makeText("", uiX_r-31, uiY_r-162, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtVrt = two.makeText("", uiX_r+36, uiY_r-162, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtEye = two.makeText("", uiX_r+106, uiY_r-162, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
 rUI_SpriteSword.visible = false;
 rUI_SpriteShield.visible = false;
 rUI_SpriteMedal.visible = false;
@@ -322,8 +324,8 @@ rUI_SpriteEye.visible = false;
 //hp cur/max, ap cur/max
 let rUI_SpriteHealth = two.makeSprite(PATH_IMG_ICON_HEART, uiX_r-125, uiY_r-124, 1, 1, 1, false);
 let rUI_SpriteAction = two.makeSprite(PATH_IMG_ICON_BOOTS, uiX_r+15, uiY_r-124, 1, 1, 1, false);
-let rUI_txtHP = two.makeText("", uiX_r-104, uiY_r-121, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
-let rUI_txtAP = two.makeText("", uiX_r+36, uiY_r-121, { size: 16, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtHP = two.makeText("", uiX_r-104, uiY_r-121, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtAP = two.makeText("", uiX_r+36, uiY_r-121, { size: 16, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
 rUI_SpriteHealth.visible = false;
 rUI_SpriteAction.visible = false;
 //first aid btn
@@ -331,7 +333,7 @@ let rUI_aidBtn = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 
 rUI_aidBtn.visible = false;
 let rUI_SpriteAid = two.makeSprite(PATH_IMG_ICON_AID, uiX_r-120, uiY_r-19, 1, 1, 1, false);
 rUI_SpriteAid.visible = false;
-let rUI_txtAid = two.makeText("", uiX_r-99, uiY_r-19, { size: 14, fill: '#FFFF00', family: 'Press Start 2P', alignment: 'left' });
+let rUI_txtAid = two.makeText("", uiX_r-99, uiY_r-19, { size: 14, fill: COLOUR_FONT_YELLOW, family: 'Press Start 2P', alignment: 'left' });
 //castle panel
 let rUI_wideBtn01 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-19, 1, 1, 1, false);
 let rUI_wideBtn02 = two.makeSprite(PATH_IMG_PANEL_SMALLWIDE, uiX_r-1, uiY_r-87, 1, 1, 1, false);
@@ -351,14 +353,14 @@ rUI_smolBtn04.visible = false;
 rUI_smolBtn05.visible = false;
 rUI_smolBtn06.visible = false;
 rUI_rndTblSprite.visible = false;
-let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center', visible: 'false' });
-let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
-let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, { size: 16, fill: '#808080', family: 'Press Start 2P', alignment: 'center' });
+let rUI_wideBtn01Txt = two.makeText("", uiX_r-1, uiY_r-16, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
+let rUI_wideBtn02Txt = two.makeText("", uiX_r-1, uiY_r-84, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn01Txt = two.makeText("", uiX_r-84, uiY_r+188, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center', visible: 'false' });
+let rUI_smolBtn02Txt = two.makeText("", uiX_r+81, uiY_r+188, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn03Txt = two.makeText("", uiX_r-84, uiY_r+120, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn04Txt = two.makeText("", uiX_r+81, uiY_r+120, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn05Txt = two.makeText("", uiX_r-84, uiY_r+52, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
+let rUI_smolBtn06Txt = two.makeText("", uiX_r+81, uiY_r+52, { size: 16, fill: COLOUR_FONT_GREY, family: 'Press Start 2P', alignment: 'center' });
 function drawUIRight(elem) {
     removeUIRight();
 
@@ -369,12 +371,9 @@ function drawUIRight(elem) {
     rUI_selectSprite.visible = true;
     rUI_txtSelectedName.value = elem.desc;
 
-    ui.add(rUI_bgSpriteRight);
-    ui.add(rUI_selectSprite);
-    ui.add(rUI_txtSelectedName);
-
     //if elem is camelot display specific ui
     if (elem.params.type === "castle") {
+        rUI_txtSelectedName.fill = COLOUR_FONT_BLUE_LIGHT;
         rUI_SpriteCoin.visible = true;
         rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
         rUI_SpriteBread.visible = true;
@@ -423,6 +422,7 @@ function drawUIRight(elem) {
     }
     //else if elem is unit
     else if (elem.params.type === "knight") {
+        rUI_txtSelectedName.fill = COLOUR_FONT_BLUE_LIGHT;
         rUI_SpriteSword.visible = true;
         rUI_SpriteShield.visible = true;
         rUI_SpriteMedal.visible = true;
@@ -469,6 +469,10 @@ function drawUIRight(elem) {
         ui.add(rUI_txtGold);
         ui.add(rUI_txtFood);
     }
+
+    ui.add(rUI_bgSpriteRight);
+    ui.add(rUI_selectSprite);
+    ui.add(rUI_txtSelectedName);
 
     two.add(ui);    
 }
@@ -567,11 +571,11 @@ function removeUIRight() {
 
 //#region DIALOGS
 let dialog01Background = two.makeSprite(PATH_IMG_DIALOG_BG_01, width/2, height/2, 1, 1, 1, false);
-let dialog01Text = two.makeText("", width/2, height/2-210, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialog02Text = two.makeText("", width/2, height/2-180, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialog03Text = two.makeText("", width/2, height/2-150, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialog04Text = two.makeText("", width/2, height/2-120, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center' });
-let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 18, fill: '#5B4636', family: 'Press Start 2P', alignment: 'center', decoration: 'underline' });
+let dialog01Text = two.makeText("", width/2, height/2-210, { size: 18, fill: COLOUR_FONT_BROWN, family: 'Press Start 2P', alignment: 'center' });
+let dialog02Text = two.makeText("", width/2, height/2-180, { size: 18, fill: COLOUR_FONT_BROWN, family: 'Press Start 2P', alignment: 'center' });
+let dialog03Text = two.makeText("", width/2, height/2-150, { size: 18, fill: COLOUR_FONT_BROWN, family: 'Press Start 2P', alignment: 'center' });
+let dialog04Text = two.makeText("", width/2, height/2-120, { size: 18, fill: COLOUR_FONT_BROWN, family: 'Press Start 2P', alignment: 'center' });
+let dialogOKText = two.makeText("Proceed", width/2, height/2+240, { size: 18, fill: COLOUR_FONT_BROWN, family: 'Press Start 2P', alignment: 'center', decoration: 'underline' });
 
 dialog01Background.visible = false;
 dialog01Background.scale = 2;
@@ -593,7 +597,7 @@ function dialog01(msg) {
     let dSprite = document.getElementById(dialogOKText._id);
     if (dSprite) {
         dSprite.addEventListener('mouseover', () => { dialogOKText.fill = '#FF0000'; });
-        dSprite.addEventListener('mouseout',  () => { dialogOKText.fill = '#5B4636'; });
+        dSprite.addEventListener('mouseout',  () => { dialogOKText.fill = COLOUR_FONT_BROWN; });
     }
 }
 function redrawUDialogs() {
