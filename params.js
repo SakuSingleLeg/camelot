@@ -1,5 +1,5 @@
 const DEFAULT_GAME_OPTIONS = {
-    "debug": true,
+    "debug": false,
     "debug_overlay": true,
     "show_fps": true,
     "gridSizeX": 60,
