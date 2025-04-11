@@ -1,4 +1,4 @@
-const DEFAULT_GAME_OPTIONS = {
+const DEFAULT_GAME_OPTIONS = `{
     "debug": false,
     "debug_overlay": true,
     "show_fps": true,
@@ -7,8 +7,8 @@ const DEFAULT_GAME_OPTIONS = {
     "effectsVolume": 30,
     "musicVolume": 2,
     "showFog": true,
-    "showScanlines": true,
-};
+    "showScanlines": true
+}`;
 
 //#region file paths
 //HEX GRID DISPLAY//  

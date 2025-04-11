@@ -693,7 +693,7 @@ function drawEnemies() {
         {                
             //place enemy with a % chance
             if (Math.random() < 0.15) {
-                
+
                 //TODO: check if another poi is here
 
 
@@ -935,38 +935,47 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
                         dialog01([poi.params.dialogText[2]]);
                         let goldAmt = Math.floor(Math.random() * 6) + 1; // D6
                         totGold += goldAmt;
-                        pushToEventLog("You gained " + goldAmt + " gold!")
+                        pushToEventLog("You gained " + goldAmt + " gold!");
                         drawUILeft();
                     } else if (roll === 12) {
                         //you get bembas bread
                         dialog01([poi.params.dialogText[1]]);
                         let foodAmt = Math.floor(Math.random() * 4) + 1; // D2-5
                         totFood += foodAmt;
-                        pushToEventLog("You gained " + foodAmt + " food!")
+                        pushToEventLog("You gained " + foodAmt + " food!");
                         drawUILeft();
                     } else {
                         //you get nothing!
                         dialog01([poi.params.dialogText[0]]);
-                        pushToEventLog("The chest was empty.")
+                        pushToEventLog("The chest was empty.");
                     }
                     stage.remove(poi);
                     break;
                 case "cave":
                     if (!poi.params.explored) {
-                        dialog01([poi.params.dialogText[0]]);
+                        //you get gold
+                        dialog01([poi.params.dialogText[1]]);
                         poi.params.explored = true;
+                        let goldAmt = Math.floor(Math.random() * 5) + 1; // D5
+                        totGold += goldAmt;
+                        pushToEventLog("You gained " + goldAmt + " gold!");
                     }
-                    else {                    
-                        dialog01(["This cave has already been cleared out."]);
+                    else {
+                        //you get nothing!
+                        dialog01([poi.params.dialogText[2]]);
                     }
                     break;
                 case "mill":
                     if (!poi.params.explored) {
+                        //you get food
                         dialog01([poi.params.dialogText[0]]);
                         poi.params.explored = true;
+                        let foodAmt = Math.floor(Math.random() * 4) + 1; // D2-5
+                        totFood += foodAmt;
+                        pushToEventLog("You gained " + foodAmt + " food!");
                     }
-                    else {                    
-                        dialog01(["This farm has already been reclaimed."]);
+                    else {
+                        pushToEventLog("This farm has already been reclaimed.");
                     }
                     break;
                 default:

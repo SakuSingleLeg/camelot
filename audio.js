@@ -10,6 +10,7 @@ const audioManager = {
             this.synth = new WebAudioTinySynth({ quality: 0 });
             await this.synth.audioContext.resume();
 
+            console.log("🚀 ~ initSynth ~ userConfig:", userConfig.musicVolume)
             this.synth.setMasterVol(userConfig.musicVolume / 100); // 0.0 to 1.0
             // this.synth.setMasterVol(0.9); // 0.0 to 1.0
             setTimeout(() => {

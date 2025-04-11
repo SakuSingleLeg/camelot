@@ -269,8 +269,6 @@ function drawUILeft() {
     ui.add(txtQuit);
 
     two.add(ui);
-    console.log("🚀 ~ drawUILeft ~ totFood:", totFood)
-    console.log("🚀 ~ drawUILeft ~ totGold:", totGold)
 }
 function redrawUILeft() {    
     uiX_l = 150;
