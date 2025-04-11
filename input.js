@@ -358,7 +358,6 @@ function addZUI() {
                         moveUnitToSpriteLocation(selectedTile, markerSprite);
                     }
                 });
-
                 // clear any existing markers
                 movementMarkerSprites.forEach(marker => { stage.remove(marker); });
                 movementMarkerSprites = [];
@@ -369,6 +368,8 @@ function addZUI() {
                 }
 
                 if (elem.clickable) {
+                    console.log("🚀 ~ mousedown ~ elem:", elem)
+                    
                     playSFX(PATH_SFX_UI_CLICK01);
                     selectedTile = elem; 
                     somethingSelected = true;  
@@ -384,7 +385,9 @@ function addZUI() {
 
                         sprites.forEach(spr => {
                             //check movement cost agaisnt elem. break (dont draw) if cost more than unit curr_ap
-                            if (spr.moveCost+1 > elem.params.ap_cur) return;
+                            let available_ap = +elem.params.ap_cur || 0;
+                            if (SHOW_DEBUG) available_ap = 33;
+                            if (spr.moveCost+1 > available_ap) return;
 
                             //identify each surrounding tile
                             let moveSprite = two.makeSprite(PATH_IMG_ICON_BOOTS, spr.position._x, spr.position._y, 1, 1, 1, false);
@@ -393,6 +396,7 @@ function addZUI() {
                             moveSprite.moveCost = spr.moveCost;
                             moveSprite.scale = 0.6;
                             moveSprite.desc = "Move";
+                            moveSprite.params = structuredClone(spr.params);
                             stage.add(moveSprite); 
                             movementMarkerSprites.push(moveSprite);
                         });

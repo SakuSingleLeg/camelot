@@ -15,10 +15,11 @@ const DEFAULT_GAME_OPTIONS = `{
 const COLOUR_FONT_OFFWHITE      = "#f2f2f2"; //neutral soft gray-white
 const COLOUR_FONT_YELLOW        = "#ffd700"; //classic golden yellow
 const COLOUR_FONT_RED           = "#cc3333"; //deep primary red
+const COLOUR_FONT_RED_LIGHT     = "#ff5555"; //bright red
 const COLOUR_FONT_BLUE          = "#3366cc"; //strong primary blue
 const COLOUR_FONT_BLUE_LIGHT    = "#5ba7e6"; //bright blue
 const COLOUR_FONT_GREY          = "#808080"; //dark grey
-const COLOUR_FONT_BROWN         = "#5B4636"; //dark grey
+const COLOUR_FONT_BROWN         = "#5B4636"; //brown
 //HEXES
 const COLOUR_FARM               = "#DAA520";
 const COLOUR_SETTLEMENT         = "#FFA07A";
@@ -172,8 +173,8 @@ const unitParams = {
         eye: 1,
         hp_cur: 25,
         hp_max: 50,
-        ap_cur: 99,
-        ap_max: 99,
+        ap_cur: 3,
+        ap_max: 3,
     },
     //monster
     skelly: {
@@ -287,7 +288,10 @@ const hexParams = {
     camelot: {
         type: "castle",
         gold_per_turn: 0,
-        food_per_turn: 0,        
+        food_per_turn: 0,
+        mov: 0,
+        atk: 1,
+        def: 5,
     },
     //settlement
     town: {
@@ -298,6 +302,7 @@ const hexParams = {
         mov: 0,
         atk: 0,
         def: 0,
+        status: "hostile",
         descLong: "This settlement was once a vassal of Camelot. It is currently controlled by evil forces.",
     },
     village: {
@@ -308,6 +313,7 @@ const hexParams = {
         mov: 0,
         atk: 0,
         def: 0,
+        status: "hostile",
         descLong: "This settlement was once a vassal of Camelot. It is currently controlled by evil forces.",
     },
     farm: {
@@ -318,6 +324,7 @@ const hexParams = {
         mov: 0,
         atk: 0,
         def: 0,
+        status: "hostile",
         descLong: "This farm could be seized to once again provide grain to the kingdom.",
     },
     //other
@@ -325,6 +332,7 @@ const hexParams = {
         mov: 0,
         atk: 0,
         def: 0,
+        status: "hostile",
         descLong: "This once holy place has been desecrated.",
     },
 }

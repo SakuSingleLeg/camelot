@@ -100,51 +100,9 @@ loadConfig().then(() => {
 //builds the main gameplay map of hexes, based on generated perlin noise grayscale
 function buildGrid(MAP_SEED) {
   return new Promise((resolve, reject) => {  
-    two.appendTo(document.body);      
-
+    two.appendTo(document.body);
     //do stuff every frame
-    two.bind('update', function(frameCount) {
-        const now = performance.now();
-        //animate selected unit sprite
-        if (selectedTile!==undefined && selectedTile.animation) {
-            const { startX, startY, endX, endY, startTime, duration } = selectedTile.animation;
-            const elapsed = now - startTime;
-            const t = Math.min(elapsed / duration, 1);
-            // const easedT = easeInOutQuad(t);
-            const easedT = t;
-            selectedTile.translation.x = startX + (endX - startX) * easedT;
-            selectedTile.translation.y = startY + (endY - startY) * easedT;
-
-            //animation done
-            if (t >= 1) { delete selectedTile.animation; }
-        }
-
-        //animate enemy sprites
-        let enemyAnimsRemaining = false;
-        if (animatingEnemyMovement === true) {
-            enemyUnitSprites.forEach(eSpr => {
-                if (eSpr!==undefined && eSpr.animation) {
-                    const { startX, startY, endX, endY, startTime, duration } = eSpr.animation;
-                    const elapsed = now - startTime;
-                    const t = Math.min(elapsed / duration, 1);
-                    // const easedT = easeInOutQuad(t);
-                    const easedT = t;
-                    eSpr.translation.x = startX + (endX - startX) * easedT;
-                    eSpr.translation.y = startY + (endY - startY) * easedT;
-        
-                    //animation done - track
-                    if (t >= 1) { 
-                        delete eSpr.animation; 
-                        enemyAnimsRemaining = true;
-                    }
-                }
-            });
-            if (enemyAnimsRemaining = false) {
-                animatingEnemyMovement = false;
-            }
-        }
-    });
-
+    bindUpdate();
     //apply noise
     noise.seed(MAP_SEED);
 
@@ -317,6 +275,51 @@ function buildGrid(MAP_SEED) {
     });
 }
 
+//stuff to do every frame
+function bindUpdate() {
+    two.bind('update', function(frameCount) {
+        const now = performance.now();
+        //animate selected unit sprite
+        if (selectedTile!==undefined && selectedTile.animation) {
+            const { startX, startY, endX, endY, startTime, duration } = selectedTile.animation;
+            const elapsed = now - startTime;
+            const t = Math.min(elapsed / duration, 1);
+            // const easedT = easeInOutQuad(t);
+            const easedT = t;
+            selectedTile.translation.x = startX + (endX - startX) * easedT;
+            selectedTile.translation.y = startY + (endY - startY) * easedT;
+
+            //animation done
+            if (t >= 1) { delete selectedTile.animation; }
+        }
+
+        //animate enemy sprites
+        let enemyAnimsRemaining = false;
+        if (animatingEnemyMovement === true) {
+            enemyUnitSprites.forEach(eSpr => {
+                if (eSpr!==undefined && eSpr.animation) {
+                    const { startX, startY, endX, endY, startTime, duration } = eSpr.animation;
+                    const elapsed = now - startTime;
+                    const t = Math.min(elapsed / duration, 1);
+                    // const easedT = easeInOutQuad(t);
+                    const easedT = t;
+                    eSpr.translation.x = startX + (endX - startX) * easedT;
+                    eSpr.translation.y = startY + (endY - startY) * easedT;
+        
+                    //animation done - track
+                    if (t >= 1) { 
+                        delete eSpr.animation; 
+                        enemyAnimsRemaining = true;
+                    }
+                }
+            });
+            if (enemyAnimsRemaining = false) {
+                animatingEnemyMovement = false;
+            }
+        }
+    });
+}
+
 //sort sprites to prevent z-issues. removes hexes w/dupe coords first.
 function sortSprites() {
     let numSpritesRemoved = 0;
@@ -354,9 +357,9 @@ function sortSprites() {
 }
 
 //adds forest sprites to stage
-var lastTileWasForest = false;
 function drawForests() {
     console.log("drawForests()");
+    let lastTileWasForest = false;
     for (let i = 0; i < GRID_Y_SIZE; i++) {
         for (let j = 0; j < GRID_X_SIZE; j++) {
             //let randomValue = seededRandom(FOREST_SEED);
@@ -531,7 +534,6 @@ function drawSettlements() {
                         let validTiles = []
                         //if 2 is rolled, another 50% chance to become 1
                         if (numMills === 2 && Math.random() < 0.5) { numMills = 1; }
-                        // console.log(numMills + " mills generated for this settlement.");
                         if (numMills > 0) { 
                             validTiles = checkAllAdjacentHex(j, i, 3, COLOUR_GRASS);
                         }
@@ -555,7 +557,7 @@ function drawSettlements() {
                                 millSprite.scale = .7;
                             }
                             else {
-                                addSpriteToTile(PATH_IMG_HEX_FARM02, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", unitParams.farm);
+                                addSpriteToTile(PATH_IMG_HEX_FARM02, miq, 'Farmland', 1, 1, 1, false, 3, true, true, 99, "hostile", hexParams.farm);
                                 let millSprite = addSpriteToTile(PATH_IMG_ANIM_MILL_SM, miq, 'Mill', 4, 1, randSpeed-1, true, 0, false, hexParams, 99, "hostile", unitParams.mill);
                                 // millSprite.scale = .8;
                             }                            
@@ -738,10 +740,11 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
     if (Math.random()<0.5) sprite.scale = new Two.Vector(-1, 1);
     stage.add(sprite);
 
-    if (friendly !== "unset") two.update();
+    let status = params.status ?? "unset";
+    if (status !== "unset") two.update();
     let spriteDOM  = document.getElementById(sprite._id);
     if (spriteDOM) {
-        switch(friendly) {
+        switch(status) {
             case "friendly":
                 spriteDOM.classList.add('glowing-friendly');
                 break;
@@ -783,6 +786,7 @@ function addSpriteToTile(path, tile, desc, rows = 1, cols = 1, framerate = 1, st
         paperSprite.depth = 99;
         paperSprite.noPointerEvents = true;
         townNames.push(randomTownName);
+        sprite.displayName = randomTownName;
         stage.add(paperSprite); 
         stage.add(paperText); 
     }    
@@ -916,9 +920,29 @@ function moveUnitToSpriteLocation(movingElem, destinationElem) {
     movingElem.gridX = destinationElem.gridX;
     movingElem.gridY = destinationElem.gridY;
 
-    //collide with poi
-    if (movingElem.params.type === "knight") {
-        //search stage.children for marching gridX, gridY. 
+    //knight is moving
+    if (movingElem.params.type === "knight") {      
+
+        //knight moves to settlement tile
+        if (destinationElem.params.type === "settlememt") {
+            
+            //knight moves to town
+            console.log("moved to settlement");
+
+            //change status to friendly
+            destinationElem.params.status
+
+            //TODO: knight moves to farm tile
+            if (destinationElem.params.subtype === "farm") {
+                console.log("moved to farm");
+            }
+
+        }
+        else if (destinationElem.params.type === "castle") {
+            console.log("moved to castle");
+        }
+
+        //knight collides with poi
         let poi = stage.children.find(shape =>
             shape._id   !== movingElem._id        &&
             shape.gridX === destinationElem.gridX &&

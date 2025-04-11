@@ -371,6 +371,10 @@ function drawUIRight(elem) {
     rUI_selectSprite.visible = true;
     rUI_txtSelectedName.value = elem.desc;
 
+    ui.add(rUI_bgSpriteRight);
+    ui.add(rUI_selectSprite);
+    ui.add(rUI_txtSelectedName);
+
     //if elem is camelot display specific ui
     if (elem.params.type === "castle") {
         rUI_txtSelectedName.fill = COLOUR_FONT_BLUE_LIGHT;
@@ -459,6 +463,8 @@ function drawUIRight(elem) {
     }
     //else if elem is settlement
     else if (elem.params.type === "settlement") {
+        rUI_txtSelectedName.fill = COLOUR_FONT_RED_LIGHT;
+        rUI_txtSelectedName.value = elem.displayName;
         rUI_SpriteCoin.visible = true;
         rUI_txtGold.value = "+" + elem.params.gold_per_turn ?? -1;
         rUI_SpriteBread.visible = true;
@@ -469,10 +475,6 @@ function drawUIRight(elem) {
         ui.add(rUI_txtGold);
         ui.add(rUI_txtFood);
     }
-
-    ui.add(rUI_bgSpriteRight);
-    ui.add(rUI_selectSprite);
-    ui.add(rUI_txtSelectedName);
 
     two.add(ui);    
 }

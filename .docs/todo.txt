@@ -3,13 +3,14 @@ TODDO
 ---------
 VERSION 0.4
 
-friendly/hostile id for towns
-    right ui: firnedly badge, text colour change
-    right ui: desc text, change to refelct status
-
-game option: glow effects
-
 convert hex on move
+    moveSPrite() check
+        if dest tile is settlement, status = friendly.
+    right ui: desc text, change to refelct status
+    farms provide turnFood
+    towns provide turnGold
+
+refactor: remove firendly param from movespritetotile() - use parmas.status instead
 
 skelly collision
 
@@ -112,6 +113,11 @@ sfx
         good
         bad
 
+glow effects
+    menu items (start game, crest?)
+    pois if unexplored
+    game option: glow effects on/off
+
 performance
 	optimize ui drawing?
     
@@ -119,5 +125,8 @@ dialogs
     dialog02
         text para
         yes/no btns
+    are you sure you want to quit (yes/no)
 
 center tooltips under sprite/cursor?
+
+friendly/hostile badges
