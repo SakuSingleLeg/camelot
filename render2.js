@@ -581,11 +581,11 @@ function drawTreasure() {
     let centerX = Math.floor(GRID_X_SIZE / 2);
     let centerY = Math.floor(GRID_Y_SIZE / 2);  
     let hexList = [];
-    let placedTreasures = []; // Store placed chest coordinates
+    let placedTreasures = []; //chest coords
     let numTreasure = 0;
-
     let distanceLimit = SHOW_DEBUG ? 4:12;
-    let treasureLimit = SHOW_DEBUG ? 60:10;
+    let treasureLimit = SHOW_DEBUG ? 180:10;
+    let distFromCenter = SHOW_DEBUG ? 0:6;
 
     // Collect all hexes with their distances
     for (let i = 0; i < GRID_Y_SIZE; i++) {    
@@ -610,7 +610,7 @@ function drawTreasure() {
     for (let { i, j, centerDistance } of hexList) {
          //skip if hit limit, hexes too close to center
         if (numTreasure >= treasureLimit) break;
-        if (centerDistance < 6) continue;
+        if (centerDistance < distFromCenter && !SHOW_DEBUG) continue;
 
         let hid = HEX_ARR[i][j]['id'];
         let hiq = document.getElementById(hid);
@@ -646,6 +646,9 @@ function drawEnemies() {
     let hexList = [];
     let placedEnemies = []; // track placed enmy coords
     let numEnemies = 0;
+    let distanceLimit = SHOW_DEBUG ? 4:12;
+    let enemyLimit = SHOW_DEBUG ? 120:20;
+    let distFromCenter = SHOW_DEBUG ? 0:20;
 
     // Collect all hexes with their distances
     for (let i = 0; i < GRID_Y_SIZE; i++) {    
@@ -661,22 +664,23 @@ function drawEnemies() {
     function isFarEnough(x, y) {
         for (let { i, j } of placedEnemies) {
             let trDistance = Math.sqrt(Math.pow(j - x, 2) + Math.pow(i - y, 2));
-            if (trDistance < 9) return false;
+            if (trDistance < distanceLimit) return false;
         }
         return true;
     }
 
     // Now iterate over hexes in distance order
     for (let { i, j, centerDistance } of hexList) {
-        if (numEnemies >= 20) break; // Stop when x treasures are placed
-        if (centerDistance < 12) continue; // Skip hexes too close to center
+        //skip if hit limit, hexes too close to center
+        if (numEnemies >= enemyLimit) break;
+        if (centerDistance < distFromCenter && !SHOW_DEBUG) continue;
 
         let hid = HEX_ARR[i][j]['id'];
         let hiq = document.getElementById(hid);
         if (hiq===null) continue;
         let hexColour = HEX_ARR[i][j]['colour'];
 
-        // Determine if valid tile for an enemy to be placed
+        //determine if valid tile for an enemy to be placed
         if (hexColour !== COLOUR_WATER && 
             hexColour !== COLOUR_WATER_DEEP && 
             hexColour !== COLOUR_MOUNTAIN && 
@@ -684,13 +688,17 @@ function drawEnemies() {
             hexColour !== COLOUR_SETTLEMENT && 
             hexColour !== COLOUR_CURSEDABBEY && 
             hexColour !== COLOUR_FARM &&
-        checkAllAdjacentHex(j, i, 8, COLOUR_SETTLEMENT) &&
-            isFarEnough(j, i)) {  // Ensure no nearby enemies
-                
-            // Place enemy with a % chance
+            (j, i, 8, COLOUR_SETTLEMENT) &&
+            isFarEnough(j, i))
+        {                
+            //place enemy with a % chance
             if (Math.random() < 0.15) {
+                
+                //TODO: check if another poi is here
+
+
                 skellySpr = addSpriteToTile(PATH_IMG_NPC_SKELLY, hiq, 'Skeletons', 1, 1, 1, false, 2, false, false, 99, "hostile", unitParams.skelly);
-                placedEnemies.push({ i, j }); // Store the placed enemy location                
+                placedEnemies.push({ i, j });
                 enemyUnitSprites.push(skellySpr);
                 numEnemies++;
             }
